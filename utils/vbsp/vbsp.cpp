@@ -1165,7 +1165,7 @@ int RunVBSP( int argc, char **argv )
 	char		path[1024];
 
 	CommandLine()->CreateCmdLine( argc, argv );
-	MathLib_Init( 2.2f, 2.2f, 0.0f, OVERBRIGHT, false, false, false, false );
+	MathLib_Init( 2.2f, 2.2f, 0.0f, OVERBRIGHT, false, false, false );
 	InstallSpewFunction();
 	LoggingSystem_SetChannelSpewLevelByTag( "Developer", LS_MESSAGE );
 	
