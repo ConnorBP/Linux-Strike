@@ -56,7 +56,8 @@ public:
 	void		WriteStatusText( char *szText );
 	void		UpdateStatus( int force );
 
-	long		LoadLibrary( char *lib );
+	long		LoadLibrary(const char* lib) override;
+
 	void		FreeLibrary( long library );
 
 	bool		CreateConsoleWindow( void );
