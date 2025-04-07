@@ -116,9 +116,6 @@ public:
 
 	// changes the clientspec to remove the specified path (cloaking)
 	virtual void RemovePathFromActiveClientspec( const char *path ) = 0;
-	
-	// sets the name of the changelist to open files under, NULL for "Default" changelist
-	virtual void SetOpenFileChangeList(const char *pChangeListName) = 0;
 
 	// file manipulation
 	virtual bool OpenFileForAdd( const char *pFullPath ) = 0;
