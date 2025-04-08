@@ -23,10 +23,10 @@ $Project "p4cc"
 	"utils/p4cc/p4cc.vpc" [$WINDOWS]
 }
 
-$Project "actbusy"
-{
-	"tools/actbusy/actbusy.vpc" [$WINDOWS]
-}
+//$Project "actbusy"
+//{
+//	"tools/actbusy/actbusy.vpc" [$WINDOWS]
+//}
 
 $Project "AdminServer"
 {
@@ -195,10 +195,10 @@ $Project "client_sdk_hl2"
 	"game/client/client_sdk_hl2.vpc" [$WINDOWS]
 }
 
-$Project "commedit"
-{
-	"tools/commedit/commedit.vpc" [$WINDOWS]
-}
+//$Project "commedit"
+//{
+//	"tools/commedit/commedit.vpc" [$WINDOWS]
+//}
 
 $Project "concatworlds"
 {
@@ -472,20 +472,20 @@ $Project "glview"
 	"utils/glview/glview.vpc" [$WINDOWS]
 }
 
-$Project "hammer_dll"
-{
-	"hammer/hammer_dll.vpc" [$WINDOWS]
-}
+//$Project "hammer_dll"
+//{
+//	"hammer/hammer_dll.vpc" [$WINDOWS]
+//}
 
-$Project "hammer_launcher"
-{
-	"hammer_launcher/hammer_launcher.vpc" [$WINDOWS]
-}
+//$Project "hammer_launcher"
+//{
+//	"hammer_launcher/hammer_launcher.vpc" [$WINDOWS]
+//}
 
-$Project "hammer_run_map_launcher"
-{
-	"utils/hammer_run_map_launcher/hammer_run_map_launcher.vpc" [$WINDOWS]
-}
+//$Project "hammer_run_map_launcher"
+//{
+//	"utils/hammer_run_map_launcher/hammer_run_map_launcher.vpc" [$WINDOWS]
+//}
 
 $Project "havana_constraints"
 {
@@ -557,10 +557,10 @@ $Project "hlsl_to_glsl"
 	"utils/hlsl_to_glsl/hlsl_to_glsl.vpc" [$WINDOWS]
 }
 
-$Project "ifm"
-{
-	"tools/ifm/ifm.vpc" [$WINDOWS]
-}
+//$Project "ifm"
+//{
+//	"tools/ifm/ifm.vpc" [$WINDOWS]
+//} 
 
 $Project "ihvtest1"
 {
@@ -1060,10 +1060,10 @@ $Project "pcfmanager"
 //	"vphysics/perftest/perftest.vpc" [$WINDOWS]
 //}
 
-$Project "pet"
-{
-	"tools/pet/pet.vpc" [$WINDOWS]
-}
+//$Project "pet"
+//{
+//	"tools/pet/pet.vpc" [$WINDOWS]
+//}
 
 $Project "pfmcomp"
 {
@@ -1186,10 +1186,10 @@ $Project "runme"
 	"utils/runme/runme.vpc" [$WINDOWS]
 }
 
-$Project "sampletool"
-{
-	"tools/sampletool/sampletool.vpc" [$WINDOWS]
-}
+//$Project "sampletool"
+//{
+//	"tools/sampletool/sampletool.vpc" [$WINDOWS]
+//}
 
 $Project "scaleformui"
 {
@@ -1363,10 +1363,10 @@ $Project "socket_tests"
 	"utils/socket_tests/socket_tests.vpc" [$WINDOWS]
 }
 
-$Project "soundedit"
-{
-	"tools/soundedit/soundedit.vpc" [$WINDOWS]
-}
+//$Project "soundedit"
+//{
+//	"tools/soundedit/soundedit.vpc" [$WINDOWS]
+//}
 
 $Project "soundemittersystem"
 {
@@ -1638,10 +1638,10 @@ $Project "tier3test"
 	"unittests/tier3test/tier3test.vpc" 	[$WINDOWS]
 }
 
-$Project "toolutils"
-{
-	"tools/toolutils/toolutils.vpc" [$WINDOWS]
-}
+//$Project "toolutils"
+//{
+//	"tools/toolutils/toolutils.vpc" [$WINDOWS]
+//}
 
 $Project "traceperf"
 {
@@ -1783,10 +1783,10 @@ $Project "vcd_sound_check"
 	"utils/vcd_sound_check/vcd_sound_check.vpc" [$WINDOWS]
 }
 
-$Project "vcdblock"
-{
-	"tools/vcdblock/vcdblock.vpc" [$WINDOWS]
-}
+//$Project "vcdblock"
+//{
+//	"tools/vcdblock/vcdblock.vpc" [$WINDOWS]
+//}
 
 $Project "vcdupdate"
 {
@@ -1818,10 +1818,10 @@ $Project "vgui_dll"
 //	"examples/vguiIntro/vguiIntro.vpc" [$WINDOWS]
 //}
 
-$Project "vguieditor"
-{
-	"tools/vguieditor/vguieditor.vpc" [$WINDOWS]
-}
+//$Project "vguieditor"
+//{
+//	"tools/vguieditor/vguieditor.vpc" [$WINDOWS]
+//}
 
 $Project "vgui_surfacelib"
 {
@@ -1903,10 +1903,10 @@ $Project "vmpi_service_ui"
 	"utils/vmpi/vmpi_service_ui/vmpi_service_ui.vpc" [$WINDOWS]
 }
 
-$Project "vmt"
-{
-	"tools/vmt/vmt.vpc" [$WINDOWS]
-}
+//$Project "vmt"
+//{
+//	"tools/vmt/vmt.vpc" [$WINDOWS]
+//}
 
 $Project "vmtcheck"
 {
