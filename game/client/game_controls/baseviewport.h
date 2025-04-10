@@ -17,6 +17,7 @@
 #include "vgui/ISurface.h"
 #include "commandmenu.h"
 #include "igameevents.h"
+#include "vgui_int.h"
 
 using namespace vgui;
 
