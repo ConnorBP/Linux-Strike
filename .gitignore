@@ -83,3 +83,5 @@ public/vphysics_interfaceV32.h
 vphysics/*
 ivp/*
 /hammer_launcher_qt/
+*.txt
+*.vpc_cache
