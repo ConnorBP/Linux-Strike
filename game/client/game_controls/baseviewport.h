@@ -18,6 +18,7 @@
 #include "commandmenu.h"
 #include "igameevents.h"
 #include "vgui_int.h"
+#include "hud.h"
 
 using namespace vgui;
 
