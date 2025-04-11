@@ -28,20 +28,39 @@
 #include "tier0/memdbgon.h"
 
 // [jason] Forward the message to the Scaleform info panel
-#if defined ( CSTRIKE15 )
-#if defined( INCLUDE_SCALEFORM )
-#define FORWARD_PRIORITY_MSG( x )												\
-		{																		\
-			CHudElement *pElement = GetHud().FindElement( "SFHudInfoPanel" );	\
-			if ( pElement )														\
-			{																	\
-				((SFHudInfoPanel *)pElement)->SetPriorityText( x );				\
-			}																	\
-		}
+#if defined( CSTRIKE15 ) && defined( INCLUDE_SCALEFORM )
+
+inline void ForwardPriorityMsg(const wchar_t* wtext)
+{
+	CHudElement* pElement = GetHud().FindElement("SFHudInfoPanel");
+	if (pElement)
+	{
+		SFHudInfoPanel* pHudInfoPanel = static_cast<SFHudInfoPanel*>(pElement);
+		pHudInfoPanel->SetPriorityText(const_cast<wchar_t*>(wtext));
+	}
+}
+
+inline void ForwardPriorityMsg(const char* ctext)
+{
+	wchar_t wText[512];
+	mbstowcs(wText, ctext, sizeof(wText) / sizeof(wText[0]) - 1);
+	wText[sizeof(wText) / sizeof(wText[0]) - 1] = L'\0';
+
+	CHudElement* pElement = GetHud().FindElement("SFHudInfoPanel");
+	if (pElement)
+	{
+		SFHudInfoPanel* pHudInfoPanel = static_cast<SFHudInfoPanel*>(pElement);
+		pHudInfoPanel->SetPriorityText(wText);
+	}
+}
+
 #else
-#define FORWARD_PRIORITY_MSG( x ) (void)0
+
+inline void ForwardPriorityMsg(const wchar_t*) {}
+inline void ForwardPriorityMsg(const char*) {}
+
 #endif
-#endif // CSTRIKE15
+
 
 #ifdef TF_CLIENT_DLL
 static ConVar		scr_centertime( "scr_centertime", "5" );
@@ -270,39 +289,37 @@ void CCenterPrint::SetTextColor( int r, int g, int b, int a )
 	}
 }
 
-void CCenterPrint::Print( const char *text )
+void CCenterPrint::Print(const wchar_t* text)
 {
-	// [jason] Forward the message to the Scaleform info panel
 #if defined ( CSTRIKE15 ) && defined( INCLUDE_SCALEFORM )
-	FORWARD_PRIORITY_MSG(text);
+	ForwardPriorityMsg(text);
 	return;
 #endif
-
-	if ( vguiCenterString )
+	if (vguiCenterString)
 	{
-		vguiCenterString->ColorPrint( 255, 255, 255, 255, text );
+		vguiCenterString->ColorPrint(255, 255, 255, 255, text);
 	}
 }
 
-void CCenterPrint::Print( const wchar_t *text )
+
+void CCenterPrint::Print(const char* text)
 {
-	// [jason] Forward the message to the Scaleform info panel
 #if defined ( CSTRIKE15 ) && defined( INCLUDE_SCALEFORM )
-	FORWARD_PRIORITY_MSG( text );
+	ForwardPriorityMsg(text);
 	return;
 #endif
-
-	if ( vguiCenterString )
+	if (vguiCenterString)
 	{
-		vguiCenterString->ColorPrint( 255, 255, 255, 255, text );
+		vguiCenterString->ColorPrint(255, 255, 255, 255, text);
 	}
 }
+
 
 void CCenterPrint::ColorPrint( int r, int g, int b, int a, char *text )
 {
 	// [jason] Forward the message to the Scaleform info panel
 #if defined ( CSTRIKE15 ) && defined( INCLUDE_SCALEFORM )
-	FORWARD_PRIORITY_MSG(text);
+	ForwardPriorityMsg(text);
 	return;
 #endif
 
@@ -316,7 +333,7 @@ void CCenterPrint::ColorPrint( int r, int g, int b, int a, wchar_t *text )
 {
 	// [jason] Forward the message to the Scaleform info panel
 #if defined ( CSTRIKE15 ) && defined( INCLUDE_SCALEFORM )
-	FORWARD_PRIORITY_MSG(text);
+	ForwardPriorityMsg(text);
 	return;
 #endif
 
@@ -330,7 +347,7 @@ void CCenterPrint::Clear( void )
 {
 	// [jason] Forward the message to the Scaleform info panel
 #if defined ( CSTRIKE15 ) && defined( INCLUDE_SCALEFORM )
-	FORWARD_PRIORITY_MSG(text);
+	ForwardPriorityMsg("");
 	return;
 #endif
 
