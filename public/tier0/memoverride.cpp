@@ -810,72 +810,6 @@ private:
 
 extern "C"
 {
-	
-void *__cdecl _nh_malloc_dbg( size_t nSize, int nFlag, int nBlockUse,
-								const char *pFileName, int nLine )
-{
-	AttribIfCrt();
-	return MemAlloc_Alloc(nSize, pFileName, nLine);
-}
-
-void *__cdecl _malloc_dbg( size_t nSize, int nBlockUse,
-							const char *pFileName, int nLine )
-{
-	AttribIfCrt();
-	return MemAlloc_Alloc(nSize, pFileName, nLine);
-}
-
-#if ( defined(_MSC_VER) && ( _MSC_VER >= 1600 ) ) || defined( _X360 )
-void *__cdecl _calloc_dbg_impl( size_t nNum, size_t nSize, int nBlockUse, 
-								const char * szFileName, int nLine, int * errno_tmp )
-{
-	return _calloc_dbg( nNum, nSize, nBlockUse, szFileName, nLine );
-}
-#endif
-
-void *__cdecl _calloc_dbg( size_t nNum, size_t nSize, int nBlockUse,
-							const char *pFileName, int nLine )
-{
-	AttribIfCrt();
-	void *pMem = MemAlloc_Alloc(nSize * nNum, pFileName, nLine);
-	memset(pMem, 0, nSize * nNum);
-	return pMem;
-}
-
-void *__cdecl _realloc_dbg( void *pMem, size_t nNewSize, int nBlockUse,
-							const char *pFileName, int nLine )
-{
-	AttribIfCrt();
-	return g_pMemAlloc->Realloc(pMem, nNewSize, pFileName, nLine);
-}
-
-void *__cdecl _expand_dbg( void *pMem, size_t nNewSize, int nBlockUse,
-							const char *pFileName, int nLine )
-{
-	Assert( 0 );
-	return NULL;
-}
-
-void __cdecl _free_dbg( void *pMem, int nBlockUse )
-{
-	AttribIfCrt();
-#if !defined(USE_LIGHT_MEM_DEBUG) && !defined(USE_MEM_DEBUG)
-	g_pMemAlloc->Free(pMem);
-#else
-	g_pMemAlloc->Free(pMem, ::g_pszModule, 0 );
-#endif
-}
-
-size_t __cdecl _msize_dbg( void *pMem, int nBlockUse )
-{
-#ifdef _WIN32
-	return _msize(pMem);
-#elif POSIX || _PS3
-	Assert( "_msize_dbg unsupported" );
-	return 0;
-#endif
-}
-
 
 #ifdef _WIN32
 
@@ -974,21 +908,6 @@ ALLOC_CALL void * __cdecl _aligned_offset_recalloc( void * memblock, size_t coun
 
 extern "C"
 {
-	
-int _CrtDumpMemoryLeaks(void)
-{
-	return 0;
-}
-
-_CRT_DUMP_CLIENT _CrtSetDumpClient( _CRT_DUMP_CLIENT dumpClient )
-{
-	return NULL;
-}
-
-int _CrtSetDbgFlag( int nNewFlag )
-{
-	return g_pMemAlloc->CrtSetDbgFlag( nNewFlag );
-}
 
 // 64-bit port.
 #define AFNAME(var) __p_ ## var
@@ -1010,104 +929,9 @@ long* AFNAME(_crtBreakAlloc) (void)
 }
 #endif
 
-void __cdecl _CrtSetDbgBlockType( void *pMem, int nBlockUse )
-{
-	DebuggerBreak();
-}
-
-_CRT_ALLOC_HOOK __cdecl _CrtSetAllocHook( _CRT_ALLOC_HOOK pfnNewHook )
-{
-	DebuggerBreak();
-	return NULL;
-}
-
-long __cdecl _CrtSetBreakAlloc( long lNewBreakAlloc )
-{
-	return g_pMemAlloc->CrtSetBreakAlloc( lNewBreakAlloc );
-}
-					 
-int __cdecl _CrtIsValidHeapPointer( const void *pMem )
-{
-	return g_pMemAlloc->CrtIsValidHeapPointer( pMem );
-}
-
-int __cdecl _CrtIsValidPointer( const void *pMem, unsigned int size, int access )
-{
-	return g_pMemAlloc->CrtIsValidPointer( pMem, size, access );
-}
-
-int __cdecl _CrtCheckMemory( void )
-{
-	// FIXME: Remove this when we re-implement the heap
-	return g_pMemAlloc->CrtCheckMemory( );
-}
-
-int __cdecl _CrtIsMemoryBlock( const void *pMem, unsigned int nSize,
-    long *plRequestNumber, char **ppFileName, int *pnLine )
-{
-	DebuggerBreak();
-	return 1;
-}
-
-int __cdecl _CrtMemDifference( _CrtMemState *pState, const _CrtMemState * oldState, const _CrtMemState * newState )
-{
-	DebuggerBreak();
-	return FALSE;
-}
-
-void __cdecl _CrtMemDumpStatistics( const _CrtMemState *pState )
-{
-	DebuggerBreak();	
-}
-
-void __cdecl _CrtMemCheckpoint( _CrtMemState *pState )
-{
-	// FIXME: Remove this when we re-implement the heap
-	g_pMemAlloc->CrtMemCheckpoint( pState );
-}
-
-void __cdecl _CrtMemDumpAllObjectsSince( const _CrtMemState *pState )
-{
-	DebuggerBreak();
-}
-
-void __cdecl _CrtDoForAllClientObjects( void (*pfn)(void *, void *), void * pContext )
-{
-	DebuggerBreak();
-}
-
-
 //-----------------------------------------------------------------------------
 // Methods in dbgrpt.cpp 
 //-----------------------------------------------------------------------------
-long _crtAssertBusy = -1;
-
-int __cdecl _CrtSetReportMode( int nReportType, int nReportMode )
-{
-	return g_pMemAlloc->CrtSetReportMode( nReportType, nReportMode );
-}
-
-_HFILE __cdecl _CrtSetReportFile( int nRptType, _HFILE hFile )
-{
-	return (_HFILE)g_pMemAlloc->CrtSetReportFile( nRptType, hFile );
-}
-
-_CRT_REPORT_HOOK __cdecl _CrtSetReportHook( _CRT_REPORT_HOOK pfnNewHook )
-{
-	return (_CRT_REPORT_HOOK)g_pMemAlloc->CrtSetReportHook( pfnNewHook );
-}
-
-int __cdecl _CrtDbgReport( int nRptType, const char * szFile,
-        int nLine, const char * szModule, const char * szFormat, ... )
-{
-	static char output[1024];
-	va_list args;
-	va_start( args, szFormat );
-	_vsnprintf( output, sizeof( output )-1, szFormat, args );
-	va_end( args );
-
-	return g_pMemAlloc->CrtDbgReport( nRptType, szFile, nLine, szModule, output );
-}
 
 #if _MSC_VER >= 1400
 
@@ -1169,52 +993,8 @@ int __cdecl _CrtSetReportHook2( int mode, _CRT_REPORT_HOOK pfnNewHook )
 
 #endif  /* defined( _DEBUG ) || defined( USE_MEM_DEBUG ) */
 
-extern "C" int __crtDebugCheckCount = FALSE;
-
-extern "C" int __cdecl _CrtSetCheckCount( int fCheckCount )
-{
-    int oldCheckCount = __crtDebugCheckCount;
-    return oldCheckCount;
-}
-
-extern "C" int __cdecl _CrtGetCheckCount( void )
-{
-    return __crtDebugCheckCount;
-}
-
-// aligned offset debug
-extern "C" void * __cdecl _aligned_offset_recalloc_dbg( void * memblock, size_t count, size_t size, size_t align, size_t offset, const char * f_name, int line_n )
-{
-	Assert( IsPC() || 0 );
-	void *pMem = ReallocUnattributed( memblock, size * count );
-	if (!memblock)
-	{
-		memset(pMem, 0, size * count);
-	}
-
-	return pMem;
-}
-
-extern "C" void * __cdecl _aligned_recalloc_dbg( void *memblock, size_t count, size_t size, size_t align, const char * f_name, int line_n )
-{
-    return _aligned_offset_recalloc_dbg(memblock, count, size, align, 0, f_name, line_n);
-}
-
-extern "C" void * __cdecl _recalloc_dbg ( void * memblock, size_t count, size_t size, int nBlockUse, const char * szFileName, int nLine )
-{
-	return _aligned_offset_recalloc_dbg(memblock, count, size, 0, 0, szFileName, nLine);
-}
-
-_CRT_REPORT_HOOK __cdecl _CrtGetReportHook( void )
-{
-	return NULL;
-}
-
 #endif
-int __cdecl _CrtReportBlockType(const void * pUserData)
-{
-	return 0;
-}
+
 
 
 } // end extern "C"
@@ -1278,60 +1058,10 @@ void __cdecl _free_dbg_nolock( void * pUserData, int nBlockUse)
         _free_dbg(pUserData, 0);
 }
 
-_CRT_ALLOC_HOOK __cdecl _CrtGetAllocHook ( void)
-{
-		Assert(0); 
-        return NULL;
-}
-
 static int __cdecl CheckBytes( unsigned char * pb, unsigned char bCheck, size_t nSize)
 {
         int bOkay = TRUE;
         return bOkay;
-}
-
-
-_CRT_DUMP_CLIENT __cdecl _CrtGetDumpClient ( void)
-{
-		Assert(0); 
-        return NULL;
-}
-
-#if _MSC_VER >= 1400
-static void __cdecl _printMemBlockData( _locale_t plocinfo, _CrtMemBlockHeader * pHead)
-{
-}
-
-static void __cdecl _CrtMemDumpAllObjectsSince_stat( const _CrtMemState * state, _locale_t plocinfo)
-{
-}
-#endif
-void * __cdecl _aligned_malloc_dbg( size_t size, size_t align, const char * f_name, int line_n)
-{
-    return _aligned_malloc(size, align);
-}
-
-void * __cdecl _aligned_realloc_dbg( void *memblock, size_t size, size_t align,
-               const char * f_name, int line_n)
-{
-    return _aligned_realloc(memblock, size, align);
-}
-
-void * __cdecl _aligned_offset_malloc_dbg( size_t size, size_t align, size_t offset,
-              const char * f_name, int line_n)
-{
-    return _aligned_offset_malloc(size, align, offset);
-}
-
-void * __cdecl _aligned_offset_realloc_dbg( void * memblock, size_t size, size_t align, 
-                 size_t offset, const char * f_name, int line_n)
-{
-    return _aligned_offset_realloc(memblock, size, align, offset);
-}
-
-void __cdecl _aligned_free_dbg( void * memblock)
-{
-    _aligned_free(memblock);
 }
 
 #if _MSC_VER < 1900
@@ -1344,19 +1074,6 @@ size_t __cdecl _CrtSetDebugFillThreshold( size_t _NewDebugFillThreshold)
 
 //===========================================
 // NEW!!! 64-bit
-
-#if (_MSC_VER < 1900) || !defined( _DEBUG )
-
-char * __cdecl _strdup ( const char * string )
-{
-	int nSize = strlen(string) + 1;
-	char *pCopy = (char*)AllocUnattributed( nSize );
-	if ( pCopy )
-		memcpy( pCopy, string, nSize );
-	return pCopy;
-}
-
-#endif
 
 #if 0
 _TSCHAR * __cdecl _tfullpath_dbg ( _TSCHAR *UserBuf, const _TSCHAR *path, size_t maxlen, int nBlockUse, const char * szFileName, int nLine )
