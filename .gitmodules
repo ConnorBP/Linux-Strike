@@ -4,6 +4,3 @@
 [submodule "ivp"]
 	path = ivp
 	url = https://github.com/P0L3NARUBA/ivp
-[submodule "thirdparty"]
-	path = thirdparty
-	url = https://github.com/P0L3NARUBA/ls-thirdparty
