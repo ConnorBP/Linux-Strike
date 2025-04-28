@@ -4569,14 +4569,14 @@ private:
 //////////////////////////////////////////////////////////////////////////
 
 bool NET_CryptVerifyServerCertificateAndAllocateSessionKey( bool bOfficial, const ns_address &from,
-	const byte *pchKeyPub, int numKeyPub,
-	const byte *pchKeySgn, int numKeySgn,
-	byte **pbAllocatedKey, int *pnAllocatedCryptoBlockSize )
+	const ::byte *pchKeyPub, int numKeyPub,
+	const ::byte *pchKeySgn, int numKeySgn,
+	::byte **pbAllocatedKey, int *pnAllocatedCryptoBlockSize )
 {
     // lwss - grabbed this public key from the retail bin. "keysize" is 160 bytes, but the key is only 158 bytes
     // (Untested as of now)
 	//static const byte CsgoMasterPublicKey[] = { 0 }; // Removed for partner depot
-    static const byte CsgoMasterPublicKey[160] = {
+    static const ::byte CsgoMasterPublicKey[160] = {
             0x81,
             0x9D,
             0x30,
@@ -4791,7 +4791,7 @@ bool NET_CryptVerifyServerCertificateAndAllocateSessionKey( bool bOfficial, cons
 			V_sprintf_safe( chBuffer, "%s/%u", adrMasked.ToString( true ), numAddrBits );
 			bufDataFile.Put( chBuffer, V_strlen( chBuffer ) );
 
-			bCertificateValidated = pub.VerifyMessage( ( byte* ) bufDataFile.Base(), bufDataFile.TellPut(), pchKeySgn, numKeySgn );
+			bCertificateValidated = pub.VerifyMessage( ( ::byte* ) bufDataFile.Base(), bufDataFile.TellPut(), pchKeySgn, numKeySgn );
 #ifdef _DEBUG
 			DevMsg( "NET_CryptVerifyServerCertificateAndAllocateSessionKey: VerifyMessage for %s %s\n",
 				chBuffer, bCertificateValidated ? "succeeded" : "failed" );
@@ -4819,10 +4819,10 @@ bool NET_CryptVerifyServerCertificateAndAllocateSessionKey( bool bOfficial, cons
 	//
 	float flTime = Plat_FloatTime();
 	RandomSeed( * reinterpret_cast< int * >( &flTime ) );
-	byte ubClientKey[NET_CRYPT_KEY_LENGTH];
+	::byte ubClientKey[NET_CRYPT_KEY_LENGTH];
 	for ( int j = 0; j < NET_CRYPT_KEY_LENGTH; ++j )
 	{
-		ubClientKey[ j ] = ( byte ) ( unsigned int ) RandomInt( 0, 255 );
+		ubClientKey[ j ] = ( ::byte ) ( unsigned int ) RandomInt( 0, 255 );
 	}
 
 	//
@@ -4841,7 +4841,7 @@ bool NET_CryptVerifyServerCertificateAndAllocateSessionKey( bool bOfficial, cons
 		uint32 cubCipherText = cBlocks * ( uint32 ) rsaEncryptor.FixedCiphertextLength();
 
 		// ensure there is sufficient room in output buffer for result
-		byte *pbResult = new byte[ NET_CRYPT_KEY_LENGTH + cubCipherText ];
+		::byte *pbResult = new ::byte[ NET_CRYPT_KEY_LENGTH + cubCipherText ];
 		Q_memcpy( pbResult, ubClientKey, NET_CRYPT_KEY_LENGTH );
 		
 		*pbAllocatedKey = pbResult;
@@ -4849,8 +4849,8 @@ bool NET_CryptVerifyServerCertificateAndAllocateSessionKey( bool bOfficial, cons
 
 		// Encryption pass
 		uint32 cubPlaintextData = NET_CRYPT_KEY_LENGTH;
-		const byte *pubPlaintextData = ubClientKey;
-		byte *pubEncryptedData = pbResult + NET_CRYPT_KEY_LENGTH;
+		const ::byte *pubPlaintextData = ubClientKey;
+		::byte *pubEncryptedData = pbResult + NET_CRYPT_KEY_LENGTH;
 
 		// encrypt the message, using as many blocks as required
 		CPoolAllocatedRNG rng;
@@ -4891,9 +4891,9 @@ bool NET_CryptVerifyServerCertificateAndAllocateSessionKey( bool bOfficial, cons
 }
 
 bool NET_CryptVerifyClientSessionKey( bool bOfficial,
-	const byte *pchKeyPri, int numKeyPri,
-	const byte *pbEncryptedKey, int numEncryptedBytes,
-	byte *pbPlainKey, int numPlainKeyBytes )
+	const ::byte *pchKeyPri, int numKeyPri,
+	const ::byte *pbEncryptedKey, int numEncryptedBytes,
+	::byte *pbPlainKey, int numPlainKeyBytes )
 {
 	try           // handle any exceptions crypto++ may throw
 	{
@@ -4982,7 +4982,7 @@ bool NET_CryptVerifyClientSessionKey( bool bOfficial,
 	}
 }
 
-bool NET_CryptGetNetworkCertificate( ENetworkCertificate_t eType, const byte **pbData, int *pnumBytes )
+bool NET_CryptGetNetworkCertificate( ENetworkCertificate_t eType, const ::byte **pbData, int *pnumBytes )
 {
 	static char const *s_szCertificateFile = CommandLine()->ParmValue( "-certificate", ( char const * ) NULL );
 	if ( !s_szCertificateFile )
@@ -5035,7 +5035,7 @@ bool NET_CryptGetNetworkCertificate( ENetworkCertificate_t eType, const byte **p
 		}
 	}
 
-	*pbData = ( ( const byte * ) bufCertificate.Base() ) + s_nCertificateOffset[eType];
+	*pbData = ( ( const ::byte * ) bufCertificate.Base() ) + s_nCertificateOffset[eType];
 	*pnumBytes = s_nCertificateLength[eType];
 
 	return true;
@@ -5139,13 +5139,13 @@ CON_COMMAND( net_encrypt_key_signature, "Compute key signature for the payloads"
 		if ( nStringPayloadLength > 0 )
 			bufDataFile.Put( szStringPayload, nStringPayloadLength );
 
-		StringSource stringSourcePrivateKey( ( byte * ) bufPrivateKey.Base(), bufPrivateKey.TellPut(), true );
+		StringSource stringSourcePrivateKey( ( ::byte * ) bufPrivateKey.Base(), bufPrivateKey.TellPut(), true );
 		RSASSA_PKCS1v15_SHA_Signer rsaSigner( stringSourcePrivateKey );
 		CPoolAllocatedRNG rng;
 
 		bufSignature.EnsureCapacity( rsaSigner.MaxSignatureLength() );
 		{
-			size_t len = rsaSigner.SignMessage( rng.GetRNG(), ( byte * ) bufDataFile.Base(), bufDataFile.TellPut(), ( byte * ) bufSignature.Base() );
+			size_t len = rsaSigner.SignMessage( rng.GetRNG(), ( ::byte * ) bufDataFile.Base(), bufDataFile.TellPut(), ( ::byte * ) bufSignature.Base() );
 			bufSignature.SeekPut( CUtlBuffer::SEEK_HEAD, ( int32 ) ( uint32 ) len );
 			bRet = true;
 			Msg( "net_encrypt_key_signature: generated %u bytes signature for payload data +%u=%u bytes\n", bufSignature.TellPut(), nStringPayloadLength, bufDataFile.TellPut() );
