@@ -727,47 +727,47 @@ bool CSourceAppSystemGroup::Create()
 	{
 #define LAUNCHER_APPSYSTEM( name ) name DLL_EXT_STRING
 #ifdef _PS3
-		{ LAUNCHER_APPSYSTEM( "vjobs_client" ),                VJOBS_INTERFACE_VERSION },  // Vjobs must shut down after engine and materialsystem
+		{ LAUNCHER_APPSYSTEM( "vjobs" ),                VJOBS_INTERFACE_VERSION },  // Vjobs must shut down after engine and materialsystem
 #endif
-		{ LAUNCHER_APPSYSTEM( "engine_client" ),				CVAR_QUERY_INTERFACE_VERSION },	// NOTE: This one must be first!!
-		{ LAUNCHER_APPSYSTEM( "filesystem_stdio_client" ),		QUEUEDLOADER_INTERFACE_VERSION },
+		{ LAUNCHER_APPSYSTEM( "engine" ),				CVAR_QUERY_INTERFACE_VERSION },	// NOTE: This one must be first!!
+		{ LAUNCHER_APPSYSTEM( "filesystem_stdio" ),		QUEUEDLOADER_INTERFACE_VERSION },
 #if defined( _X360 )
-		{ LAUNCHER_APPSYSTEM( "filesystem_stdio_client" ),		XBOXINSTALLER_INTERFACE_VERSION },
+		{ LAUNCHER_APPSYSTEM( "filesystem_stdio" ),		XBOXINSTALLER_INTERFACE_VERSION },
 #endif
-		{ LAUNCHER_APPSYSTEM( "inputsystem_client" ),			INPUTSYSTEM_INTERFACE_VERSION },
+		{ LAUNCHER_APPSYSTEM( "inputsystem" ),			INPUTSYSTEM_INTERFACE_VERSION },
 #if defined( USE_IPHYS )
-        { LAUNCHER_APPSYSTEM( "iphys_client" ),				VPHYSICS_INTERFACE_VERSION },
+        { LAUNCHER_APPSYSTEM( "iphys" ),				VPHYSICS_INTERFACE_VERSION },
 #else
-        { LAUNCHER_APPSYSTEM( "vphysics_client" ),				VPHYSICS_INTERFACE_VERSION },
+        { LAUNCHER_APPSYSTEM( "vphysics" ),				VPHYSICS_INTERFACE_VERSION },
 #endif
-		{ LAUNCHER_APPSYSTEM( "materialsystem_client" ),		MATERIAL_SYSTEM_INTERFACE_VERSION },
-		{ LAUNCHER_APPSYSTEM( "datacache_client" ),			DATACACHE_INTERFACE_VERSION },
-		{ LAUNCHER_APPSYSTEM( "datacache_client" ),			MDLCACHE_INTERFACE_VERSION },
-		{ LAUNCHER_APPSYSTEM( "datacache_client" ),			STUDIO_DATA_CACHE_INTERFACE_VERSION },
-		{ LAUNCHER_APPSYSTEM( "studiorender_client" ),			STUDIO_RENDER_INTERFACE_VERSION },
-		{ LAUNCHER_APPSYSTEM( "soundemittersystem_client" ),	SOUNDEMITTERSYSTEM_INTERFACE_VERSION },
-		{ LAUNCHER_APPSYSTEM( "vscript_client" ),				VSCRIPT_INTERFACE_VERSION },
+		{ LAUNCHER_APPSYSTEM( "materialsystem" ),		MATERIAL_SYSTEM_INTERFACE_VERSION },
+		{ LAUNCHER_APPSYSTEM( "datacache" ),			DATACACHE_INTERFACE_VERSION },
+		{ LAUNCHER_APPSYSTEM( "datacache" ),			MDLCACHE_INTERFACE_VERSION },
+		{ LAUNCHER_APPSYSTEM( "datacache" ),			STUDIO_DATA_CACHE_INTERFACE_VERSION },
+		{ LAUNCHER_APPSYSTEM( "studiorender" ),			STUDIO_RENDER_INTERFACE_VERSION },
+		{ LAUNCHER_APPSYSTEM( "soundemittersystem" ),	SOUNDEMITTERSYSTEM_INTERFACE_VERSION },
+		{ LAUNCHER_APPSYSTEM( "vscript" ),				VSCRIPT_INTERFACE_VERSION },
 #ifdef WIN32
-		{ LAUNCHER_APPSYSTEM("soundsystem_client"),			SOUNDSYSTEM_INTERFACE_VERSION },
+		{ LAUNCHER_APPSYSTEM("soundsystem"),			SOUNDSYSTEM_INTERFACE_VERSION },
 #endif
 
 #if !defined( _GAMECONSOLE )
     #if defined ( AVI_VIDEO )
- 		{ LAUNCHER_APPSYSTEM( "valve_avi_client" ),			AVI_INTERFACE_VERSION },
+ 		{ LAUNCHER_APPSYSTEM( "valve_avi" ),			AVI_INTERFACE_VERSION },
     #endif 		
     #if defined ( BINK_VIDEO )
- 		{ LAUNCHER_APPSYSTEM( "valve_avi_client" ),			BIK_INTERFACE_VERSION },
+ 		{ LAUNCHER_APPSYSTEM( "valve_avi" ),			BIK_INTERFACE_VERSION },
  	#endif
 	#if defined( QUICKTIME_VIDEO ) 		
- 		{ LAUNCHER_APPSYSTEM( "valve_avi_client" ),			QUICKTIME_INTERFACE_VERSION },
+ 		{ LAUNCHER_APPSYSTEM( "valve_avi" ),			QUICKTIME_INTERFACE_VERSION },
     #endif		
 #elif defined( BINK_ENABLED_FOR_CONSOLE )
-		{ LAUNCHER_APPSYSTEM( "engine_client" ),				BIK_INTERFACE_VERSION },	
+		{ LAUNCHER_APPSYSTEM( "engine" ),				BIK_INTERFACE_VERSION },	
 #endif
 		// NOTE: This has to occur before vgui2.dll so it replaces vgui2's surface implementation
-		{ LAUNCHER_APPSYSTEM( "vguimatsurface_client" ),		VGUI_SURFACE_INTERFACE_VERSION },
-		{ LAUNCHER_APPSYSTEM( "vgui2_client" ),				VGUI_IVGUI_INTERFACE_VERSION },
-		{ LAUNCHER_APPSYSTEM( "engine_client" ),				VENGINE_LAUNCHER_API_VERSION },
+		{ LAUNCHER_APPSYSTEM( "vguimatsurface" ),		VGUI_SURFACE_INTERFACE_VERSION },
+		{ LAUNCHER_APPSYSTEM( "vgui2" ),				VGUI_IVGUI_INTERFACE_VERSION },
+		{ LAUNCHER_APPSYSTEM( "engine" ),				VENGINE_LAUNCHER_API_VERSION },
 
 		{ "", "" }					// Required to terminate the list
 	};
@@ -790,7 +790,7 @@ bool CSourceAppSystemGroup::Create()
 	{
 		AppSystemInfo_t scaleformInfo[] =
 		{
-			{ LAUNCHER_APPSYSTEM( "scaleformui_3_client" ),		SCALEFORMUI_INTERFACE_VERSION },
+			{ LAUNCHER_APPSYSTEM( "scaleformui_3" ),		SCALEFORMUI_INTERFACE_VERSION },
 			{ "", "" }
 		};
 
@@ -803,7 +803,7 @@ bool CSourceAppSystemGroup::Create()
 	{
 		AppSystemInfo_t scaleformInfo[] =
 		{
-			{ LAUNCHER_APPSYSTEM( "scaleformui_client" ),		SCALEFORMUI_INTERFACE_VERSION },
+			{ LAUNCHER_APPSYSTEM( "scaleformui" ),		SCALEFORMUI_INTERFACE_VERSION },
 			{ "", "" }
 		};
 
@@ -814,7 +814,7 @@ bool CSourceAppSystemGroup::Create()
 	// This is where the rocketui dll actually gets loaded.
     AppSystemInfo_t rocketInfo[] =
     {
-        { LAUNCHER_APPSYSTEM( "rocketui_client" ),		ROCKETUI_INTERFACE_VERSION },
+        { LAUNCHER_APPSYSTEM( "rocketui" ),		ROCKETUI_INTERFACE_VERSION },
         { "", "" }
     };
 
@@ -824,7 +824,7 @@ bool CSourceAppSystemGroup::Create()
 
 	if ( IsPC() && IsPlatformWindows() )
 	{
-		AppModule_t vstdlibModule = LoadModule( LAUNCHER_APPSYSTEM( "vstdlib_client" ) );
+		AppModule_t vstdlibModule = LoadModule( LAUNCHER_APPSYSTEM( "vstdlib" ) );
 		IProcessUtils *processUtils = ( IProcessUtils* )AddSystem( vstdlibModule, PROCESS_UTILS_INTERFACE_VERSION );
 		if ( !processUtils )
 			return false;
@@ -849,7 +849,7 @@ bool CSourceAppSystemGroup::Create()
 	// Load the hammer DLL if we're in editor mode
 	if ( m_bEditMode )
 	{
-		AppModule_t hammerModule = LoadModule( LAUNCHER_APPSYSTEM( "hammer_dll_client" ) );
+		AppModule_t hammerModule = LoadModule( LAUNCHER_APPSYSTEM( "hammer_dll" ) );
 		g_pHammer = (IHammer*)AddSystem( hammerModule, INTERFACEVERSION_HAMMER );
 		if ( !g_pHammer )
 		{
