@@ -132,13 +132,7 @@ int APIENTRY WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdL
 	// Get the root directory the .exe is in
 	char* pRootDir = GetBaseDir( moduleName );
 
-	const char* pBinPath = 
-#ifdef _WIN64
-		"\\x64"
-#else
-		""
-#endif
-	;
+	const char* pBinPath = "";
 
 #ifdef _DEBUG
 	int len = 
