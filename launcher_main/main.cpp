@@ -663,7 +663,7 @@ int main( int argc, char *argv[] )
 	#ifdef OSX
 		const char *pLauncherPath = "bin/osx64/launcher" DLL_EXT_STRING;
 	#else
-		const char *pLauncherPath = "bin/linux64/launcher" DLL_EXT_STRING;
+		const char *pLauncherPath = "bin\launcher" DLL_EXT_STRING;
 	#endif
 #else
 	const char *pLauncherPath = "bin/launcher" DLL_EXT_STRING;
