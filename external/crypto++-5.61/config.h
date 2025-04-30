@@ -385,6 +385,15 @@ NAMESPACE_END
 
 #define CRYPTOPP_VERSION 561
 
+// ***************** mm_loadu fix hopefully maybe possibly  ********************
+
+#if defined(_MSC_VER) && _MSC_VER < 1928
+    #include <emmintrin.h>
+    #ifndef _mm_loadu_si64
+        #define _mm_loadu_si64(p) _mm_loadl_epi64(reinterpret_cast<const __m128i*>(p))
+    #endif
+#endif
+
 // ***************** determine availability of OS features ********************
 
 #ifndef NO_OS_DEPENDENCE

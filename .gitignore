@@ -11,6 +11,8 @@
 *.pb.cc.rule
 cmake_install.cmake
 CMakeFiles/
+CMakeCache.txt
+logs/
 
 # Build results
 [Dd]ebug_*/
