@@ -22,6 +22,7 @@ project(KisakStrike)
 
 include(kisak-strike-build-options.cmake)
 
+include_directories("${CMAKE_SOURCE_DIR}/build_fixes")
 add_subdirectory(appframework)
 add_subdirectory(external/crypto++-5.61)
 #add_subdirectory(external/freetype-2.10.4)

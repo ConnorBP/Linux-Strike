@@ -35,6 +35,8 @@
 #ifndef GOOGLE_PROTOBUF_COMMON_H__
 #define GOOGLE_PROTOBUF_COMMON_H__
 
+#include "build_fixes/intrin_workarounds.h"
+
 #include <algorithm>
 #include <iostream>
 #include <map>
