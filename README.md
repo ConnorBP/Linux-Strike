@@ -1,8 +1,8 @@
-![Linux-Strike Logo](https://github.com/user-attachments/assets/b900033d-ade3-474d-9862-6481f664c558)
+![Linux-Strike Logo](https://github.com/user-attachments/assets/60ec8136-c78e-45c4-9587-45ebddd37097)
 
 <h1 align="center"> Linux-Strike </h1>
 
-* Linux Strike: Arch Offensive(LS:AO) is a CS:GO port aimed towards Linux enthusiasts.<br>
+* Linux Strike: Manjaro Offensive(LS:MO) is a CS:GO port aimed towards Linux enthusiasts.<br>
 It can be built 100% Open-Source with optional Closed-source components.<br>
 * See the wiki page of repository for everything about Linux Strike and more:<br>https://github.com/P0L3NARUBA/Linux-Strike/wiki
 
@@ -11,12 +11,11 @@ It can be built 100% Open-Source with optional Closed-source components.<br>
  - Now when you control the bots, guns will not get lost
  - Bots will now play more accurately
  - Fixed issue that molotov flame being spawns under your legs
- - "Cant Create Mixer" issues fixed, now game can find sounds
+ - "Cant Create Mixer" issues fixed, now game can play sounds
  - Fixed some breakable props fly away or doing strange behaviour
  - Fixed weapon entries in the buy menu so you can buy all the guns completely fine
  - Fixed "item_assaultsuit is missing an item definition in the schema" error (sort of)
  - A lot of changes made into the ivp, vphysics and gameplay in general
- - Ragdolls was behaving weird, now everything works as intended
  - Lots of bugs got fixed and we added a lot of other large variety of things.
 
 **<p align="center">
