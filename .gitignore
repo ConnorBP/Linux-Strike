@@ -4,6 +4,14 @@
 *.userosscache
 *.sln.docstates
 
+# cmake related files
+*.stamp
+*.depend
+*.rule
+*.pb.cc.rule
+cmake_install.cmake
+CMakeFiles/
+
 # Build results
 [Dd]ebug_*/
 [Dd]ebug/

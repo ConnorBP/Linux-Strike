@@ -8,7 +8,9 @@ set NOW=%NOW: =0%
 
 REM Run CMake generation step
 echo [CMAKE GENERATE] at %TIME%
-"C:\Program Files\CMake\bin\cmake.exe" -G "Visual Studio 17 2022" -T v140 > logs\cmake_generate_%NOW%.txt 2>&1
+"C:\Program Files\CMake\bin\cmake.exe" -G "Visual Studio 17 2022" -T v140 ^
+    -DCMAKE_CXX_FLAGS="/DCRYPTOPP_DISABLE_ASM /DCRYPTOPP_DISABLE_SSE2" ^
+    > logs\cmake_generate_%NOW%.txt 2>&1
 
 REM Run CMake configure step
 echo [CMAKE CONFIGURE] at %TIME%
