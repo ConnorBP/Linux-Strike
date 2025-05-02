@@ -1,6 +1,7 @@
-// Copyright 2005-2008 Google Inc. All Rights Reserved.
+﻿// Copyright 2005-2008 Google Inc. All Rights Reserved.
 // Author: jrm@google.com (Jim Meehan)
 
+#include "intrin_workarounds.h"
 #include <google/protobuf/stubs/common.h>
 
 #include <google/protobuf/stubs/stringpiece.h>

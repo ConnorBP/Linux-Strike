@@ -1,4 +1,4 @@
-// Protocol Buffers - Google's data interchange format
+﻿// Protocol Buffers - Google's data interchange format
 // Copyright 2012 Google Inc.  All rights reserved.
 // https://developers.google.com/protocol-buffers/
 //
@@ -31,6 +31,7 @@
 // This module gets enough CPU information to optimize the
 // atomicops module on x86.
 
+#include "intrin_workarounds.h"
 #include <cstring>
 
 #include <google/protobuf/stubs/atomicops.h>

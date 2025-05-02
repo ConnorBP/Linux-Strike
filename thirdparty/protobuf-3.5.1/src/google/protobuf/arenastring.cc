@@ -1,4 +1,4 @@
-// Protocol Buffers - Google's data interchange format
+﻿// Protocol Buffers - Google's data interchange format
 // Copyright 2008 Google Inc.  All rights reserved.
 // https://developers.google.com/protocol-buffers/
 //
@@ -31,6 +31,7 @@
 // The ArenaString implementation is not included in the open-source release. Do
 // not include this file in the distribution.
 
+#include "intrin_workarounds.h"
 #include <google/protobuf/arenastring.h>
 
 namespace google {

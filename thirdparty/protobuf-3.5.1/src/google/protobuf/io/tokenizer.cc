@@ -1,4 +1,4 @@
-// Protocol Buffers - Google's data interchange format
+﻿// Protocol Buffers - Google's data interchange format
 // Copyright 2008 Google Inc.  All rights reserved.
 // https://developers.google.com/protocol-buffers/
 //
@@ -88,6 +88,7 @@
 // I'd love to hear about other alternatives, though, as this code isn't
 // exactly pretty.
 
+#include "intrin_workarounds.h"
 #include <google/protobuf/io/tokenizer.h>
 #include <google/protobuf/stubs/common.h>
 #include <google/protobuf/stubs/logging.h>

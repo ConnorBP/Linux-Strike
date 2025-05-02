@@ -1,4 +1,4 @@
-// Protocol Buffers - Google's data interchange format
+﻿// Protocol Buffers - Google's data interchange format
 // Copyright 2008 Google Inc.  All rights reserved.
 // https://developers.google.com/protocol-buffers/
 //
@@ -35,6 +35,7 @@
 // This header is intended to be included only by internal .cc files and
 // generated .pb.cc files.  Users should not use this directly.
 
+#include "intrin_workarounds.h"
 #include <google/protobuf/stubs/once.h>
 
 #ifndef GOOGLE_PROTOBUF_NO_THREAD_SAFETY

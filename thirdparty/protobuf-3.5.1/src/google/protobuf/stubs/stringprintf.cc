@@ -1,4 +1,4 @@
-// Protocol Buffers - Google's data interchange format
+﻿// Protocol Buffers - Google's data interchange format
 // Copyright 2012 Google Inc.  All rights reserved.
 // https://developers.google.com/protocol-buffers/
 //
@@ -30,6 +30,7 @@
 
 // from google3/base/stringprintf.cc
 
+#include "intrin_workarounds.h"
 #include <google/protobuf/stubs/stringprintf.h>
 
 #include <errno.h>

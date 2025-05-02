@@ -1,4 +1,4 @@
-// Protocol Buffers - Google's data interchange format
+﻿// Protocol Buffers - Google's data interchange format
 // Copyright 2008 Google Inc.  All rights reserved.
 // https://developers.google.com/protocol-buffers/
 //
@@ -34,6 +34,7 @@
 //
 // Recursive descent FTW.
 
+#include "intrin_workarounds.h"
 #include <float.h>
 #include <google/protobuf/stubs/hash.h>
 #include <limits>

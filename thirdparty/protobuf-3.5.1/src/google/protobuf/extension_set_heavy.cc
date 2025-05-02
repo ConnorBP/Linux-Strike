@@ -1,4 +1,4 @@
-// Protocol Buffers - Google's data interchange format
+﻿// Protocol Buffers - Google's data interchange format
 // Copyright 2008 Google Inc.  All rights reserved.
 // https://developers.google.com/protocol-buffers/
 //
@@ -35,6 +35,7 @@
 // Contains methods defined in extension_set.h which cannot be part of the
 // lite library because they use descriptors or reflection.
 
+#include "intrin_workarounds.h"
 #include <google/protobuf/io/coded_stream.h>
 #include <google/protobuf/io/zero_copy_stream_impl_lite.h>
 #include <google/protobuf/descriptor.pb.h>

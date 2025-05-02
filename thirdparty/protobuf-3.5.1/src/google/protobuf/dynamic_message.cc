@@ -1,4 +1,4 @@
-// Protocol Buffers - Google's data interchange format
+﻿// Protocol Buffers - Google's data interchange format
 // Copyright 2008 Google Inc.  All rights reserved.
 // https://developers.google.com/protocol-buffers/
 //
@@ -62,6 +62,7 @@
 // Item 8 of "More Effective C++" discusses this in more detail, though
 // I don't have the book on me right now so I'm not sure.
 
+#include "intrin_workarounds.h"
 #include <algorithm>
 #include <google/protobuf/stubs/hash.h>
 #include <memory>

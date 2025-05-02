@@ -1,4 +1,4 @@
-// Protocol Buffers - Google's data interchange format
+﻿// Protocol Buffers - Google's data interchange format
 // Copyright 2008 Google Inc.  All rights reserved.
 // https://developers.google.com/protocol-buffers/
 //
@@ -36,6 +36,7 @@
 // Messages (see //google/protobuf/util/message_differencer.h for more
 // information).
 
+#include "intrin_workarounds.h"
 #include <google/protobuf/util/message_differencer.h>
 
 #include <algorithm>
