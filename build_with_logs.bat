@@ -17,14 +17,35 @@ echo [CMAKE GENERATE] at %TIME%
     -DCMAKE_POLICY_VERSION_MINIMUM=3.5
 ) > logs\cmake_generate_%NOW%.txt 2>&1
 
-REM Run CMake configure step (optional; may not be needed if generation succeeds fully)
+REM Run CMake configure step
 echo [CMAKE CONFIGURE] at %TIME%
 cmake -DUSE_IPHYS=1 >> logs\cmake_generate_%NOW%.txt 2>&1
 
-REM Build DLL target (with verbosity)
+REM Build DLL target
 echo [CMAKE BUILD - DLL TARGETS] at %TIME%
 cmake --build . --config Release --target client_client --verbose > logs\build_client_client_%NOW%.txt 2>&1
 
 echo [DONE] Build completed. Logs:
 echo    CMake: logs\cmake_generate_%NOW%.txt
 echo    Build: logs\build_client_client_%NOW%.txt
+
+REM Extract error/warning counts from the build log
+echo [SUMMARY]
+for /f "tokens=1,* delims=:" %%A in ('findstr /r /c:"^[ ]*[0-9][0-9]* [Ww]arning(s)" logs\build_client_client_%NOW%.txt') do echo %%A:%%B
+for /f "tokens=1,* delims=:" %%A in ('findstr /r /c:"^[ ]*[0-9][0-9]* [Ee]rror(s)" logs\build_client_client_%NOW%.txt') do echo %%A:%%B
+
+REM ——————————————————————————————————————————————
+REM  Extract raw errors, then run PS to clean them up
+REM ——————————————————————————————————————————————
+
+REM 2) invoke our PS parser with the updated path
+powershell -NoProfile -ExecutionPolicy Bypass -File "build_fixes\scripts\extract_errors.ps1" ^
+   -InputFile "logs\build_client_client_%NOW%.txt" ^
+   -OutputFile "logs\build_errors_cleaned_%NOW%.txt"
+
+REM 3) report back
+if exist "logs\build_errors_cleaned_%NOW%.txt" (
+  echo [ERROR DETAILS] cleaned output in logs\build_errors_cleaned_%NOW%.txt
+) else (
+  echo [ERROR DETAILS] parsing failed; check logs\build_client_client_%NOW%.txt and build_fixes\scripts\extract_errors.ps1
+)
