@@ -33,6 +33,7 @@
 //  Based on original Protocol Buffers design by
 //  Sanjay Ghemawat, Jeff Dean, and others.
 
+#include "intrin_workarounds.h"
 #include <climits>
 
 #include <google/protobuf/arena.h>

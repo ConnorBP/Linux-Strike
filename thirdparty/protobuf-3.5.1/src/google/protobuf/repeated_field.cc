@@ -32,6 +32,7 @@
 //  Based on original Protocol Buffers design by
 //  Sanjay Ghemawat, Jeff Dean, and others.
 
+#include "intrin_workarounds.h"
 #include <algorithm>
 
 #include <google/protobuf/repeated_field.h>

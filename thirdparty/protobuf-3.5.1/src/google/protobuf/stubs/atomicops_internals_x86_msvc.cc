@@ -34,6 +34,7 @@
 // Don't compile this file for people not concerned about thread safety.
 #ifndef GOOGLE_PROTOBUF_NO_THREAD_SAFETY
 
+#include "intrin_workarounds.h"
 #include <google/protobuf/stubs/atomicops.h>
 
 #ifdef GOOGLE_PROTOBUF_ATOMICOPS_INTERNALS_X86_MSVC_H_

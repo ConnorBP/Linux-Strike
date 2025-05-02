@@ -32,6 +32,7 @@
 //  Based on original Protocol Buffers design by
 //  Sanjay Ghemawat, Jeff Dean, and others.
 
+#include "intrin_workarounds.h"
 #include <google/protobuf/stubs/hash.h>
 #include <google/protobuf/stubs/common.h>
 #include <google/protobuf/stubs/once.h>
