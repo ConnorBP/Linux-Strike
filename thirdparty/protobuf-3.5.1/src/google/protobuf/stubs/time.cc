@@ -1,6 +1,5 @@
-﻿#include <google/protobuf/stubs/time.h>
-}  // namespace google
-#include "intrin_workarounds.h"
+﻿#include "intrin_workarounds.h"
+
 #include <google/protobuf/stubs/time.h>
 
 #include <ctime>

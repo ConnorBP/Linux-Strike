@@ -1,4 +1,4 @@
-// Protocol Buffers - Google's data interchange format
+﻿// Protocol Buffers - Google's data interchange format
 // Copyright 2008 Google Inc.  All rights reserved.
 // https://developers.google.com/protocol-buffers/
 //
@@ -63,6 +63,7 @@
 //
 // Based on http://www.pkware.com/documents/casestudies/APPNOTE.TXT
 
+#include "intrin_workarounds.h"
 #include <google/protobuf/compiler/zip_writer.h>
 #include <google/protobuf/io/coded_stream.h>
 

@@ -1,4 +1,4 @@
-// Protocol Buffers - Google's data interchange format
+﻿// Protocol Buffers - Google's data interchange format
 // Copyright 2008 Google Inc.  All rights reserved.
 // https://developers.google.com/protocol-buffers/
 //
@@ -44,6 +44,7 @@
 // performance-minded Python code leverage the fast C++ implementation
 // directly.
 
+#include "intrin_workarounds.h"
 #include <algorithm>
 #include <google/protobuf/stubs/hash.h>
 #include <limits>
