@@ -49,3 +49,10 @@ if exist "logs\build_errors_cleaned_%NOW%.txt" (
 ) else (
   echo [ERROR DETAILS] parsing failed; check logs\build_client_client_%NOW%.txt and build_fixes\scripts\extract_errors.ps1
 )
+
+REM Report on mm_loadu_si64-specific issues
+if exist "logs\mm_loadu_si64_issues.txt" (
+  echo [INTRINSIC ERRORS] details in logs\mm_loadu_si64_issues.txt
+) else (
+  echo [INTRINSIC ERRORS] none found or parsing failed
+)
