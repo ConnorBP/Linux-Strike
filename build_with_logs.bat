@@ -9,12 +9,8 @@ set NOW=%NOW: =0%
 REM Run CMake generation step
 echo [CMAKE GENERATE] at %TIME%
 (
-  "C:\Program Files\CMake\bin\cmake.exe" -G "Visual Studio 17 2022" -T v140 ^
-    -DCMAKE_CXX_FLAGS="/DCRYPTOPP_DISABLE_ASM /DCRYPTOPP_DISABLE_SSE2" ^
-    -DCMAKE_CONFIGURATION_TYPES="Release" ^
-    -DZLIB_LIBRARY="%CD%/thirdparty/zlib-1.2.8/zlib.lib" ^
-    -DZLIB_INCLUDE_DIR="%CD%/thirdparty/zlib-1.2.8" ^
-    -DCMAKE_POLICY_VERSION_MINIMUM=3.5
+  "C:\Program Files\CMake\bin\cmake.exe"     ^
+    -DCMAKE_CXX_FLAGS="/DCRYPTOPP_DISABLE_ASM /DCRYPTOPP_DISABLE_SSE2" -DCMAKE_CONFIGURATION_TYPES="Release" -DZLIB_LIBRARY="%CD%/thirdparty/zlib-1.2.8/zlib.lib" -DZLIB_INCLUDE_DIR="%CD%/thirdparty/zlib-1.2.8" -DCMAKE_POLICY_VERSION_MINIMUM=3.5
 ) > logs\cmake_generate_%NOW%.txt 2>&1
 
 REM Run CMake configure step
