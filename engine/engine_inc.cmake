@@ -52,6 +52,9 @@ if( WIN32 )
     #		$AdditionalLibraryDirectories	"$BASE;${SRCDIR}\lib\common\vc7;${SRCDIR}\dx9sdk\lib" [$WINDOWS]
     #  		$AdditionalOptions				"$BASE /nodefaultlib:msvcrt.lib" [$WINDOWS]
 endif()
+if(WIN32)
+    add_definitions(-DWIN32)
+endif()
 if( LINUXALL AND (NOT DEDICATED) )
     target_link_libraries(${OUTBINNAME} SDL2 rt openal)
 endif()

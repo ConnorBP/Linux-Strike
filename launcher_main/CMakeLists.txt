@@ -38,6 +38,10 @@ if( MSVC )
 	target_sources(${OUTBINNAME} PRIVATE launcher_main.rc)
 endif()
 
+if(WIN32)
+    add_definitions(-DWIN32)
+endif()
+
 if( LINUXALL )
     target_link_libraries(${OUTBINNAME} dl pthread)
 endif()

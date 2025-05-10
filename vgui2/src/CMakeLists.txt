@@ -22,6 +22,7 @@ include_directories(${SRCDIR}/thirdparty)
 if( LINUXALL )
     target_link_libraries(${OUTBINNAME} SDL2)
 elseif( WIN32 )
+    add_definitions(-DWIN32)
 	target_link_libraries(${OUTBINNAME} Imm32.lib Shlwapi.lib)
 endif()
 

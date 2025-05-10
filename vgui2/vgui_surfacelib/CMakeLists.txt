@@ -13,6 +13,10 @@ set(OUTLIBNAME "vgui_surfacelib_client")
 include(${CMAKE_MODULE_PATH}/detect_platform.cmake)
 include(${CMAKE_MODULE_PATH}/source_lib_base.cmake)
 
+if(WIN32)
+    add_definitions(-DWIN32)
+endif()
+
 if( LINUXALL )
     include_directories(/usr/include/freetype2)
     target_compile_options(${OUTLIBNAME} PRIVATE -fpermissive -fpic -fno-semantic-interposition)

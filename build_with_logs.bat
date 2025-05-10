@@ -7,10 +7,11 @@ set NOW=%DATE:~10,4%%DATE:~4,2%%DATE:~7,2%_%TIME:~0,2%%TIME:~3,2%
 set NOW=%NOW: =0%
 
 REM Run CMake generation step
+REM Maybe consider adding -G "Visual Studio 14 2015"  -DCMAKE_GENERATOR_PLATFORM=x86
 echo [CMAKE GENERATE] at %TIME%
 (
   "C:\Program Files\CMake\bin\cmake.exe"     ^
-    -DCMAKE_CXX_FLAGS="/DCRYPTOPP_DISABLE_ASM /DCRYPTOPP_DISABLE_SSE2" -DCMAKE_CONFIGURATION_TYPES="Release" -DZLIB_LIBRARY="%CD%/thirdparty/zlib-1.2.8/zlib.lib" -DZLIB_INCLUDE_DIR="%CD%/thirdparty/zlib-1.2.8" -DCMAKE_POLICY_VERSION_MINIMUM=3.5
+    -DCMAKE_CXX_FLAGS="/DCRYPTOPP_DISABLE_ASM /DCRYPTOPP_DISABLE_SSE2" -DCMAKE_CONFIGURATION_TYPES="Release" -DZLIB_LIBRARY="%CD%/thirdparty/zlib-1.2.8/zlib.lib" -DZLIB_INCLUDE_DIR="%CD%/thirdparty/zlib-1.2.8"  -G "Visual Studio 17 2022" -T v140 -A Win32 -DCMAKE_POLICY_VERSION_MINIMUM=3.5
 ) > logs\cmake_generate_%NOW%.txt 2>&1
 
 REM Run CMake configure step

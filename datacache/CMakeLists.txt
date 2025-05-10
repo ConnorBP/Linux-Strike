@@ -15,6 +15,10 @@ include(${CMAKE_MODULE_PATH}/source_dll_base.cmake)
 
 add_definitions(-DMDLCACHE_DLL_EXPORT)
 
+if(WIN32)
+    add_definitions(-DWIN32)
+endif()
+
 if( LINUXALL )
     target_compile_options(${OUTBINNAME} PRIVATE -shared -fpic -fno-semantic-interposition)
 endif()

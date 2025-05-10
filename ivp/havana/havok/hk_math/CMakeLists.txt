@@ -14,6 +14,10 @@ include_directories(${SRCDIR}/ivp/havana/havok)
 
 add_definitions(-D_LIB)
 
+if(WIN32)
+    add_definitions(-DWIN32)
+endif()
+
 if( LINUXALL )
     target_compile_options(${OUTLIBNAME} PRIVATE -fpic -fno-semantic-interposition -fno-strict-aliasing)
 endif()

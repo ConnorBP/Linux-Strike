@@ -26,6 +26,10 @@ if( LINUXALL )
     target_compile_options(${OUTLIBNAME} PRIVATE -fpic -fno-semantic-interposition)
 endif()
 
+if(WIN32)
+    add_definitions(-DWIN32)
+endif()
+
 #IVP_PHYSICS_SRC_DIR
 target_sources(${OUTLIBNAME} PRIVATE ../ivp_collision/ivp_3d_solver.cxx)
 target_sources(${OUTLIBNAME} PRIVATE ../ivp_collision/ivp_clustering_longrange.cxx)

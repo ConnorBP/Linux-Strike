@@ -16,6 +16,7 @@ set(NOSKELETONBASE "1")
 
 if( WIN32 )
     set(OUTBINNAME "srcds")
+    add_definitions(-DWIN32)
 elseif( WIN64 )
     set(OUTBINNAME "srcds_x64")
 elseif( OSX32 OR OSX64 )

@@ -25,6 +25,10 @@ if( LINUXALL )
     target_compile_options(${OUTLIBNAME} PRIVATE -fpic -fno-semantic-interposition)
 endif()
 
+if(WIN32)
+    add_definitions(-DWIN32)
+endif()
+
 if( X360 OR PS3 )
     #$File	"ImageByteSwap.cpp"					[$X360 || $PS3]
 endif()

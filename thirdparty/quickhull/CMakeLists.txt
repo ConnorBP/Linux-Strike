@@ -17,6 +17,10 @@ include_directories(${SRCDIR}/public)
 include_directories(${SRCDIR}/common)
 include_directories(${SRCDIR}/public/quickhull)
 
+if(WIN32)
+    add_definitions(-DWIN32)
+endif()
+
 if( LINUXALL )
     target_compile_options(${OUTLIBNAME} PRIVATE -fpic -fno-semantic-interposition)
 endif()

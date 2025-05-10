@@ -24,6 +24,10 @@ if( LINUXALL )
     set(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} -Wl,--no-undefined")
 endif()
 
+if(WIN32)
+    add_definitions(-DWIN32)
+endif()
+
 message("Adding dll target: ${OUTBINNAME}${OUTDLLEXT}\n")
 
 set_target_properties( ${OUTBINNAME} PROPERTIES

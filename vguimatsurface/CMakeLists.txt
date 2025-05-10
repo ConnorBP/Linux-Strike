@@ -18,6 +18,10 @@ include(${CMAKE_MODULE_PATH}/source_dll_base.cmake)
 
 include_directories(../public/mathlib)
 
+if(WIN32)
+    add_definitions(-DWIN32)
+endif()
+
 if( LINUXALL )
     include_directories(/usr/include/freetype2)
 endif()
@@ -41,6 +45,10 @@ target_sources(${OUTBINNAME} PRIVATE "${SRCDIR}/vgui2/src/vgui_key_translation.c
 target_sources(${OUTBINNAME} PRIVATE "${SRCDIR}/public/vgui_controls/vgui_controls.cpp")
 
 target_link_libraries(${OUTBINNAME} vgui_controls_client vgui_surfacelib_client dmxloader_client tier2_client tier3_client mathlib_client bitmap_client libtier0_client vstdlib_client )
+
+if(WIN32)
+    add_definitions(-DWIN32)
+endif()
 
 if( LINUXALL )
     target_link_libraries(${OUTBINNAME} fontconfig freetype SDL2)

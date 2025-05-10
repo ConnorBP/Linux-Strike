@@ -21,6 +21,10 @@ include_directories(${SRCDIR}/ivp/havana/havok)
 #TODO: pretty sure the valve guy made a typo here, it's supposed to be HAVOK_MOPP
 add_definitions(-D_LIB -DIVP_VERSION_SDK -DHAVOK_MOOP)
 
+if(WIN32)
+    add_definitions(-DWIN32)
+endif()
+
 if( LINUXALL )
     target_compile_options(${OUTLIBNAME} PRIVATE -fpic -fno-semantic-interposition -fpermissive)
 endif()

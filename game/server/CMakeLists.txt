@@ -21,6 +21,10 @@ add_definitions(-DBOTS -DCSTRIKE_DLL -DUSE_ECONOMY_FEATURES)
 include( ./server_base.cmake )
 include( ./server_econ_base.cmake )
 
+if(WIN32)
+    add_definitions(-DWIN32)
+endif()
+
 if( LINUXALL )
     #lwss- add Wno-narrowing to fix compilation
     target_compile_options(${OUTBINNAME} PRIVATE "-Wno-narrowing")

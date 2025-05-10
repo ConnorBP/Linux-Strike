@@ -16,6 +16,10 @@ set(NOSKELETONBASE "1")
 include(${CMAKE_MODULE_PATH}/detect_platform.cmake)
 include(${CMAKE_MODULE_PATH}/source_dll_base.cmake)
 
+if( WIN32 )
+    add_definitions(-DWIN32)
+endif()
+
 if( WIN32 OR X360 )
     add_definitions(-DTIER0_DLL_EXPORT -DCROSS_PLATFORM_VERSION=1 -DTHREAD_MUTEX_TRACING_ENABLED)
 elseif( POSIX OR PS3 )

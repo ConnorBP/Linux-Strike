@@ -28,6 +28,11 @@ if( LINUXALL )
     #set(CMAKE_BUILD_WITH_INSTALL_RPATH TRUE)
     #set(CMAKE_INSTALL_RPATH "$ORIGIN")
 endif()
+
+if(WIN32)
+    add_definitions(-DWIN32)
+endif()
+
 include(${CMAKE_MODULE_PATH}/source_dll_base.cmake)
 
 add_definitions(-DLAUNCHERONLY -DALLOW_TEXT_MODE=1)
@@ -39,6 +44,10 @@ endif()
 
 if( USE_IPHYS )
     add_definitions(-DUSE_IPHYS)
+endif()
+
+if(WIN32)
+    add_definitions(-DWIN32)
 endif()
 
 if( LINUXALL )

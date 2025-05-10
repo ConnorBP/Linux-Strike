@@ -26,6 +26,10 @@ include_directories(${SRCDIR}/ivp/havana)
 
 add_definitions(-DVPHYSICS_EXPORTS -DHAVANA_CONSTRAINTS -DHAVOK_MOPP)
 
+if(WIN32)
+    add_definitions(-DWIN32)
+endif()
+
 if( LINUXALL )
     target_compile_options(${OUTBINNAME} PRIVATE -fpic -fno-semantic-interposition)
 endif()

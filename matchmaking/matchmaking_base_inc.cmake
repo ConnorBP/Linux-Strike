@@ -8,7 +8,9 @@ include(${CMAKE_MODULE_PATH}/source_lib_base.cmake)
 
 target_compile_definitions(${OUTLIBNAME} PRIVATE -DNO_STRING_T -DVECTOR -DVERSION_SAFE_STEAM_API_INTERFACES -DPROTECTED_THINGS_ENABLE -DNO_STEAM_GAMECOORDINATOR)
 target_include_directories(${OUTLIBNAME} PRIVATE ${SRCDIR}/thirdparty/protobuf-3.5.1/src)
-
+if(WIN32)
+    add_definitions(-DWIN32)
+endif()
 if( LINUXALL )
     target_compile_options(${OUTLIBNAME} PRIVATE -fpic -fno-semantic-interposition)
 endif()

@@ -19,6 +19,10 @@ if( NOT IS_LIB_PROJECT AND GL )
     #		$AdditionalProjectDependencies	"$BASE;togl"	[!$IS_LIB_PROJECT && $GL]
 endif()
 
+if(WIN32)
+    add_definitions(-DWIN32)
+endif()
+
 if( (WIN32 AND GL) OR LINUXALL )
     add_definitions(-DVERSION_SAFE_STEAM_API_INTERFACES -DDX_TO_GL_ABSTRACTION)
 endif()

@@ -15,6 +15,10 @@ include(${CMAKE_MODULE_PATH}/source_lib_base.cmake)
 include_directories(../public/mathlib)
 target_compile_definitions(${OUTLIBNAME} PRIVATE -DMATHLIB_LIB)
 
+if(WIN32)
+    add_definitions(-DWIN32)
+endif()
+
 if( LINUXALL )
     target_compile_options(${OUTLIBNAME} PRIVATE -Wno-narrowing -fpic -fno-semantic-interposition)
 endif()

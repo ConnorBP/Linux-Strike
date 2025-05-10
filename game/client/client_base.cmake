@@ -25,7 +25,9 @@ TargetBuildAndAddProto( ${OUTBINNAME} ${SRCDIR}/gcsdk/steammessages.proto ${GENE
 TargetBuildAndAddProto( ${OUTBINNAME} ${SRCDIR}/game/shared/base_gcmessages.proto ${GENERATED_PROTO_DIR} )
 
 #NUT stuff would go here..
-
+if(WIN32)
+    add_definitions(-DWIN32)
+endif()
 if( LINUXALL )
     target_compile_options(${OUTBINNAME} PRIVATE -Wno-narrowing -Wno-ignored-attributes)
     target_link_libraries(${OUTBINNAME} rt)

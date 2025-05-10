@@ -20,6 +20,10 @@ if( LINUXALL )
     target_link_libraries(${OUTBINNAME} SDL2)
 endif()
 
+if(WIN32)
+    add_definitions(-DWIN32)
+endif()
+
 target_sources(${OUTBINNAME} PRIVATE "inputstacksystem.cpp")
 target_sources(${OUTBINNAME} PRIVATE "inputsystem.cpp")
 target_sources(${OUTBINNAME} PRIVATE "inputsystem.h")

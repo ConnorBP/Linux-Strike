@@ -18,6 +18,10 @@ add_definitions(-DPROTOBUF)
 #    message(FATAL_ERROR "Platform Unknown!")
 #endif()
 
+if(WIN32)
+    add_definitions(-DWIN32)
+endif()
+
 #This is a target added in /thirdparty/protobuf-2.x
 set(PROTO_COMPILER "protoc")
 

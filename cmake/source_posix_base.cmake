@@ -38,6 +38,10 @@ if( MSVC )
         $<$<CONFIG:Release>:/MT>) #--|
 endif()
 
+if(WIN32)
+    add_definitions(-DWIN32)
+endif()
+
 #$Configuration "Debug"
 if (CMAKE_BUILD_TYPE STREQUAL "DEBUG")
     message(STATUS "Building in Debug mode")

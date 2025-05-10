@@ -29,6 +29,10 @@ if( WIN32 )
 	include_directories(${SRCDIR}/gcsdk)
 endif()
 
+if(WIN32)
+    add_definitions(-DWIN32)
+endif()
+
 if( LINUXALL )
     target_compile_options(${OUTLIBNAME} PRIVATE -fPIC -fno-semantic-interposition)
 endif()

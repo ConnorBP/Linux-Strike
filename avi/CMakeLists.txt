@@ -41,6 +41,10 @@ if( LINUXALL )
     target_link_libraries(${OUTBINNAME} SDL2)
 endif()
 
+if(WIN32)
+    add_definitions(-DWIN32)
+endif()
+
 #source files
 if( WIN32 )
     target_sources(${OUTBINNAME} PRIVATE "avi.cpp")
