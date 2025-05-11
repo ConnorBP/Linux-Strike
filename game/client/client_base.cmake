@@ -601,4 +601,4 @@ else()
 	target_link_libraries(${OUTBINNAME} ${LIBPUBLIC}/libsteam_api.so)
 endif()
 target_link_libraries(${OUTBINNAME} tier3_client vgui_controls_client videocfg_client vtf_client resourcefile_client )
-target_link_libraries(${OUTBINNAME} zlib png libprotobuf) #from /thirdparty
+target_link_libraries(${OUTBINNAME} zlib png_shared libprotobuf) #from /thirdparty
