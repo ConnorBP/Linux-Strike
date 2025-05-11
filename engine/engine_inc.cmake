@@ -43,11 +43,26 @@ add_definitions(-DALLOW_TEXT_MODE=1)
 
 if( WINDOWS )
 	target_link_libraries(${OUTBINNAME} winmm.lib wininet.lib Iphlpapi.lib)
-	if(CMAKE_SIZEOF_VOID_P EQUAL 8)
-		target_link_libraries(${OUTBINNAME} ${SRCDIR}/thirdparty/dxsdk/lib/x64/Dsound.lib ${SRCDIR}/thirdparty/dxsdk/lib/x64/dxguid.lib)
-	else()
-		target_link_libraries(${OUTBINNAME} ${SRCDIR}/thirdparty/dxsdk/lib/x86/Dsound.lib ${SRCDIR}/thirdparty/dxsdk/lib/x86/dxguid.lib)
-	endif()
+
+    # discover direct x sdk
+	include(${CMAKE_MODULE_PATH}/FindDirectX.cmake)
+
+    if(DIRECTX_FOUND)
+        target_link_libraries(${OUTBINNAME}
+			${DIRECTX_DSOUND_LIBRARY}
+			${DIRECTX_DXGUID_LIBRARY}
+		)
+    else()
+        set(DXSDK_FALLBACK_LIB_DIR_X86 "${SRCDIR}/thirdparty/dxsdk/lib/x86")
+        set(DXSDK_FALLBACK_LIB_DIR_X64 "${SRCDIR}/thirdparty/dxsdk/lib/x64")
+        if(CMAKE_SIZEOF_VOID_P EQUAL 8)
+            target_link_libraries(${OUTBINNAME} ${DXSDK_FALLBACK_LIB_DIR_X64}/Dsound.lib ${DXSDK_FALLBACK_LIB_DIR_X64}/dxguid.lib)
+        else()
+            target_link_libraries(${OUTBINNAME} ${DXSDK_FALLBACK_LIB_DIR_X86}/Dsound.lib ${DXSDK_FALLBACK_LIB_DIR_X86}/dxguid.lib)
+        endif()
+    endif()
+
+
     #		$AdditionalDependencies			"$BASE dinput8.lib winmm.lib wsock32.lib ws2_32.lib wininet.lib vfw32.lib Rpcrt4.lib Iphlpapi.lib imm32.lib" [$WINDOWS]
     #		$AdditionalLibraryDirectories	"$BASE;${SRCDIR}\lib\common\vc7;${SRCDIR}\dx9sdk\lib" [$WINDOWS]
     #  		$AdditionalOptions				"$BASE /nodefaultlib:msvcrt.lib" [$WINDOWS]

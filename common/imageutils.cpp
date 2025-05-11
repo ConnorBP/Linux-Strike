@@ -64,7 +64,7 @@ extern void longjmp( jmp_buf, int ) __attribute__((noreturn));
 
 
 #include "../thirdparty/libpng-1.6.47/png.h"
-#include "../thirdparty/libpng-1.6.47/pngconf.h"
+#include "../thirdparty/libpng-1.6.47/pngpriv.h"
 #include "../thirdparty/libpng-1.6.47/pngstruct.h"
 
 #include <setjmp.h>

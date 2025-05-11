@@ -378,6 +378,7 @@ endif()
     target_sources(${OUTBINNAME} PRIVATE "hltvreplaysystem.cpp")
 #}
 
+target_link_libraries(${OUTBINNAME} png_static)
 
 target_link_libraries(${OUTBINNAME} meshutils_client)
 if( WINDOWS OR POSIX )

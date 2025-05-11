@@ -14,13 +14,35 @@ include(${CMAKE_MODULE_PATH}/detect_platform.cmake)
 include(${CMAKE_MODULE_PATH}/source_dll_base.cmake)
 
 if( WINDOWS AND NOT GL )
-	include_directories(${SRCDIR}/thirdparty/dxsdk/include)
+
 	include_directories(${SRCDIR}/thirdparty/nvidia/nvapi)
-	if(CMAKE_SIZEOF_VOID_P EQUAL 8)
-		target_link_libraries(${OUTBINNAME} ${SRCDIR}/thirdparty/dxsdk/lib/x64/d3d9.lib ${SRCDIR}/thirdparty/dxsdk/lib/x64/d3dx9.lib ${SRCDIR}/thirdparty/nvidia/nvapi/lib/nvapi64.lib)
+
+	# discover direct x sdk
+	include(${CMAKE_MODULE_PATH}/FindDirectX.cmake)
+
+	# link direct x sdk
+	if(DIRECTX_FOUND)
+		# use the system directx sdk
+		include_directories(${DIRECTX_INCLUDE_DIRS})
+		message(STATUS "DirectX SDK found: ${DIRECTX_INCLUDE_DIR}")
+		target_link_libraries(${OUTBINNAME} ${DIRECTX_D3D9_LIBRARY} ${DIRECTX_D3DX9_LIBRARIES})
 	else()
-		target_link_libraries(${OUTBINNAME} ${SRCDIR}/thirdparty/dxsdk/lib/x86/d3d9.lib ${SRCDIR}/thirdparty/dxsdk/lib/x86/d3dx9.lib ${SRCDIR}/thirdparty/nvidia/nvapi/lib/nvapi.lib)
+		# try to use the dxsdk from the source tree
+		include_directories(${SRCDIR}/thirdparty/dxsdk/include)
+		if(CMAKE_SIZEOF_VOID_P EQUAL 8)
+			target_link_libraries(${OUTBINNAME} ${SRCDIR}/thirdparty/dxsdk/lib/x64/d3d9.lib ${SRCDIR}/thirdparty/dxsdk/lib/x64/d3dx9.lib)
+		else()
+			target_link_libraries(${OUTBINNAME} ${SRCDIR}/thirdparty/dxsdk/lib/x86/d3d9.lib ${SRCDIR}/thirdparty/dxsdk/lib/x86/d3dx9.lib)
+		endif()
 	endif()
+
+	# link nvapi
+	if(CMAKE_SIZEOF_VOID_P EQUAL 8)
+		target_link_libraries(${OUTBINNAME} ${SRCDIR}/thirdparty/nvidia/nvapi/lib/nvapi64.lib)
+	else()
+		target_link_libraries(${OUTBINNAME} ${SRCDIR}/thirdparty/nvidia/nvapi/lib/nvapi.lib)
+	endif()
+
 	target_link_libraries(${OUTBINNAME} ws2_32.lib)
 	add_definitions(-DUSE_ACTUAL_DX)
 endif()

@@ -32,7 +32,7 @@ target_sources(${OUTBINNAME} PRIVATE "MatSystemSurface.cpp")
 #File from mathlib.. fuck it, this single file won't link for some reason. It is a very simple file, so i'm duplicating it here.
 target_sources(${OUTBINNAME} PRIVATE "${SRCDIR}/mathlib/halton.cpp")
 
-if( WIN32 )
+if( WINDOWS )
 	target_sources(${OUTBINNAME} PRIVATE "memorybitmap.cpp")
     #$File	"memorybitmap.cpp"						[$WINDOWS]
     #$File	"$SRCDIR\vgui2\src\htmlwindow.cpp"		[$WINDOWS]

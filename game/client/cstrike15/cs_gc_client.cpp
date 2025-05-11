@@ -55,10 +55,19 @@ void CCSGCClientSystem::Shutdown()
 {
     BaseClass::Shutdown();
 }
-void CCSGCClientSystem::Update( float frametime )
+    // Updates.  Gameservers do this at a slightly different place than clients
+#ifdef CLIENT_DLL
+    void CCSGCClientSystem::Update( float frametime )
 {
     BaseClass::Update( frametime );
 }
+#else
+    void CCSGCClientSystem::PreClientUpdate( float frametime )
+    {
+        BaseClass::PreClientUpdate( frametime );
+    }
+#endif
+
 
 void CCSGCClientSystem::OnReceivedMatchmakingWelcomeMessage(const CMsgGCCStrike15_v2_MatchmakingGC2ClientHello &msg)
 {

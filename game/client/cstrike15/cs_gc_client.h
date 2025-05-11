@@ -30,7 +30,12 @@ public:
     virtual void LevelInitPreEntity() OVERRIDE;
     virtual void LevelShutdownPostEntity() OVERRIDE;
     virtual void Shutdown() OVERRIDE;
+        // Updates.  Gameservers do this at a slightly different place than clients
+#ifdef CLIENT_DLL
     virtual void Update( float frametime ) OVERRIDE;
+#else
+    virtual void PreClientUpdate() OVERRIDE;
+#endif
 
     // CGCClientSystem
     virtual void PreInitGC() OVERRIDE;
