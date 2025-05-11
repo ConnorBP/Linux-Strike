@@ -526,7 +526,7 @@ DLL_IMPORT __thread int g_nThreadID;
 #endif
 
 
-#if defined(WIN32) || defined(OSX) ||  defined( _PS3 ) || ( defined (_LINUX) && !defined(DEDICATED) )
+#if (defined ( _WIN32 ) || defined ( _WIN64 )) || defined(_WIN64) || defined(OSX) ||  defined( _PS3 ) || ( defined (_LINUX) && !defined(DEDICATED) )
 #ifndef __AFXTLS_H__ // not compatible with some Windows headers
 
 #if defined(_PS3)
@@ -1652,7 +1652,7 @@ public:
 private:
 	void WaitForRead();
 
-#ifdef WIN32
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
 	CThreadFastMutex m_mutex;
 #else
 	CThreadMutex m_mutex;	

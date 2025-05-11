@@ -1,4 +1,4 @@
-//========= Copyright © 1996-2005, Valve Corporation, All rights reserved. ============//
+//========= Copyright ï¿½ 1996-2005, Valve Corporation, All rights reserved. ============//
 //
 // Purpose: 
 //
@@ -193,7 +193,7 @@ FileAssociation::setAssociation (int index)
 	bChooseProgram->setEnabled (d_associations[index].association == 0);
 
 	// TODO: check for valid associtaion
-#ifdef WIN32__
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))__
 	char path[256];
 
 	strcpy (path, mx_gettemppath ());

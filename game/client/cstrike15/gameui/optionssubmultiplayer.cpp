@@ -890,7 +890,7 @@ void COptionsSubMultiplayer::OnFileSelected(const char *fullpath)
 		if (!failed)
 		{
 			// copy vtf file to the final location.
-#ifdef WIN32
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
 			CopyFile(vtfPath, finalPath, true);
 #elif defined( OSX )
 			copyfile( vtfPath, finalPath, 0, 0 );

@@ -10,7 +10,7 @@ extern HMODULE hWintab;
 extern char szWintab[];
 
 
-#ifdef WIN32
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
 	#define LoadLibraryWorked(h)	(h)
 #else
 	#define LoadLibraryWorked(h)	(h >= HINSTANCE_ERROR)

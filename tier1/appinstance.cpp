@@ -67,7 +67,7 @@ CSingleAppInstance::CSingleAppInstance( tchar* InstanceName, bool exitOnNotUniqu
 	}
 
 #ifndef _PS3
-#ifdef WIN32
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
 	if ( IsPlatformWindows() )
 	{
 		// don't allow more than one instance to run
@@ -131,7 +131,7 @@ CSingleAppInstance::CSingleAppInstance( tchar* InstanceName, bool exitOnNotUniqu
 CSingleAppInstance::~CSingleAppInstance()
 {
 #ifndef _PS3
-#ifdef WIN32
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
 	if ( IsPlatformWindows() && m_hMutex )
 	{
 		::ReleaseMutex( m_hMutex );
@@ -195,7 +195,7 @@ bool CSingleAppInstance::CheckForRunningInstance( tchar* InstanceName )
 	// validate input		
 	Assert( InstanceName != NULL && V_strlen( InstanceName ) > 0 && V_strlen( InstanceName ) < MAX_PATH );
 
-#ifdef WIN32
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
 	if ( IsPlatformWindows() )
 	{
 		// don't allow more than one instance to run

@@ -563,13 +563,13 @@ bool CGameUI::FindPlatformDirectory(char *platformDir, int bufferSize)
 		// we're not under steam, so setup using path relative to game
 		if ( IsPC() )
 		{
-#ifdef WIN32
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
 			if ( ::GetModuleFileName( ( HINSTANCE )GetModuleHandle( NULL ), platformDir, bufferSize ) )
 #else
 			if ( getcwd( platformDir, bufferSize ) )
 #endif
 			{
-#ifdef WIN32
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
 				V_StripFilename( platformDir ); // GetModuleFileName returns the exe as well as path
 #endif
 				V_AppendSlash( platformDir, bufferSize );

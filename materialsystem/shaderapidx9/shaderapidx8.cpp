@@ -2615,7 +2615,7 @@ CShaderAPIDx8::CShaderAPIDx8() :
 	m_bLmapMesh = false;
 	m_bUnlitMesh = false;
 
-#ifdef WIN32
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
 	ScanAndFixNvDriverProfiles();
 	m_pNVAPI_registeredDepthStencilSurface = NULL;
 	m_pNVAPI_registeredDepthTexture = NULL;

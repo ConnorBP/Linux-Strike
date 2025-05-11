@@ -260,7 +260,7 @@ void CInput::CheckMouseAcclerationVars()
 	if ( dirty )
 	{
 		// Update them
-#ifdef WIN32
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
 		m_fRestoreSPI = SystemParametersInfo( SPI_SETMOUSE, 0, m_rgNewMouseParms, 0 ) ? true : false;
 #endif
 	}
@@ -280,7 +280,7 @@ void CInput::Init_Mouse (void)
 
 	if ( CommandLine()->FindParm ("-useforcedmparms" ) ) 
 	{
-#ifdef WIN32
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
 		m_fMouseParmsValid = SystemParametersInfo( SPI_GETMOUSE, 0, m_rgOrigMouseParms, 0 ) ? true : false;
 #else
 		m_fMouseParmsValid = false;

@@ -116,7 +116,7 @@ public:
 	// Sets the frame for an BINK material (use instead of SetTime)
 	virtual void SetFrame( BIKMaterial_t hMaterial, float flFrame ) = 0;
 
-#ifdef WIN32
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
 #if !defined( _X360 )
 	// Sets the direct sound device that Bink will decode to
 	virtual bool SetDirectSoundDevice( void	*pDevice ) = 0;

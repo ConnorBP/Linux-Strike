@@ -942,7 +942,7 @@ void CVideoMode_Common::DrawStartupGraphic()
 //-----------------------------------------------------------------------------
 void CVideoMode_Common::BlitGraphicToHDCWithAlpha(HDC hdc, byte *rgba, int imageWidth, int imageHeight, int x0, int y0, int x1, int y1)
 {
-#ifdef WIN32
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
     if ( IsX360() )
         return;
 
@@ -1013,7 +1013,7 @@ void CVideoMode_Common::DrawNullBackground( void *hHDC, int w, int h )
 	// Show a message if running without renderer..
 	if ( CommandLine()->FindParm( "-noshaderapi" ) )
 	{
-#ifdef WIN32
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
 		HFONT fnt = CreateFontA( -12, 
 		 0,
 		 0,
@@ -1127,7 +1127,7 @@ void CVideoMode_Common::BlitGraphicToHDC(HDC hdc, byte *rgba, int imageWidth, in
     if ( IsX360() )
         return;
 
-#ifdef WIN32
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
     int x = x0;
     int y = y0;
     int wide = x1 - x0;
@@ -1265,7 +1265,7 @@ void CVideoMode_Common::UpdateWindowPosition( void )
     // Get the window from the game ( right place for it? )
     game->GetWindowRect( &x, &y, &w, &h );
 
-#ifdef WIN32
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
     RECT window_rect;
     window_rect.left = x;
     window_rect.right = x + w;
@@ -2487,7 +2487,7 @@ void CVideoMode_MaterialSystem::AdjustForModeChange( void )
     // reset the window size
     CMatRenderContextPtr pRenderContext( materials );
 
-#if ( !defined( _GAMECONSOLE ) && defined ( WIN32 ) )
+#if ( !defined( _GAMECONSOLE ) && (defined ( _WIN32 ) || defined ( _WIN64 )) )
 	if ( !IsGameConsole() && !IsWindowedMode() && bWindowed )
 	{
 		// Release fullscreen before going from windowed to fullscreen to avoid the case on Vista where we go from 

@@ -269,7 +269,7 @@ void CHudWeaponSelection::Paint()
 					// setup our localized string
 					if ( tempString )
 					{
-#ifdef WIN32
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
 						_snwprintf(text, sizeof(text)/sizeof(wchar_t) - 1, L"%s", tempString);
 #else
 						_snwprintf(text, sizeof(text)/sizeof(wchar_t) - 1, L"%S", tempString);

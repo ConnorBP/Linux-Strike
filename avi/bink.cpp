@@ -1490,7 +1490,7 @@ public:
 	virtual int GetFrame( BIKMaterial_t hMaterial );
 	virtual void SetFrame( BIKMaterial_t hMaterial, float flFrame );
 	virtual int GetFrameCount( BIKMaterial_t hMaterial );
-#ifdef WIN32
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
 #if !defined( _X360 )
 	virtual bool SetDirectSoundDevice( void *pDevice );
 	virtual bool SetMilesSoundDevice( void *pDevice );

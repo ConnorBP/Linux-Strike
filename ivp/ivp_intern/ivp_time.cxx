@@ -14,7 +14,7 @@
 #endif
 #include <ivp_time.hxx>
 
-#if defined(WIN32) && !defined(_XBOX)
+#if (defined ( _WIN32 ) || defined ( _WIN64 )) && !defined(_XBOX)
 #	include "wtypes.h"
 #elif defined(_XBOX)
 #	ifndef WINVER

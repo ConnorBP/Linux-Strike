@@ -4853,7 +4853,7 @@ void Host_CheckGore( void )
 	//
 	// First check the old method of enabling low violence via the registry.
 	//
-#ifdef WIN32
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
 	bLowViolenceRegistry = IsLowViolence_Registry();
 #endif
 	//

@@ -78,7 +78,7 @@ typedef uint8_t* PUCHAR;
 typedef uint16_t USHORT;
 typedef uint32_t ULONG;
 typedef uint32_t UINT;
-typedef uint32_t DWORD;
+typedef uint32_t DWORD; // ok? unsigned long
 typedef int32_t LONG;
 typedef int64_t LONGLONG;
 typedef int32_t* LPLONG;

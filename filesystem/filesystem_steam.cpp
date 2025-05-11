@@ -47,7 +47,7 @@ void CheckError( SteamHandle_t fp, TSteamError & steamError)
 	if (steamError.eSteamError == eSteamErrorContentServerConnect)
 	{
 		// fatal error
-#ifdef WIN32		
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))		
 		// kill the current window so the user can see the error
 		HWND hwnd = GetForegroundWindow();
 		if (hwnd)
@@ -337,7 +337,7 @@ void CFileSystem_Steam::Shutdown()
 	// If we're not running Steam in local mode, remove all mount points from the STEAM VFS.
 	if ( !CommandLine()->CheckParm("-steamlocal") && !m_bSelfMounted && !steam->UnmountAppFilesystem(&steamError) )
 	{
-#ifdef WIN32
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
 		OutputDebugString(steamError.szDesc);
 #endif
 		Assert(!("STEAM VFS failed to unmount"));
@@ -366,7 +366,7 @@ void CFileSystem_Steam::LoadAndStartSteam()
 		if ( pchSteamInstallPath )
 		{
 			char szSteamDLLPath[ MAX_PATH ];
-#ifdef WIN32
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
 			V_ComposeFileName( pchSteamInstallPath, "steam.dll", szSteamDLLPath, Q_ARRAYSIZE(szSteamDLLPath) );
 #elif defined(OSX)
 			V_ComposeFileName( pchSteamInstallPath, "libsteam.dylib", szSteamDLLPath, Q_ARRAYSIZE(szSteamDLLPath) );			
@@ -380,7 +380,7 @@ void CFileSystem_Steam::LoadAndStartSteam()
 		}
 
 		if ( !m_hSteamDLL )
-#ifdef WIN32			
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))			
 			m_hSteamDLL = (HMODULE)Sys_LoadModule( "steam.dll" );
 #elif defined(OSX)
 			m_hSteamDLL = (HMODULE)Sys_LoadModule( "libsteam.dylib" );
@@ -394,7 +394,7 @@ void CFileSystem_Steam::LoadAndStartSteam()
 	if ( m_hSteamDLL )
 	{
 		typedef void *(*PFSteamCreateInterface)( const char *pchSteam );
-#ifdef WIN32
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
 		PFSteamCreateInterface pfnSteamCreateInterface = (PFSteamCreateInterface)GetProcAddress( m_hSteamDLL, "_f" );
 #else
 		PFSteamCreateInterface pfnSteamCreateInterface = (PFSteamCreateInterface)dlsym( (void *)m_hSteamDLL, "_f" );
@@ -406,7 +406,7 @@ void CFileSystem_Steam::LoadAndStartSteam()
 	if ( !steam )
 	{
 		Error("CFileSystem_Steam::Init() failed: failed to find steam interface\n");
-#ifdef WIN32
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
 		::DestroyWindow( GetForegroundWindow() );
 		::MessageBox(NULL, "CFileSystem_Steam::Init() failed: failed to find steam interface", "Half-Life FileSystem_Steam Error", MB_OK);
 #endif
@@ -417,7 +417,7 @@ void CFileSystem_Steam::LoadAndStartSteam()
 	if (!steam->Startup(STEAM_USING_FILESYSTEM | STEAM_USING_LOGGING | STEAM_USING_USERID | STEAM_USING_ACCOUNT, &steamError))
 	{
 		Error("SteamStartup() failed: %s\n", steamError.szDesc);
-#ifdef WIN32
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
 		::DestroyWindow( GetForegroundWindow() );
 		::MessageBox(NULL, steamError.szDesc, "Half-Life FileSystem_Steam Error", MB_OK);
 #endif
@@ -490,7 +490,7 @@ FilesystemMountRetval_t CFileSystem_Steam::MountSteamContent( int nExtraAppId )
 		else if (!steam->MountAppFilesystem(&steamError))
 		{
 			Error("MountAppFilesystem() failed: %s\n", steamError.szDesc);
-#ifdef WIN32
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
 			::DestroyWindow( GetForegroundWindow() );
 			::MessageBox(NULL, steamError.szDesc, "Half-Life FileSystem_Steam Error", MB_OK);
 #endif
@@ -1276,7 +1276,7 @@ void CFileSystem_Steam::GetLocalCopy( const char *pFileName )
 {
 	// Now try to find the dll under Steam so we can do a GetLocalCopy() on it
 	TSteamError steamError;
-#ifdef WIN32
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
 	struct _stat StatBuf;
 	if ( FS_stat(pFileName, &StatBuf) == -1 )
 	{
@@ -1285,7 +1285,7 @@ void CFileSystem_Steam::GetLocalCopy( const char *pFileName )
 	
 		// Use the .EXE name to determine the root directory
 		char srchPath[ MAX_PATH ];
-#ifdef WIN32
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
 		HINSTANCE hInstance = ( HINSTANCE )GetModuleHandle( 0 );
 		if ( !GetModuleFileName( hInstance, srchPath, MAX_PATH ) )
 		{
@@ -1311,7 +1311,7 @@ void CFileSystem_Steam::GetLocalCopy( const char *pFileName )
 		bool bSearch = true;
 		while ( pStart && bSearch )
 		{
-#ifdef WIN32
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
 #define PATH_SEP ";"
 #else
 #define PATH_SEP ":"

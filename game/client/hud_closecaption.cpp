@@ -221,7 +221,7 @@ void CCloseCaptionWorkUnit::SetStream( const wchar_t *stream )
 	delete[] m_pszStream;
 	m_pszStream = NULL;
 
-#ifdef WIN32
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
 	int len = wcsnlen( stream, ( MAX_CAPTION_CHARACTERS - 1 ) );
 #else
 	int len = wcslen( stream );
@@ -2072,7 +2072,7 @@ void CHudCloseCaption::DrawStream( wrect_t &rcText, wrect_t &rcWindow, CCloseCap
 		vgui::surface()->DrawSetTextFont( useF );
 		vgui::surface()->DrawSetTextPos( rcOut.left, rcOut.top );
 		vgui::surface()->DrawSetTextColor( useColor );
-#ifdef WIN32
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
 		int len = wcsnlen( wu->GetStream(), MAX_CAPTION_CHARACTERS ) ;
 #else
 		int len = wcslen( wu->GetStream() ) ;
@@ -2230,7 +2230,7 @@ public:
 		for ( int i = 0; i < c; ++i )
 		{
 			caption_t *caption = m_Tokens[ i ];
-#ifdef WIN32
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
 			unsigned int len = wcsnlen( caption->stream, maxlen ) + 1;
 #else
 			unsigned int len = wcslen( caption->stream ) + 1;
@@ -2426,7 +2426,7 @@ private:
 			if ( !in )
 				return;
 
-#ifdef WIN32
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
 			int len = wcsnlen( in, ( MAX_CAPTION_CHARACTERS - 1 ) );
 #else
 			int len = wcslen( in );

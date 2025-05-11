@@ -5850,7 +5850,7 @@ bool CBaseFileSystem::IsFileWritable( char const *pFileName, char const *pPathID
 
 		if ( FS_stat( bFixed ? fixedFATXFilename : pFileName, &buf ) != -1 )
 		{
-#ifdef WIN32
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
 			if ( buf.st_mode & _S_IWRITE )
 #elif defined( _PS3 )
 			if( buf.st_mode & S_IWUSR )
@@ -5882,7 +5882,7 @@ bool CBaseFileSystem::IsFileWritable( char const *pFileName, char const *pPathID
 
 		if ( FS_stat( bFixed ? fixedFATXFilename : tempFileName, &buf ) != -1 )
 		{
-#ifdef WIN32
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
 			if ( buf.st_mode & _S_IWRITE )
 #elif defined( _PS3 )
 			if( buf.st_mode & S_IWUSR )

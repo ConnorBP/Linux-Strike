@@ -1,4 +1,4 @@
-//========= Copyright © 1996-2005, Valve Corporation, All rights reserved. ============//
+//========= Copyright ï¿½ 1996-2005, Valve Corporation, All rights reserved. ============//
 //
 // Purpose: 
 //
@@ -189,7 +189,7 @@ PAKViewer::handleEvent (mxEvent *event)
 
 				char *program = g_FileAssociation->getProgram (&e[1]);
 
-#ifdef WIN32
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
 				if (mode == 0)
 				{
 					char str[256];
@@ -352,7 +352,7 @@ int PAKViewer::OnLoadTexture (int pos)
 int
 PAKViewer::OnPlaySound ()
 {
-#ifdef WIN32
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
 	static char str2[256];
 	char suffix[16] = "";
 

@@ -113,7 +113,7 @@
 #undef __SOLARIS__
 #define __SOLARIS__ 1
 #endif
-#if defined(WIN32) || defined(_WIN32) || defined(__CYGWIN__)
+#if (defined ( _WIN32 ) || defined ( _WIN64 )) || defined(_WIN32) || defined(__CYGWIN__)
 #undef __WINDOWS__
 #define __WINDOWS__   1
 #endif

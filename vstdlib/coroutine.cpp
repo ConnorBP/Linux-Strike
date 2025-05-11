@@ -50,7 +50,7 @@
 #ifdef COROUTINE_TRACE
 #include "tier1/fmtstr.h"
 static CFmtStr g_fmtstr;
-#ifdef WIN32
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
 extern "C"	__declspec(dllimport) void __stdcall OutputDebugStringA( const char * );
 #else
 void OutputDebugStringA( const char *pchMsg ) { fprintf( stderr, pchMsg ); fflush( stderr ); } 
@@ -134,7 +134,7 @@ static const int k_cubMaxCoroutineStackSize = (32 * 1024);
 extern "C" byte *GetStackPtr64();
 #define GetStackPtr( pStackPtr)		byte *pStackPtr = GetStackPtr64();
 #else
-#ifdef WIN32
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
 #define GetStackPtr( pStackPtr )	byte *pStackPtr;	__asm mov pStackPtr, esp	
 #elif defined(GNUC)
 #define GetStackPtr( pStackPtr )	byte *pStackPtr = (byte*)__builtin_frame_address(0)

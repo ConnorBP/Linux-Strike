@@ -37,7 +37,7 @@ extern void *p_malloc(unsigned int size);
 FILE *p_glob_fp;
 void p_init_glob_fp()
 {
-#ifdef WIN32
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
 	p_glob_fp=fopen(ERRORFILEPATH,"a");
 #else
 	p_glob_fp=stdout;

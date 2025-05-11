@@ -1042,7 +1042,7 @@ void CEngineAPI::PumpMessagesEditMode( bool &bIdle, long &lIdleCount )
 		bIdle = false;
 	}
 
-#ifdef WIN32
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
 	MSG msg;
 	while ( PeekMessageW(&msg, NULL, 0, 0, PM_REMOVE) )
 	{
@@ -1208,7 +1208,7 @@ bool CEngineAPI::OnStartup( void *pInstance, const char *pStartupModName )
 	// This fixes a bug on certain machines where the input will 
 	// stop coming in for about 1 second when someone hits a key.
 	// (true means to disable priority boost)
-#ifdef WIN32
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
 	if ( IsPC() )
 	{
 		SetThreadPriorityBoost( GetCurrentThread(), true ); 

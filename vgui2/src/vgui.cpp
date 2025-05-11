@@ -512,7 +512,7 @@ void CVGui::RunFrame()
 		// make sure the hierarchy is up to date
 		g_pSurface->SolveTraverse(g_pSurface->GetEmbeddedPanel());
 		g_pSurface->ApplyChanges();
-#ifdef WIN32
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
 		Assert( IsGameConsole() || ( IsPC() && _heapchk() == _HEAPOK ) );
 #endif
 	}

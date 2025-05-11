@@ -7,7 +7,7 @@
 
 #include <winlite.h>
 #undef CreateDialog
-#ifdef WIN32
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
 #include <direct.h>
 #include <io.h>
 #endif

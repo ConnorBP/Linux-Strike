@@ -2783,7 +2783,7 @@ void	GLMStringOut( char *string )
 {
 	if ( GLMDebugChannelMask() & ( (1<<ePrintf) | (1<<eDebugger) ) )
 	{
-#ifdef WIN32
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
 		OutputDebugStringA( string );
 		OutputDebugStringA( "\n");
 #else
@@ -3648,7 +3648,7 @@ private:
 		char buf[1024];
 		V_vsnprintf( buf, sizeof( buf ), pFmt, vargs );
 
-#ifdef WIN32
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
 		OutputDebugStringA( buf );
 #else
 		printf( "%s", buf );

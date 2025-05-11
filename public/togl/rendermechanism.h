@@ -29,7 +29,7 @@
 
 #else
 	//USE_ACTUAL_DX
-	#ifdef WIN32
+	#if (defined ( _WIN32 ) || defined ( _WIN64 ))
 		#ifdef _X360
 			#include "d3d9.h"
 			#include "d3dx9.h"

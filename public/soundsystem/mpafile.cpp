@@ -72,7 +72,7 @@ void CMPAException::ShowError()
     }
     strcat( szErrorMsg, m_szErrors[m_ErrorID] );
 
-#if defined(WIN32) && !defined(_X360)
+#if (defined ( _WIN32 ) || defined ( _WIN64 )) && !defined(_X360)
     if( m_bGetLastError )
     {
         // get error message of last system error id

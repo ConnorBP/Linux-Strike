@@ -41,7 +41,7 @@ encapsulate non-portable items:
 	LoadLibrary behavior
 	Unicode/ANSI function name suffixes
 ------------------------------------------------------------------------------*/
-#ifdef WIN32
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
 	/* no Unicode support yet. */
 	#define CHARSET	"A"
 	char szWintab[] = "Wintab32";

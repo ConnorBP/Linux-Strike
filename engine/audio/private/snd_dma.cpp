@@ -1102,7 +1102,7 @@ void S_Shutdown(void)
 			time(&ltime);
 			localtime(&ltime);*/
 
-#ifdef WIN32
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
 			SYSTEMTIME time;
 			GetLocalTime(&time);
 		

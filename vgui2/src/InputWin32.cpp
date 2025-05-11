@@ -1424,7 +1424,7 @@ void CInputWin32::SurfaceSetCursorPos(int x, int y)
 		x += px;
 		y += py;
 		// set windows cursor pos
-#ifdef WIN32
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
 		::SetCursorPos(x, y);
 #endif
 	}
@@ -1440,7 +1440,7 @@ void CInputWin32::SurfaceGetCursorPos( int &x, int &y )
 	}
 	else
 	{
-#ifdef WIN32
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
 		// get mouse position in windows
 		POINT pnt;
 		::GetCursorPos(&pnt);

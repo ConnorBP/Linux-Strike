@@ -629,7 +629,7 @@ ConCommand sixense_autosave( "sixense_autosave", SixenseAutosave );
 #ifdef INPUT_EVENTS
 static void sendMouseClick( int click, int release )
 {
-#ifdef WIN32
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
 	// Set up the input event struct
 	INPUT input_ev[1]; 
 
@@ -682,7 +682,7 @@ static void sendMouseClick( int click, int release )
 
 static void sendKeyState( char key, int press, int release )
 {
-#ifdef WIN32
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
 	// Set up the input event struct
 	INPUT input_ev[1];
 
@@ -717,7 +717,7 @@ static void sendKeyState( char key, int press, int release )
 
 static void sendAbsoluteMouseMove( float x, float y ) 
 {
-#ifdef WIN32
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
 	// Set up the input event struct
 	INPUT input_ev[1];
 
@@ -3268,7 +3268,7 @@ void SixenseInput::SixenseUpdateMouseCursor()
 		left_clicked = false;
 	}
 
-#ifdef WIN32
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
 
 #ifdef PORTAL2
 	const char *window_name = "Portal 2 Sixense MotionPack";
@@ -3383,7 +3383,7 @@ void SixenseInput::SixenseUpdateMouseCursor()
 			norm_coord[0] = clamp<float>( norm_coord[0], 0.0f, 1.0f );
 			norm_coord[1] = clamp<float>( norm_coord[1], 0.0f, 1.0f );
 
-#ifdef WIN32
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
 			RECT win_rect;
 			GetWindowRect( GetActiveWindow(), &win_rect );
 

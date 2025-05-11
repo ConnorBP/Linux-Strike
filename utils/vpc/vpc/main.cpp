@@ -2479,7 +2479,7 @@ void CVPC::SetMacrosAndConditionals()
     // If we're running on Windows we default to generating
     // cross-compile wrapper projects when the selected target
     // platform uses makefiles.
-#ifdef WIN32
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
     if ( bHaveMakefileTarget )
     {
         m_bGenMakeProj = true;
@@ -2954,7 +2954,7 @@ bool CVPC::HasP4SLNCommand()
 //-----------------------------------------------------------------------------
 bool CVPC::HandleP4SLN( IBaseSolutionGenerator *pSolutionGenerator )
 {
-#ifdef WIN32
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
 	// If they want to generate a solution based on a Perforce changelist, adjust m_targetProjects and set it up like /mksln had been passed in.
 	if ( m_iP4Changelists.Count() == 0 )
 		return false;

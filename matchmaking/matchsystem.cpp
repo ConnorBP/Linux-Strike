@@ -1,10 +1,14 @@
-//========= Copyright © 1996-2009, Valve Corporation, All rights reserved. ============//
+//========= Copyright ï¿½ 1996-2009, Valve Corporation, All rights reserved. ============//
 //
 // Purpose: 
 //
 //=====================================================================================//
 
 #include "mm_framework.h"
+
+#ifdef _X360
+#error "THIS SHOULD NOT BE INCLUDED ON PC!"
+#endif
 
 #ifdef _X360
 #include "xonline.h"

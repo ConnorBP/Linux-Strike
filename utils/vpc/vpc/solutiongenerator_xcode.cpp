@@ -9,7 +9,7 @@
 #include "baseprojectdatacollector.h"
 #include "tier1/utlsortvector.h"
 
-#ifdef WIN32
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
 #define snprintf _snprintf
 typedef unsigned __int64 uint64_t;
 typedef unsigned __int16 uint16_t;

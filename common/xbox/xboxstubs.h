@@ -7,12 +7,16 @@
 #if !defined( XBOXSTUBS_H ) && !defined( _X360 )
 #define XBOXSTUBS_H
 
-#ifdef _WIN32
+#if defined(_WIN32) || defined(_WIN64)
 #pragma once
 #endif
 
-#ifdef _WIN32
+#if defined(_WIN32) || defined(_WIN64)
+#ifndef DWORD
 typedef unsigned long DWORD;
+// #else
+// #pragma message "The value of DWORD: " XSTR(DWORD)
+#endif
 //#include "winlite.h"
 #endif
 
@@ -122,7 +126,9 @@ typedef enum
 #ifndef WORD
 typedef unsigned short WORD;
 #endif
-#if ( !defined ( DWORD ) && !defined( WIN32 ) && !defined( _PS3 ))
+
+// not quite sure what this is for:
+#if ( !defined ( DWORD ) && !defined( _WIN32 ) && !defined( _WIN64 ) && !defined( _PS3 ))
 typedef unsigned int DWORD;
 #endif
 

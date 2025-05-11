@@ -3878,7 +3878,7 @@ void V_LogMultiline( bool input, char const *label, const char *data, size_t len
 }
 
 
-#ifdef WIN32
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
 // Win32 CRT doesn't support the full range of UChar32, has no extended planes
 inline int V_iswspace( int c ) { return ( c <= 0xFFFF ) ? iswspace( (wint_t)c ) : 0; }
 #else

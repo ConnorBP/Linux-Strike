@@ -21,7 +21,7 @@
 #endif
 
 
-#ifdef WIN32
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
 #include <pshpack2.h>
 #endif
 
@@ -57,7 +57,7 @@ typedef struct
 	byte rgbReserved;
 } mxBitmapRGBQuad; 
 
-#ifdef WIN32
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
 #include <poppack.h>
 #endif
 

@@ -9,7 +9,7 @@
 #pragma pack(push,16)
 #endif
 
-#ifdef WIN32
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
 #	pragma warning( disable : 4244 ) 
 #endif
 

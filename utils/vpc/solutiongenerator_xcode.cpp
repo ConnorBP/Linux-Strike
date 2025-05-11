@@ -9,7 +9,7 @@
 #include "baseprojectdatacollector.h"
 #include "utlsortvector.h"
 
-#ifdef WIN32
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
 #include <direct.h>
 #define mkdir(dir, mode) _mkdir(dir)
 #define getcwd _getcwd

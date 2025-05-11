@@ -19,7 +19,7 @@
 #include "abi_align.h"
 
 /* export DLL symbols */
-#if defined(WIN32) && defined(DYNAMIC_BUILD)
+#if (defined ( _WIN32 ) || defined ( _WIN64 )) && defined(DYNAMIC_BUILD)
 #define BUILD_MPG123_DLL
 #endif
 #include "compat.h"

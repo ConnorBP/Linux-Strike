@@ -190,7 +190,7 @@ void APIENTRY GL_Debug_Output_Callback(GLenum source, GLenum type, GLuint id, GL
 		Msg("GL: [%s][%s][%s][%d]: %s\n", sSource, sType, sSeverity, id, message);
 	}
 
-#ifdef WIN32
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
 	OutputDebugStringA( message );
 #endif
 			
@@ -2876,7 +2876,7 @@ GLMContext::GLMContext( IDirect3DDevice9 *pDevice, GLMDisplayParams *params )
 		// and get a real stack for the offending gl call.
 		gGL->glEnable(GL_DEBUG_OUTPUT_SYNCHRONOUS_ARB);
 
-#ifdef WIN32
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
 		// This happens early enough during init that DevMsg() does nothing.
 		OutputDebugStringA( "GLMContext::GLMContext: GL_DEBUG_OUTPUT_SYNCHRONOUS_ARB enabled!\n" );
 #else
@@ -4673,7 +4673,7 @@ void GLMContext::CheckNative( void )
 			V_snprintf( buf, sizeof( buf), "\nGL ERROR! %08x = '%s'\n", errorcode, decodedStr );
 
 			// Make sure the dev sees something, because these errors can happen early enough that DevMsg() does nothing.
-#ifdef WIN32
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
 			OutputDebugStringA( buf );
 #else
 			printf( "%s", buf );

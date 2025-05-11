@@ -190,7 +190,7 @@ void D3DDeviceWrapper::SetASyncMode( bool onoff )
 			// create thread and init communications
 			memset( RememberedPointerHistory,0,sizeof(RememberedPointerHistory) );
 			SetThreadAffinityMask(GetCurrentThread(), 1);
-#ifdef WIN32
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
 			m_pASyncThreadHandle = CreateSimpleThread( OurThreadInit, this, 128*1024 );
 #else
 #warning "D3DDeviceWrapper::SetASyncMode might need a beginthread version"

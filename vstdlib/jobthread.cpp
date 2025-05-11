@@ -365,7 +365,7 @@ private:
 	unsigned Wait()
 	{
 		unsigned waitResult;
-#ifdef WIN32
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
 		enum Event_t
 		{
 			CALL_FROM_MASTER,
@@ -1245,7 +1245,7 @@ bool CThreadPool::Stop( int timeout )
 		{
 			ThreadJoin( arrHandles[i] );
 
-#ifdef WIN32
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
 			Assert( !m_Threads[i]->GetThreadHandle() );
 			// because we duplicated the handle above, due to the historical reasons described above, we have to close this handle on Win32
 			CloseHandle( arrHandles[i] );
@@ -1254,7 +1254,7 @@ bool CThreadPool::Stop( int timeout )
 #endif
 		}
 
-#ifdef WIN32
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
 		while( m_Threads[i]->GetThreadHandle() )
 #else
 		while( m_Threads[i]->IsAlive() )

@@ -12,7 +12,7 @@
 //                 implied.
 //
 #include "mxtk/mxpath.h"
-#ifdef WIN32
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
 #include <windows.h>
 #else
 #include <unistd.h"
@@ -26,7 +26,7 @@
 bool
 mx_setcwd (const char *path)
 {
-#ifdef WIN32
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
 	return (SetCurrentDirectory (path) == TRUE);
 #else
 	return (chdir (path) != -1);
@@ -39,7 +39,7 @@ const char *
 mx_getcwd ()
 {
 	static char path[256];
-#ifdef WIN32
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
 	GetCurrentDirectory (256, path);
 #else
 	getcwd (path, 256);
@@ -53,7 +53,7 @@ const char *
 mx_getpath (const char *filename)
 {
 	static char path[256];
-#ifdef WIN32
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
 	_splitpath (filename, 0, path, 0, 0);
 #else
 	strcpy (path, filename);
@@ -70,7 +70,7 @@ const char *
 mx_getextension (const char *filename)
 {
 	static char ext[256];
-#ifdef WIN32	
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))	
 	_splitpath (filename, 0, 0, 0, ext);
 #else
 	char *ptr = strrchr (filename, '.');
@@ -88,7 +88,7 @@ const char *
 mx_gettemppath ()
 {
 	static char path[256];
-#ifdef WIN32
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
 	GetTempPath (256, path);
 #else
 	strcpy (path, "/tmp");

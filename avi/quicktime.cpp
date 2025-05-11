@@ -19,7 +19,7 @@
 #include "avi/iquicktime.h"
 #include "quicktime.h"
 
-#if defined ( WIN32 )
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
  #if defined ( QUICKTIME_VIDEO )
 	#include <WinDef.h>
 	#include <../dx9sdk/include/dsound.h>
@@ -648,7 +648,7 @@ void CQuickTimeMaterial::OpenQTMovie( const char* theQTMovieFileName )
 	OSErr	status = 0;
      
     // Set graphics port 
-  #if defined ( WIN32 )
+  #if (defined ( _WIN32 ) || defined ( _WIN64 ))
 	SetGWorld ( (CGrafPtr) GetNativeWindowPort( nil ), nil ); 
   #elif defined ( OSX		)
 	SetGWorld( nil, nil );
@@ -674,7 +674,7 @@ void CQuickTimeMaterial::OpenQTMovie( const char* theQTMovieFileName )
 		return;
 	}
 		
-  #elif defined ( WIN32 ) 
+  #elif (defined ( _WIN32 ) || defined ( _WIN64 )) 
     strcpy ( fullPath, theQTMovieFileName);         // Copy full pathname  
     c2pstr ( fullPath );                            // Convert to Pascal string  
 	
@@ -728,7 +728,7 @@ void CQuickTimeMaterial::OpenQTMovie( const char* theQTMovieFileName )
 	m_BitMapDataSize = 4 *  m_QTMovieRect.right * m_QTMovieRect.bottom;
 
 
-  #if defined ( WIN32 )	
+  #if (defined ( _WIN32 ) || defined ( _WIN64 ))	
 	// Initialize bitmap info
 	ZeroVar( m_BitmapInfo );
 	m_BitmapInfo.bmiHeader.biSize = sizeof( m_BitmapInfo.bmiHeader );
@@ -760,7 +760,7 @@ void CQuickTimeMaterial::OpenQTMovie( const char* theQTMovieFileName )
 
   #if defined ( OSX )	
 	Fixed decodeGamma = 0x00012000;
-  #elif defined ( WIN32 )
+  #elif (defined ( _WIN32 ) || defined ( _WIN64 ))
 	Fixed decodeGamma = 0x00023333;
   #endif
 
@@ -776,7 +776,7 @@ void CQuickTimeMaterial::OpenQTMovie( const char* theQTMovieFileName )
 	SetMovieGWorld( m_QTMovie, m_MovieGWorld, nil );		
 
 
-  #if defined ( WIN32 )
+  #if (defined ( _WIN32 ) || defined ( _WIN64 ))
 
 	WCHAR strGUID[39];
 	int numBytes = StringFromGUID2( DSDEVID_DefaultPlayback, (LPOLESTR) strGUID, 39);			// CLSID_DirectSound is not what you want here
@@ -1072,7 +1072,7 @@ bool CQuickTime::SetupQuicktime()
 	m_bQTInitialized = false;
 
 #if defined ( QUICKTIME_VIDEO )	
-  #if defined ( WIN32 )
+  #if (defined ( _WIN32 ) || defined ( _WIN64 ))
 	OSErr status = InitializeQTML( 0 ); 
     
     // if -2903 then quicktime not installed on this system
@@ -1101,7 +1101,7 @@ bool CQuickTime::SetupQuicktime()
 	if ( status2 != noErr )
 	{
 		Assert( 0 );
-  #if defined ( WIN32 )	
+  #if (defined ( _WIN32 ) || defined ( _WIN64 ))	
 		TerminateQTML();
   #endif
 		return false;
@@ -1121,7 +1121,7 @@ void CQuickTime::ShutdownQuicktime()
 	{
 #if defined ( QUICKTIME_VIDEO )	
        ExitMovies();                               // Terminate QuickTime  
-  #if defined ( WIN32 )
+  #if (defined ( _WIN32 ) || defined ( _WIN64 ))
        TerminateQTML();                            // Terminate QTML  
   #endif
 #endif       

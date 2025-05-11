@@ -2321,7 +2321,7 @@ bool CMatSystemSurface::AddCustomFontFile( const char *fontFileName )
 		}
 	}
 
-#if defined(WIN32)
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
 #if !defined( _X360 )
 
 #ifdef SUPPORT_CUSTOM_FONT_FORMAT

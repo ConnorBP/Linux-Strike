@@ -277,7 +277,7 @@
 //-----------------------------------------------------------------------------
 // Set up platform defines.
 //-----------------------------------------------------------------------------
-#ifdef _WIN32
+#if defined(_WIN32) || defined(_WIN64)
 	#define IsPlatformLinux()	0
 	#define IsPlatformPosix()	0
 	#define IsPlatformOSX()		0

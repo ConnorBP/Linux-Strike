@@ -227,7 +227,7 @@ private:
 #ifdef LINUX
 	void AddFileToChangeList( const char *pchFile );
 #endif
-#ifdef WIN32
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
 	// used by callback functions to push a file onto the list
 	void AddFileToChangeList( const char *pchFile );
 	void PostDirWatch();

@@ -52,7 +52,7 @@ int dump_open(mpg123_handle *mh)
 		return -1;
 	}
 
-#ifdef WIN32
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
 	_setmode(dump_fd, _O_BINARY);
 #endif
 

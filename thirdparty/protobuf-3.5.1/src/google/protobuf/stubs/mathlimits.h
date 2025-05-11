@@ -243,7 +243,7 @@ DECL_UNSIGNED_INT_LIMITS(unsigned long long int)
 #endif
 
 // ========================================================================= //
-#ifdef WIN32  // Lacks built-in isnan() and isinf()
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))  // Lacks built-in isnan() and isinf()
 #define DECL_FP_LIMIT_FUNCS \
   static bool IsFinite(const Type x) { return _finite(x); } \
   static bool IsNaN(const Type x) { return _isnan(x); } \

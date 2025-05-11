@@ -25,11 +25,11 @@
 #include "../../dx9sdk/include/XInput.h"
 #endif
 
-#if defined( _WIN32 ) && defined( USE_SDL )
+#if (defined( _WIN32 ) || defined ( _WIN64 )) && defined( USE_SDL )
 #include "appframework/ilaunchermgr.h"
 #endif
 
-#if defined(PLATFORM_POSIX) && !defined(_PS3)
+#if defined(s) && !defined(_PS3)
 #ifdef PLATFORM_OSX
 #define DWORD DWORD
 #define CARBON_WORKAROUND
@@ -493,7 +493,7 @@ private:
 	void ShutdownCursors();
 
 
-#ifdef WIN32
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
 	void PollInputState_Windows();
 #endif
 	// Poll input state for different OSes.

@@ -53,7 +53,7 @@ IVP_PerformanceCounter_Simple::IVP_PerformanceCounter_Simple(){
     P_MEM_CLEAR_M4(this);
 }
 
-#if defined(WIN32)
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
 #	ifndef _XBOX
 #		ifndef WIN32_LEAN_AND_MEAN
 #			define	WIN32_LEAN_AND_MEAN

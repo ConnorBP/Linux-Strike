@@ -650,7 +650,7 @@ int open_track(char *fname)
 	if(!strcmp(fname, "-"))
 	{
 		filept = STDIN_FILENO;
-#ifdef WIN32
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
 		_setmode(STDIN_FILENO, _O_BINARY);
 #endif
 		return open_track_fd();
@@ -940,7 +940,7 @@ int main(int sys_argc, char ** sys_argv)
 	win32_net_init();
 #endif
 
-#ifdef WIN32
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
 	/* Despite in Unicode form, the path munging backend is still in ANSI/ASCII
 	 * so using _wpgmptr with unicode paths after UTF8 conversion is broken on Windows
 	 */
@@ -1158,7 +1158,7 @@ int main(int sys_argc, char ** sys_argv)
 #endif
 
 /* make sure not Cygwin, it doesn't need it */
-#if defined(WIN32) && defined(HAVE_WINDOWS_H)
+#if (defined ( _WIN32 ) || defined ( _WIN64 )) && defined(HAVE_WINDOWS_H)
 	/* argument "3" is equivalent to realtime priority class */
 	win32_set_priority( param.realtime ? 3 : param.w32_priority);
 #endif
@@ -1237,7 +1237,7 @@ int main(int sys_argc, char ** sys_argv)
 			controlled_drain();
 			/* One should enable terminal control during that sleeping phase! */
 			if(param.verbose > 2) fprintf(stderr, "Note: pausing %i seconds before next track.\n", param.delay);
-#ifdef WIN32
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
 			Sleep(param.delay*1000);
 #else
 			sleep(param.delay);

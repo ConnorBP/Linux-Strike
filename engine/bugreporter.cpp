@@ -142,7 +142,7 @@ using namespace vgui;
 
 unsigned long GetRam()
 {
-#ifdef WIN32
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
 	MEMORYSTATUSEX statex;
 	statex.dwLength = sizeof( MEMORYSTATUSEX );
 	GlobalMemoryStatusEx( &statex );
@@ -198,7 +198,7 @@ bool Plat_IsUserAnAdmin()
 
 void DisplaySystemVersion( char *osversion, int maxlen )
 {
-#ifdef WIN32
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
 	osversion[ 0 ] = 0;
 	OSVERSIONINFOEX osvi;
 	BOOL bOsVersionInfoEx;
@@ -2529,7 +2529,7 @@ bool CBugUIPanel::UploadFile( char const *local, char const *remote, bool bDelet
 	if ( !g_pFileSystem->IsSteam() )
 	{
 		g_pFileSystem->Close( hLocal );
-#ifdef WIN32
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
 		bResult = CopyFile( local, remote, false ) ? true : false;
 #elif defined( _PS3 )
 		Warning( "PS3 is missing UploadFile implementation!\n" );

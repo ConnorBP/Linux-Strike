@@ -22,7 +22,7 @@
 #include "win32_support.h"
 #endif
 
-#if defined(WIN32) && defined(DYNAMIC_BUILD)
+#if (defined ( _WIN32 ) || defined ( _WIN64 )) && defined(DYNAMIC_BUILD)
 #define LINK_MPG123_DLL
 #endif
 #include "mpg123.h"

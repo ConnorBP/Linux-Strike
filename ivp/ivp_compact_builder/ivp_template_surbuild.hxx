@@ -62,7 +62,7 @@ public:
 	    build_root_convex_hull = IVP_FALSE;
 		link_to_input_compact_ledges = IVP_FALSE;
 		free_input_compact_ledges = IVP_TRUE;
-#ifdef WIN32
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
 	    merge_points = IVP_SLMP_MERGE_AND_REALLOCATE;
 #else
 		merge_points = IVP_SLMP_NO_MERGE;

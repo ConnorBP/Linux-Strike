@@ -15,7 +15,7 @@
 #include <malloc.h>
 #endif
 #endif
-#ifdef WIN32
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
 #	ifndef _XBOX
 #		ifndef WIN32_LEAN_AND_MEAN
 #			define WIN32_LEAN_AND_MEAN
@@ -337,7 +337,7 @@ void ivp_message(const char *templat, ...)
     vsprintf(buffer, templat,parg);
 #endif
     va_end(parg);
-#ifdef WIN32
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
     OutputDebugString(buffer);
 #elif defined(LINUX)
     printf("%s",buffer);
@@ -352,7 +352,7 @@ IVP_ERROR_STRING p_get_error(){
 }
 
 void p_print_error(){
-#ifdef WIN32
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
     OutputDebugString(p_error_buffer);
 #endif
 
@@ -433,7 +433,7 @@ int p_atoi(const char *s){
 }
 
 
-#ifdef WIN32
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
 #	include <time.h>
 
 long p_get_time(){ // returns seconds since 1970

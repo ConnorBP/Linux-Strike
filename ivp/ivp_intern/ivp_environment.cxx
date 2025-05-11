@@ -7,7 +7,7 @@
 
 #include <ivp_physics.hxx>
 
-#if defined(WIN32)
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
 //#	include <sys\types.h>
 //#	include <sys\stat.h>
 //#	include <windows.h>

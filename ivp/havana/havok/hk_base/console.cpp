@@ -4,7 +4,7 @@
 #include <cstdlib>
 #include <cstdarg>
 
-#ifdef WIN32
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
 #	ifndef WIN32_LEAN_AND_MEAN
 #		define	WIN32_LEAN_AND_MEAN
 #	endif
@@ -36,7 +36,7 @@ void hk_Console::printf( const char *fmt, ...)
 	// scan format list for havok vector matrix tokens %V %M
 	vprintf(fmt, vlist);
 	va_end(vlist);
-#ifdef WIN32
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
     char buffer[MAX_ERROR_BUFFER_LEN];
     va_start(vlist,fmt);	
     vsprintf(buffer, fmt,vlist);

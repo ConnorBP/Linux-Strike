@@ -166,7 +166,7 @@ const lword LWORD_MAX = W64LIT(0xffffffffffffffff);
 		#define CRYPTOPP_BOOL_SLOW_WORD64 1
 		typedef word16 hword;
 		typedef word32 word;
-		typedef word64 dword;
+		typedef word64 dword; // this could be problematic
 	#endif
 #endif
 #ifndef CRYPTOPP_BOOL_SLOW_WORD64
@@ -327,7 +327,7 @@ NAMESPACE_END
 #endif
 
 // VALVE: Our allocator does not return aligned memory
-#if defined(WIN32)
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
 #define MEMALIGN_OVERRIDE
 #endif
 

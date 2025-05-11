@@ -1,4 +1,4 @@
-//===== Copyright © 1996-2005, Valve Corporation, All rights reserved. ======//
+//===== Copyright ï¿½ 1996-2005, Valve Corporation, All rights reserved. ======//
 //
 // Purpose: 
 //
@@ -1398,7 +1398,7 @@ ControlPanel::ControlPanel( mxWindow *parent )
 
 	// create tabcontrol with subdialog windows
 	tab = new mxTab( this, 0, 20, 0, 0, IDC_TAB );
-#ifdef WIN32
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
 	SetWindowLong( ( HWND )tab->getHandle(), GWL_EXSTYLE, WS_EX_CLIENTEDGE );
 #endif
 

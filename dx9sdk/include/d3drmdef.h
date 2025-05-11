@@ -13,7 +13,7 @@
 #include <stddef.h>
 #include "d3dtypes.h"
 
-#ifdef WIN32
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
 #define D3DRMAPI  __stdcall
 #else
 #define D3DRMAPI

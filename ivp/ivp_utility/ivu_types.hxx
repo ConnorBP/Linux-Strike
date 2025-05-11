@@ -9,7 +9,7 @@
 	#include <signal.h>
 #endif
 
-#ifdef WIN32
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
 //#define IVP_PIII			/* set for P3 specific code */
 //#define IVP_WILLAMETTE	/* set for Willamette specific code */
 //#define IVP_WMT_ALIGN		/* set to compile with MS but Willamette compatible */
@@ -269,7 +269,7 @@ extern void ivp_memory_check(void *a);
 void ivp_srand(int seed);
 IVP_FLOAT ivp_rand();		// returns [0 .. 1]
 
-#if defined(WIN32)
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
 #   if defined(IVP_PIII) || defined(IVP_WILLAMETTE)
 #   	if defined(IVP_PIII)
 #		define IVP_PREFETCH_CLINE_SIZE 0x20

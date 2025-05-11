@@ -226,7 +226,7 @@ private:
 
 	int				m_iDesktopWidth, m_iDesktopHeight, m_iDesktopRefreshRate;
 	void			UpdateDesktopInformation( HWND hWnd );
-#ifdef WIN32
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
 	void			UpdateDesktopInformation( WPARAM wParam, LPARAM lParam );
 #endif
 	InputContextHandle_t m_hInputContext;
@@ -521,7 +521,7 @@ void VCR_EnterPausedState()
 	// Turn this off in case they're in single-step mode.
 	g_bVCRSingleStep = false;
 
-#ifdef WIN32
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
 	// This is cheesy, but GetAsyncKeyState is blocked (in protected_things.h) 
 	// from being accidentally used, so we get it through it by getting its pointer directly.
 	static HINSTANCE hInst = LoadLibrary( "user32.dll" );
@@ -565,7 +565,7 @@ void VCR_EnterPausedState()
 #endif
 }
 
-#ifdef WIN32
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
 void VCR_HandlePlaybackMessages( 
 	HWND hWnd,
     UINT uMsg,
@@ -2650,7 +2650,7 @@ void CGame::UpdateDesktopInformation( HWND hWnd )
 #endif
 }
 
-#ifdef WIN32
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
 void CGame::UpdateDesktopInformation( WPARAM wParam, LPARAM lParam )
 {
 	m_iDesktopWidth = LOWORD( lParam );

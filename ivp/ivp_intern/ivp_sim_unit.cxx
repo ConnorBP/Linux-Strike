@@ -23,7 +23,7 @@
 
 IVP_U_Vector<IVP_Core> IVP_Controller_Independent::empty_list;
 
-#ifdef WIN32
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
 extern long p_get_time();
 #endif
 

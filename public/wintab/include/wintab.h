@@ -347,7 +347,7 @@ typedef struct tagAXIS {
 
 #define LCNAMELEN	40
 #define LC_NAMELEN	40
-#ifdef WIN32
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
 typedef struct tagLOGCONTEXTA {
 	char	lcName[LCNAMELEN];
 	UINT	lcOptions;
@@ -623,7 +623,7 @@ typedef struct tagTILT { /* 1.1 */
 
 	#ifndef NOWTBASICFXNS
 	/* BASIC FUNCTIONS */
-#ifdef WIN32
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
 	UINT API WTInfoA(UINT, UINT, LPVOID);
 	#define ORD_WTInfoA						20
 	UINT API WTInfoW(UINT, UINT, LPVOID);
@@ -639,7 +639,7 @@ typedef struct tagTILT { /* 1.1 */
 	UINT API WTInfo(UINT, UINT, LPVOID);
 	#define ORD_WTInfo						20
 #endif
-#ifdef WIN32
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
 	HCTX API WTOpenA(HWND, LPLOGCONTEXTA, BOOL);
 	#define ORD_WTOpenA						21
 	HCTX API WTOpenW(HWND, LPLOGCONTEXTW, BOOL);
@@ -675,7 +675,7 @@ typedef struct tagTILT { /* 1.1 */
 	/* CONTEXT EDITING FUNCTIONS */
 	BOOL API WTConfig(HCTX, HWND);
 	#define ORD_WTConfig					60
-#ifdef WIN32
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
 	BOOL API WTGetA(HCTX, LPLOGCONTEXTA);
 	#define ORD_WTGetA						61
 	BOOL API WTGetW(HCTX, LPLOGCONTEXTW);
@@ -691,7 +691,7 @@ typedef struct tagTILT { /* 1.1 */
 	BOOL API WTGet(HCTX, LPLOGCONTEXT);
 	#define ORD_WTGet						61
 #endif
-#ifdef WIN32
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
 	BOOL API WTSetA(HCTX, LPLOGCONTEXTA);
 	#define ORD_WTSetA						62
 	BOOL API WTSetW(HCTX, LPLOGCONTEXTW);
@@ -803,7 +803,7 @@ typedef struct tagTILT { /* 1.1 */
 
 	#ifndef NOWTMGRCONFIGFXNS
 	/* MANAGER CONFIG BOX  FUNCTIONS */
-#ifdef WIN32
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
 	BOOL API WTMgrConfigReplaceExA(HMGR, BOOL, LPSTR, LPSTR);
 	#define ORD_WTMgrConfigReplaceExA		202
 	BOOL API WTMgrConfigReplaceExW(HMGR, BOOL, LPWSTR, LPSTR);
@@ -823,7 +823,7 @@ typedef struct tagTILT { /* 1.1 */
 
 	#ifndef NOWTMGRHOOKFXNS
 	/* MANAGER PACKET HOOK FUNCTIONS */
-#ifdef WIN32
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
 	HWTHOOK API WTMgrPacketHookExA(HMGR, int, LPSTR, LPSTR);
 	#define ORD_WTMgrPacketHookExA			203
 	HWTHOOK API WTMgrPacketHookExW(HMGR, int, LPWSTR, LPSTR);

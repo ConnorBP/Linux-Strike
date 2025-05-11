@@ -47,7 +47,7 @@ public:
 
 private:
 	bool			m_bValid;
-#ifdef WIN32
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
 	HKEY			m_hKey;
 #endif
 };

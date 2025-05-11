@@ -15,7 +15,7 @@
 #include <ivp_surbuild_ledge_soup.hxx>
 #include <ivp_surbuild_pointsoup.hxx>
 
-#if defined(WIN32) && !defined(_XBOX)
+#if (defined ( _WIN32 ) || defined ( _WIN64 )) && !defined(_XBOX)
 #include "wtypes.h"
 #elif defined(_XBOX)
 #	ifndef WINVER
@@ -481,7 +481,7 @@ IVP_Compact_Ledge *IVP_SurfaceBuilder_Pointsoup::convert_pointsoup_to_compact_le
     // starting qhull
     // --------------
 
-#if defined(WIN32) || defined(LINUX) || defined(GEKKO)
+#if (defined ( _WIN32 ) || defined ( _WIN64 )) || defined(LINUX) || defined(GEKKO)
     FILE *outfile = NULL;   // output from qh_produce_output() use NULL to skip qh_produce_output()
     FILE *errfile = NULL;   // error messages from qhull code
 #else

@@ -724,7 +724,7 @@ bool ThreadJoin( ThreadHandle_t hThread, unsigned timeout )
 //-----------------------------------------------------------------------------
 void ThreadSetDebugName( ThreadHandle_t hThread, const char *pszName )
 {
-#ifdef WIN32
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
 	if ( Plat_IsInDebugSession() )
 	{
 #define MS_VC_EXCEPTION 0x406d1388
@@ -2796,7 +2796,7 @@ int CWorkerThread::BoostPriority()
 {
 	int iInitialPriority = GetPriority();
 
-#ifdef WIN32
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
 	const int iNewPriority = ThreadGetPriority( GetThreadHandle() );
 	if (iNewPriority > iInitialPriority)
 		ThreadSetPriority( GetThreadHandle(), iNewPriority);
@@ -2875,7 +2875,7 @@ int CWorkerThread::WaitForReply( unsigned timeout, WaitFunc_t pfnWait )
 
 	do
 	{
-#ifdef WIN32
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
 		// Make sure the thread handle hasn't been closed
 		if ( !GetThreadHandle() )
 		{

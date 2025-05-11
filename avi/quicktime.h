@@ -38,7 +38,7 @@ extern IMaterialSystem *materials;
   #if defined ( OSX )
 	#include <quicktime/QTML.h>
 	#include <quicktime/Movies.h>
-  #elif defined ( WIN32 )
+  #elif (defined ( _WIN32 ) || defined ( _WIN64 ))
 	#include <QTML.h>
 	#include <Movies.h>
 	#include <windows.h>
@@ -199,7 +199,7 @@ class CQuickTimeMaterial
 		TimeValue					m_NextInterestingTimeToPlay;
 
 		// our Frame buffer stuff
-  #if defined ( WIN32 )
+  #if (defined ( _WIN32 ) || defined ( _WIN64 ))
 		BITMAPINFO					m_BitmapInfo;
   #endif
 	

@@ -460,7 +460,7 @@ void main(int argc, char * argv[], char * envp[])
       }
 #endif
     }
-#ifdef WIN32
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
     // Just give the OS a chance to update and run more smoothly.
     Sleep(0);
 #endif //WIN32

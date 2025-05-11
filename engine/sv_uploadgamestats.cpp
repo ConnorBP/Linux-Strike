@@ -456,7 +456,7 @@ public:
 			if ( !uuid || !*uuid )
 			{
 				// Create a new one
-#ifdef WIN32
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
 				UUID newId;
 				UuidCreate( &newId );
 #elif defined(OSX)

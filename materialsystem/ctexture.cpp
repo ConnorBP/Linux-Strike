@@ -2082,7 +2082,7 @@ void CTexture::FreeShaderAPITextures()
 		{
 			if ( g_pShaderAPI->IsTexture( m_pTextureHandles[i] ) )
 			{
-#ifdef WIN32
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
 				Assert( _heapchk() == _HEAPOK );
 #endif
 				g_pShaderAPI->DeleteTexture( m_pTextureHandles[i] );

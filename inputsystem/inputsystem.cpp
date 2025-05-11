@@ -1856,7 +1856,7 @@ LRESULT CInputSystem::WindowProc( HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lP
 		}
  		break;
 
-#if defined ( WIN32 ) && !defined ( _X360 )
+#if (defined ( _WIN32 ) || defined ( _WIN64 )) && !defined ( _X360 )
 	case WM_INPUT:
 		{
 			if ( m_bRawInputSupported )

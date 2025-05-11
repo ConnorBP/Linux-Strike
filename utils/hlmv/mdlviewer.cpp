@@ -1,4 +1,4 @@
-//===== Copyright © 1996-2005, Valve Corporation, All rights reserved. ======//
+//===== Copyright ï¿½ 1996-2005, Valve Corporation, All rights reserved. ======//
 //
 // Purpose: 
 //
@@ -302,7 +302,7 @@ MDLViewer::MDLViewer ()
 	menuOptions->add ("Center View", IDC_OPTIONS_CENTERVIEW);
 	menuOptions->add ("Center Verts", IDC_OPTIONS_CENTERVERTS);
 	menuOptions->add ("Viewmodel Mode", IDC_OPTIONS_VIEWMODEL);
-#ifdef WIN32
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
 	menuOptions->addSeparator ();
 	menuOptions->add ("Make Screenshot...", IDC_OPTIONS_MAKESCREENSHOT);
 	//menuOptions->add ("Dump Model Info", IDC_OPTIONS_DUMP);
@@ -328,7 +328,7 @@ MDLViewer::MDLViewer ()
 		menuView->add ("DotA View Mode", IDC_VIEW_DOTA);
 	}
 
-#ifdef WIN32
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
 	menuHelp->add ("Goto Homepage...", IDC_HELP_GOTOHOMEPAGE);
 	menuHelp->addSeparator ();
 #endif
@@ -336,7 +336,7 @@ MDLViewer::MDLViewer ()
 
 
 	d_MatSysWindow = new MatSysWindow (this, 0, 0, 100, 100, "", mxWindow::Normal);
-#ifdef WIN32
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
 	SetWindowLong ((HWND) d_MatSysWindow->getHandle (), GWL_EXSTYLE, WS_EX_ACCEPTFILES );
 #endif
 
@@ -413,7 +413,7 @@ MDLViewer::~MDLViewer ()
 	SaveViewerSettings( g_pStudioModel->GetFileName(), g_pStudioModel );
 	SaveViewerRootSettings( );
 
-#ifdef WIN32
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
 	DeleteFile ("hlmv.cfg");
 	DeleteFile ("midump.txt");
 #endif
@@ -1340,7 +1340,7 @@ MDLViewer::handleEvent (mxEvent *event)
 			menuView->setChecked( event->action, g_viewerSettings.allowOrbitYaw );
 			break;
 
-#ifdef WIN32
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
 		case IDC_HELP_GOTOHOMEPAGE:
 			ShellExecute (0, "open", "http://www.swissquake.ch/chumbalum-soft/index.html", 0, 0, SW_SHOW);
 			break;
@@ -1429,7 +1429,7 @@ MDLViewer::handleEvent (mxEvent *event)
 		int w = event->width;
 		int h = event->height;
 		int y = mb->getHeight ();
-#ifdef WIN32
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
 #define HEIGHT 240
 #else
 #define HEIGHT 140

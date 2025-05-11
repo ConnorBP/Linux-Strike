@@ -13,7 +13,7 @@
 #include <math.h>
 #include <portaudio.h>
 
-#ifdef WIN32
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
 #include <windows.h>
 #endif
 
@@ -43,7 +43,7 @@ typedef struct {
    dependencies (POSIX) that the platform does not know. */
 static void ms_sleep(int milliseconds)
 {
-#ifdef WIN32
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
 		Sleep(milliseconds);
 #else
 		usleep(milliseconds*1000);

@@ -4,7 +4,7 @@
 //
 //===========================================================================//
 
-#if defined( WIN32 ) && !defined( _GAMECONSOLE )
+#if (defined( _WIN32 ) || defined( _WIN64 )) && !defined( _GAMECONSOLE )
 #include <wtypes.h>
 #include <winuser.h>
 #include "xbox/xboxstubs.h"

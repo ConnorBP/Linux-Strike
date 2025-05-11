@@ -248,7 +248,7 @@ int main( int argc, char **argv )
 {
 	// Find the game\bin directory and setup the DLL path.
 	char szModuleFilename[MAX_PATH], szModuleParts[MAX_PATH], szCurDir[MAX_PATH];
-#ifdef WIN32
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
 	GetModuleFileName( NULL, szModuleFilename, sizeof( szModuleFilename ) );
 	V_FixSlashes( szModuleFilename );
 #else
@@ -268,7 +268,7 @@ int main( int argc, char **argv )
 	const char *pBaseDir = szModuleParts;
 
 
-#ifdef WIN32
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
 	TranslateSymlink( pBaseDir, szCurDir, sizeof( szCurDir ) );
 #else
 	V_strncpy( szCurDir, pBaseDir, sizeof(szCurDir) );
@@ -308,7 +308,7 @@ int main( int argc, char **argv )
 
 
 	// Get rid of the file extension on our executable name.
-#ifdef WIN32
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
 	char *pDot = strchr( &szModuleFilename[pFilename-szModuleParts], '.' );
 	if ( !pDot )
 	{
@@ -324,7 +324,7 @@ int main( int argc, char **argv )
 	//
 	// Now go load their DLL and launch it.
 	//
-#ifdef WIN32
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
 	HMODULE hModule = LoadLibrary( szDLLName );
 #else
 	HMODULE hModule = dlopen( szDLLName, RTLD_NOW );	

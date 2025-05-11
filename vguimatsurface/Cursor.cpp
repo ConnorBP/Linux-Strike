@@ -108,7 +108,7 @@ void InitCursors()
 
 #define USER_CURSOR_MASK 0x80000000
 
-#ifdef WIN32
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
 //-----------------------------------------------------------------------------
 // Purpose: Simple manager for user loaded windows cursors in vgui
 //-----------------------------------------------------------------------------
@@ -169,7 +169,7 @@ static CUserCursorManager g_UserCursors;
 
 vgui::HCursor Cursor_CreateCursorFromFile( char const *curOrAniFile, char const *pPathID )
 {
-#ifdef WIN32 
+#if (defined ( _WIN32 ) || defined ( _WIN64 )) 
 	return g_UserCursors.CreateCursorFromFile( curOrAniFile, pPathID );
 #else
 	return dc_user;
@@ -280,7 +280,7 @@ void CursorSelect( InputContextHandle_t hContext, HCursor hCursor )
 	default:
 		{
 			InputCursorHandle_t custom = 0;
-#ifdef WIN32 
+#if (defined ( _WIN32 ) || defined ( _WIN64 )) 
 			if ( g_UserCursors.LookupCursor( hCursor, custom ) && custom != 0 )
 			{
 				s_hCurrentCursor = custom;

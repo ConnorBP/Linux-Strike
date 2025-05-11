@@ -1160,7 +1160,7 @@ void CConPanel::Con_NPrintf( int idx, const char *msg )
 	if ( idx < 0 || idx >= MAX_DBG_NOTIFY )
 		return;
 
-#ifdef WIN32
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
     Q_snwprintf( da_notify[idx].szNotify, sizeof( da_notify[idx].szNotify ) / sizeof( wchar_t ) - 1, L"%S", msg );
 #else
     Q_snwprintf( da_notify[idx].szNotify, sizeof( da_notify[idx].szNotify ) / sizeof( wchar_t ) - 1, L"%s", msg );
@@ -1182,7 +1182,7 @@ void CConPanel::Con_NXPrintf( const struct con_nprint_s *info, const char *msg )
 	if ( info->index < 0 || info->index >= MAX_DBG_NOTIFY )
 		return;
 
-#ifdef WIN32
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
 	Q_snwprintf( da_notify[info->index].szNotify, sizeof( da_notify[info->index].szNotify ) / sizeof( wchar_t ) - 1, L"%S", msg );
 #else
 	Q_snwprintf( da_notify[info->index].szNotify, sizeof( da_notify[info->index].szNotify ) / sizeof( wchar_t ) - 1, L"%s", msg );

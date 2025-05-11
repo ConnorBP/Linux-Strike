@@ -10,7 +10,7 @@
 #endif
 
 
-#ifdef WIN32
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
 char* strptime(const char *s, const char *format, struct tm *tm);
 #endif
 

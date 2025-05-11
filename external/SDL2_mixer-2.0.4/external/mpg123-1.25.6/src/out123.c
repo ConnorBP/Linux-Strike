@@ -635,7 +635,7 @@ static void catch_interrupt(void)
 int main(int sys_argc, char ** sys_argv)
 {
 	int result;
-#if defined(WIN32)
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
 	_setmode(STDIN_FILENO,  _O_BINARY);
 #endif
 
@@ -741,7 +741,7 @@ int main(int sys_argc, char ** sys_argv)
 #endif
 
 /* make sure not Cygwin, it doesn't need it */
-#if defined(WIN32) && defined(HAVE_WINDOWS_H)
+#if (defined ( _WIN32 ) || defined ( _WIN64 )) && defined(HAVE_WINDOWS_H)
 	/* argument "3" is equivalent to realtime priority class */
 	win32_set_priority(realtime ? 3 : w32_priority);
 #endif

@@ -134,7 +134,7 @@
 	
 		/* suppress error box */
 		errmode = SetErrorMode(SEM_NOOPENFILEERRORBOX
-	#ifdef WIN32
+	#if (defined ( _WIN32 ) || defined ( _WIN64 ))
 								| SEM_FAILCRITICALERRORS
 	#endif
 								);

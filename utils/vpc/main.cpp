@@ -1849,7 +1849,7 @@ bool CVPC::HasP4SLNCommand()
 //-----------------------------------------------------------------------------
 bool CVPC::HandleP4SLN( IBaseSolutionGenerator *pSolutionGenerator )
 {
-#ifdef WIN32
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
 	// If they want to generate a solution based on a Perforce changelist, adjust m_targetProjects and set it up like /mksln had been passed in.
 	if ( m_iP4Changelists.Count() == 0 )
 		return false;
@@ -2201,7 +2201,7 @@ int CVPC::ProcessCommandLine()
 		return 0;
 	}
 
-#ifdef WIN32
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
 	if ( HandleP4SLN( m_pSolutionGenerator ) )
 	{
 		return 0;

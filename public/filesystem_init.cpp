@@ -283,14 +283,14 @@ void AddLanguageGameDir( IFileSystem *pFileSystem, const char *pLocation, const 
 		char *tempPtr = NULL, *gameDir = NULL;
 
 		Q_strncpy( baseDir, pLocation, sizeof(baseDir) );
-#ifdef WIN32
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
 		tempPtr = Q_strstr( baseDir, "\\game\\" );
 #else
 		tempPtr = Q_strstr( baseDir, "/game/" );
 #endif		
 		if ( tempPtr )
 		{
-#ifdef WIN32
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
 			gameDir = tempPtr + Q_strlen( "\\game\\" );
 #else
 			gameDir = tempPtr + Q_strlen( "/game/" );
@@ -1219,7 +1219,7 @@ FSReturnCode_t SetSteamInstallPath( char *steamInstallPath, int steamInstallPath
 	}
 
 	Q_strncpy( steamInstallPath, executablePath, steamInstallPathLen );
-#ifdef WIN32
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
 	// _client.dll is a bad idea, hardcode .dll here
 	const char *pchSteamDLL = "steam.dll";
 #elif defined(OSX) || defined(LINUX)
@@ -1259,7 +1259,7 @@ FSReturnCode_t SetSteamInstallPath( char *steamInstallPath, int steamInstallPath
 	steamEnvVars.m_Path.GetValue( szPath, sizeof( szPath ) );
 	if ( !DoesPathExistAlready( szPath, steamInstallPath ) )
 	{
-#ifdef WIN32
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
 #define PATH_SEP ";"
 #else
 #define PATH_SEP ":"

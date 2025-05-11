@@ -1624,7 +1624,7 @@ void CSDLMgr::PumpWindowsMessageLoop()
 					break;
 				}
 
-				#if defined(WIN32)
+				#if (defined ( _WIN32 ) || defined ( _WIN64 ))
 					const bool bPressed = (event.type == SDL_MOUSEBUTTONDOWN);
 				#else
 					const bool bPressed = (event.button.state == SDL_PRESSED);

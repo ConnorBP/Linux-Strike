@@ -450,7 +450,7 @@ private:
 };
 
 // GCC 4.2.1 can't handle loading a static const into a m128 register :(
-#ifdef WIN32
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
 static const 
 #endif
 fltx4 g_IVPToHLDir = { 1.0f, -1.0f, 1.0f, 1.0f };

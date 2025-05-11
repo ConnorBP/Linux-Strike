@@ -116,7 +116,7 @@ typedef struct _MP_PARAMINFO
     WCHAR szLabel[ 32 ];
     } 	MP_PARAMINFO;
 
-typedef DWORD DWORD;
+typedef DWORD DWORD; // uhhh what?
 
 #define	DWORD_ALLPARAMS	( -1 )
 

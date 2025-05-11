@@ -1,7 +1,7 @@
 #ifndef SQUIRREL_BINDINGS_UTILS_WIN32_H
 #define SQUIRREL_BINDINGS_UTILS_WIN32_H
 
-#ifdef WIN32
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
 #ifndef _INC_WINDOWS
 #define WIN32_LEAN_AND_MEAN		// Exclude rarely-used stuff from Windows headers
 // Windows Header Files:

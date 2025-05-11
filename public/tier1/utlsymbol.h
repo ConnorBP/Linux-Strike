@@ -244,7 +244,7 @@ public:
 	}
 
 private:
-#ifdef WIN32
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
 	mutable CThreadSpinRWLock m_lock;
 #else
 	mutable CThreadRWLock m_lock;

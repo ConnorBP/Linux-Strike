@@ -802,7 +802,7 @@ void ScaleformUIImpl::AddAPIFunctionToObject( SFVALUE pApi, SFMOVIE pMovie, Scal
 
 void ScaleformUIImpl::DebugBreakIfNotLocked( void )
 {
-#if defined ( WIN32 )
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
 
 	// gurjeets - locks commented out, left here for reference, see comment in LockSlotPtr
 	//if ( !OwnsAtLeastOneMutex() )
@@ -815,7 +815,7 @@ void ScaleformUIImpl::DebugBreakIfNotLocked( void )
 
 bool ScaleformUIImpl::OwnsAtLeastOneMutex( void )
 {
-#if defined ( WIN32 )
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
 
 	// gurjeets - locks commented out, left here for reference, see comment in LockSlotPtr
 	//for ( int i = 0; i < MAX_SLOTS; i++ )

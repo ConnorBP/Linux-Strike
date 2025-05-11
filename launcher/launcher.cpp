@@ -186,7 +186,7 @@ public:
 	virtual void Log( const LoggingContext_t *pContext, const tchar *pMessage )
 	{
 #if !defined( _CERT ) && !defined( _PS3 )
-#if defined ( WIN32 ) || defined( LINUX )
+#if (defined ( _WIN32 ) || defined ( _WIN64 )) || defined( LINUX )
 		if ( pContext->m_Severity == LS_WARNING && pContext->m_ChannelID == LOG_EngineInitialization )
 		{
 			::MessageBox( NULL, pMessage, "Warning!", MB_OK | MB_SYSTEMMODAL | MB_ICONERROR );
@@ -250,7 +250,7 @@ void SetGameDirectory( const char *game )
 //-----------------------------------------------------------------------------
 bool GetExecutableName( char *out, int outSize )
 {
-#ifdef WIN32
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
 	if ( !::GetModuleFileName( ( HINSTANCE )GetModuleHandle( NULL ), out, outSize ) )
 	{
 		return false;
@@ -273,7 +273,7 @@ const char * GetExecutableFilename()
 	char exepath[MAX_PATH];
 	static char filename[MAX_PATH];
 
-#ifdef WIN32
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
 	filename[0] = 0;
 	if ( GetExecutableName( exepath, sizeof( exepath ) ) )
 	{
@@ -356,7 +356,7 @@ void UTIL_ComputeBaseDir()
 		}
 	}
 
-#ifdef WIN32
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
 	Q_strlower( g_szBasedir );
 #endif
 	Q_FixSlashes( g_szBasedir );
@@ -367,7 +367,7 @@ void UTIL_ComputeBaseDir()
 #endif
 }
 
-#ifdef WIN32
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
 BOOL WINAPI MyHandlerRoutine( DWORD dwCtrlType )
 {
 #if !defined( _X360 )
@@ -379,7 +379,7 @@ BOOL WINAPI MyHandlerRoutine( DWORD dwCtrlType )
 
 void InitTextMode()
 {
-#ifdef WIN32
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
 #if !defined( _X360 )
 	AllocConsole();
 
@@ -470,7 +470,7 @@ void CLogAllFiles::Init()
 		char szDir[ MAX_PATH ];
 		Q_strncpy( szDir, pszDir, sizeof( szDir ) );
 		Q_StripTrailingSlash( szDir );
-#ifdef WIN32
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
 		Q_strlower( szDir );
 #endif
 		Q_FixSlashes( szDir );
@@ -484,7 +484,7 @@ void CLogAllFiles::Init()
 	char path[MAX_PATH];
 	Q_snprintf( path, sizeof(path), "%s/%s", GetBaseDirectory(), CommandLine()->ParmValue( "-game", "hl2" ) );
 	Q_FixSlashes( path );
-#ifdef WIN32
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
 	Q_strlower( path );
 #endif
 	m_sFullGamePath = path;
@@ -502,7 +502,7 @@ void CLogAllFiles::Init()
 		g_pFullFileSystem->RemoveFile( CFmtStr( "%s\\%s\\%s", m_sFullGamePath.String(), m_sResListDir.String(), ALL_RESLIST_FILE ), "GAME" );
 	}
 
-#ifdef WIN32
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
 	::GetCurrentDirectory( sizeof(m_szCurrentDir), m_szCurrentDir );
 	Q_strncat( m_szCurrentDir, "\\", sizeof(m_szCurrentDir), 1 );
 	_strlwr( m_szCurrentDir );
@@ -572,7 +572,7 @@ void CLogAllFiles::LogFile(const char *fullPathFileName, const char *options)
 
 		char rel[ MAX_PATH ];
 		Q_strncpy( rel, relative, sizeof( rel ) );
-#ifdef WIN32
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
 		Q_strlower( rel );
 #endif
 		Q_FixSlashes( rel );
@@ -716,7 +716,7 @@ bool CSourceAppSystemGroup::Create()
 	IFileSystem *pFileSystem = (IFileSystem*)FindSystem( FILESYSTEM_INTERFACE_VERSION );
 	pFileSystem->InstallDirtyDiskReportFunc( ReportDirtyDiskNoMaterialSystem );
 
-#ifdef WIN32
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
 	CoInitialize( NULL );
 #endif
 
@@ -747,7 +747,7 @@ bool CSourceAppSystemGroup::Create()
 		{ LAUNCHER_APPSYSTEM( "studiorender" ),			STUDIO_RENDER_INTERFACE_VERSION },
 		{ LAUNCHER_APPSYSTEM( "soundemittersystem" ),	SOUNDEMITTERSYSTEM_INTERFACE_VERSION },
 		{ LAUNCHER_APPSYSTEM( "vscript" ),				VSCRIPT_INTERFACE_VERSION },
-#ifdef WIN32
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
 		{ LAUNCHER_APPSYSTEM("soundsystem"),			SOUNDSYSTEM_INTERFACE_VERSION },
 #endif
 
@@ -993,7 +993,7 @@ void CSourceAppSystemGroup::Destroy()
 	g_pHammer = NULL;
 	g_pVJobs = NULL;
 
-#ifdef WIN32
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
 	CoUninitialize();
 #endif
 }
@@ -1075,7 +1075,7 @@ int MessageBox( HWND hWnd, const char *message, const char *header, unsigned uTy
 //-----------------------------------------------------------------------------
 // Allow only one windowed source app to run at a time
 //-----------------------------------------------------------------------------
-#ifdef WIN32
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
 HANDLE g_hMutex = NULL;
 #elif defined( POSIX )
 int g_lockfd = -1;
@@ -1084,7 +1084,7 @@ char g_lockFilename[MAX_PATH];
 
 bool GrabSourceMutex()
 {
-#ifdef WIN32
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
 	if ( IsPC() )
 	{
 		// Don't allocate if in multirun mode
@@ -1196,7 +1196,7 @@ void ReleaseSourceMutex()
 		return;
 	}
 
-#ifdef WIN32
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
 	if ( IsPC() && g_hMutex )
 	{
 		::ReleaseMutex( g_hMutex );
@@ -1253,7 +1253,7 @@ static char const *Cmd_TranslateFileAssociation(char const *param )
 	char temp[ 512 ];
 	Q_strncpy( temp, param, sizeof( temp ) );
 	Q_FixSlashes( temp );
-#ifdef WIN32
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
 	Q_strlower( temp );
 #endif
 	const char *extension = V_GetFileExtension(temp);
@@ -1480,7 +1480,7 @@ public:
 //			nCmdShow - 
 // Output : int APIENTRY
 //-----------------------------------------------------------------------------
-#ifdef WIN32
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
 extern "C" __declspec(dllexport) int LauncherMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow )
 #elif defined( _PS3 )
 int LauncherMain( int argc, char **argv )
@@ -1488,7 +1488,7 @@ int LauncherMain( int argc, char **argv )
 extern "C" DLL_EXPORT int LauncherMain( int argc, char **argv )
 #endif
 {
-#ifdef WIN32
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
 	SetAppInstance( hInstance );
 #endif
 
@@ -1515,7 +1515,7 @@ extern "C" DLL_EXPORT int LauncherMain( int argc, char **argv )
 	// Hook the debug output stuff.
 	LoggingSystem_RegisterLoggingListener( &g_LauncherLoggingListener );
 
-#ifdef WIN32
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
 	CommandLine()->CreateCmdLine( IsPC() ? GetCommandLine() : lpCmdLine );
 #else
 	CommandLine()->CreateCmdLine( argc, argv );
@@ -1737,7 +1737,7 @@ extern "C" DLL_EXPORT int LauncherMain( int argc, char **argv )
 	// See the function for why we do this.
 	RemoveSpuriousGameParameters();
 
-#ifdef WIN32
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
 	if ( IsPC() )
 	{
 		// initialize winsock
@@ -1758,7 +1758,7 @@ extern "C" DLL_EXPORT int LauncherMain( int argc, char **argv )
  		InitTextMode();
 #endif
  	}
-#ifdef WIN32
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
 
 #if defined( DEBUG ) && defined( ALLOW_MULTI_CLIENTS_PER_MACHINE )
 	else if ( true )
@@ -1829,7 +1829,7 @@ extern "C" DLL_EXPORT int LauncherMain( int argc, char **argv )
 
 	if ( !IsX360() )
 	{
-#ifdef WIN32
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
 		// Make low priority?
 		if ( CommandLine()->CheckParm( "-low" ) )
 		{
@@ -1918,7 +1918,7 @@ extern "C" DLL_EXPORT int LauncherMain( int argc, char **argv )
 		}
 	}
 
-#ifdef WIN32
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
 	if ( IsPC() )
 	{
 		// shutdown winsock

@@ -16,7 +16,7 @@
 
 static CFontManager s_FontManager;
 
-#ifdef WIN32
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
 extern bool s_bSupportsUnicode;
 #endif
 
@@ -613,7 +613,7 @@ struct FallbackFont_t
 };
 
 const char *g_szValidAsianFonts[] = { 
-#ifdef WIN32
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
 	"Marlett",
 #else
 	"Helvetica",
@@ -627,7 +627,7 @@ FallbackFont_t g_FallbackFonts[] =
 	{ "Courier New", "Courier" },
 	{ "Verdana", "Arial" },
 	{ "Trebuchet MS", "Arial" },
-#ifdef WIN32
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
 	{ "Tahoma", NULL },
 	{ NULL, "Tahoma" },		// every other font falls back to this
 #else
@@ -686,7 +686,7 @@ Win98ForeignFallbackFont_t g_Win98ForeignFallbackFonts[] =
 	{ "russian", "system" },
 	{ "japanese", "win98japanese" },
 	{ "thai", "system" },
-#ifdef WIN32
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
 	{ NULL, "Tahoma" },		// every other font falls back to this
 #else
 	{ NULL, "Helvetica" },		// every other font falls back to this	
@@ -698,7 +698,7 @@ Win98ForeignFallbackFont_t g_Win98ForeignFallbackFonts[] =
 //-----------------------------------------------------------------------------
 const char *CFontManager::GetForeignFallbackFontName()
 {
-#ifdef WIN32
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
 	if ( s_bSupportsUnicode )
 	{
 		if ( IsX360() )

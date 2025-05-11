@@ -18,7 +18,7 @@ extern "C" {
 
 /* prototype for wintabx.lib. */
 #define _UnlinkWinTab _UnlinkWintab	
-#ifdef WIN32
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
 	extern WINAPI _UnlinkWintab(void);
 #else
 	extern FAR _UnlinkWintab(void);

@@ -60,7 +60,7 @@ class IVP_PerformanceCounter_Simple : public IVP_PerformanceCounter {
 public:
     union {
         int ref_counter[2];
-#ifdef WIN32
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
       __int64 ref_counter64;
 #endif
 

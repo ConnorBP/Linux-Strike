@@ -10,7 +10,7 @@
 #undef fopen
 #endif
 
-#if defined( WIN32 ) && !defined( _X360 )
+#if (defined ( _WIN32 ) || defined ( _WIN64 )) && !defined( _X360 )
 #include <windows.h> // SRC only!!
 #elif defined( POSIX )
 #include <stdio.h>
@@ -63,8 +63,9 @@ extern void longjmp( jmp_buf, int ) __attribute__((noreturn));
 #undef JPEGLIB_USE_STDIO
 
 
-#include "../thirdparty/libpng-1.5.30/png.h"
-#include "../thirdparty/libpng-1.5.30/pngstruct.h"
+#include "../thirdparty/libpng-1.6.47/png.h"
+#include "../thirdparty/libpng-1.6.47/pngconf.h"
+#include "../thirdparty/libpng-1.6.47/pngstruct.h"
 
 #include <setjmp.h>
 
@@ -76,7 +77,7 @@ extern void longjmp( jmp_buf, int ) __attribute__((noreturn));
 
 #include "bitmap/tgawriter.h"
 #include "ivtex.h"
-#ifdef WIN32
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
 #include <io.h>
 #endif
 #ifdef OSX
@@ -333,7 +334,7 @@ ConversionErrorType ImgUtl_ConvertBMPToTGA(const char *bmpPath, const char *tgaP
 	if ( !IsPC() )
 		return CE_SOURCE_FILE_FORMAT_NOT_SUPPORTED;
 
-#ifdef WIN32
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
 
 	int nWidth, nHeight;
 	ConversionErrorType result;
@@ -1017,7 +1018,7 @@ fail:
 
 unsigned char *ImgUtl_ReadBMPAsRGBA( const char *bmpPath, int &width, int &height, ConversionErrorType &errcode )
 {
-#ifdef WIN32
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
 	// Load up bitmap
 	HBITMAP hBitmap = (HBITMAP)LoadImage(NULL, bmpPath, IMAGE_BITMAP, 0, 0, LR_CREATEDIBSECTION | LR_LOADFROMFILE | LR_DEFAULTSIZE);
 
@@ -1706,7 +1707,7 @@ static void DoCopyFile( const char *source, const char *destination )
 
 static void DoDeleteFile( const char *filename )
 {
-#ifdef WIN32
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
 	DeleteFile( filename );
 #else
 	unlink( filename );

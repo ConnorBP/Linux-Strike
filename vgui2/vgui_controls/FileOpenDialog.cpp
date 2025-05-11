@@ -8,7 +8,7 @@
 
 #define PROTECTED_THINGS_DISABLE
 
-#if defined( WIN32 )
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
 #if !defined( _GAMECONSOLE )
 #include "winlite.h"
 #include <shellapi.h>

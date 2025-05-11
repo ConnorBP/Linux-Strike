@@ -1093,7 +1093,7 @@ int CFileWriter::Printf( char *pDest, int bufferLen, char const *pFormat, ... )
 //-----------------------------------------------------------------------------
 void CFileWriter::Flush()
 {
-#ifdef WIN32
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
     FlushFileBuffers( m_hFileDest );
 #endif
 
@@ -1192,7 +1192,7 @@ void CFileWriter::ThreadedWriteFileCompletionFunc( sigval sigval )
 #endif // ASYNC_FILEIO
 
 
-#ifdef WIN32
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
 struct DirWatcherOverlapped : public OVERLAPPED
 {
 	CDirWatcher *m_pDirWatcher;
@@ -1223,7 +1223,7 @@ CDirWatcher::CDirWatcher()
 //-----------------------------------------------------------------------------
 CDirWatcher::~CDirWatcher()
 {
-#ifdef WIN32
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
 	if ( m_pOverlapped )
 	{
 		// mark the overlapped structure as gone
@@ -1259,7 +1259,7 @@ CDirWatcher::~CDirWatcher()
 }
 
 
-#ifdef WIN32
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
 //-----------------------------------------------------------------------------
 // Purpose: callback watch
 //			gets called on the same thread whenever a SleepEx() occurs
@@ -1389,7 +1389,7 @@ void CDirWatcher::SetDirToWatch( const char *pchDir )
 		return;
 	
 	CPathString strPath( pchDir );
-#ifdef WIN32
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
 	// open the directory
 	m_hFile = ::CreateFileW( strPath.GetWCharPathPrePended(), FILE_LIST_DIRECTORY, FILE_SHARE_READ | FILE_SHARE_WRITE | FILE_SHARE_DELETE, NULL, OPEN_EXISTING, FILE_FLAG_OVERLAPPED | FILE_FLAG_BACKUP_SEMANTICS, NULL );
 
@@ -1440,7 +1440,7 @@ void CDirWatcher::SetDirToWatch( const char *pchDir )
 }
 
 
-#ifdef WIN32
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
 //-----------------------------------------------------------------------------
 // Purpose: used by callback functions to push a file onto the list
 //-----------------------------------------------------------------------------
@@ -1477,7 +1477,7 @@ void CDirWatcher::AddFileToChangeList( const char *pchFile )
 //-----------------------------------------------------------------------------
 bool CDirWatcher::GetChangedFile( CUtlString *psFile )
 {
-#ifdef WIN32
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
 	// this will trigger any pending directory reads
 	// this does get hit other places in the code; so the callback can happen at any time
 	::SleepEx( 0, TRUE );
@@ -1570,7 +1570,7 @@ bool CreateDirRecursive( const char *pchPathIn )
 bool BCreateDirectory( const char *path )
 {
 	CPathString pathStr( path );
-#ifdef WIN32
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
 	if ( ::CreateDirectoryW( pathStr.GetWCharPathPrePended(), NULL ) )
 		return true;
 

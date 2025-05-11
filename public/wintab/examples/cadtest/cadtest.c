@@ -18,7 +18,7 @@ RICO 4/1/92
 
 HANDLE hInst;
 
-#ifdef WIN32
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
 	#define GetID()	GetCurrentProcessId()
 #else
 	#define GetID()	hInst

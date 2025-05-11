@@ -821,7 +821,7 @@ IVP_Concave_Polyhedron * IVP_SurfaceBuilder_3ds::convert_3ds_to_concave(const ch
 class P_Hardware;
 int p_graphlib_robust_convert_3dmax_object_to_compact_ledges(P_Hardware *hw, const char *filename, IVP_U_BigVector<IVP_Compact_Ledge> *ledges) {
 
-#ifdef WIN32    
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))    
 
 //    P_Hardware_W95 *w95_hw = (P_Hardware_W95 *)hw;
 flags |= NORMDUP;

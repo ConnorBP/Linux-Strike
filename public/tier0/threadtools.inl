@@ -357,7 +357,7 @@ INLINE_ON_PS3 int CThread::GetPriority() const
 // Set the priority
 INLINE_ON_PS3 bool CThread::SetPriority(int priority)
 {
-#ifdef WIN32
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
 	return ThreadSetPriority( (ThreadHandle_t)m_hThread, priority );
 #else
 	return ThreadSetPriority( (ThreadHandle_t)m_threadId, priority );

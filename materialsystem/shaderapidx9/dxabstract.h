@@ -41,7 +41,7 @@ typedef HWND VD3DHWND;
 
 #else
 
-#ifdef WIN32
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
 #error Gl on win32?
 #endif
 

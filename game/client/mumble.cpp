@@ -28,7 +28,7 @@ const char *COM_GetModDirectory(); // return the mod dir (rather than the comple
 
 struct MumbleSharedMemory_t
 {
-#ifdef WIN32
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
 	uint32	uiVersion;
 	ulong	uiTick;
 #else
@@ -43,7 +43,7 @@ struct MumbleSharedMemory_t
 	float	fCameraFront[3];
 	float	fCameraTop[3];
 	wchar_t	identity[256];
-#ifdef WIN32
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
 	uint32	context_len;
 #else
 	uint32_t context_len;
@@ -53,7 +53,7 @@ struct MumbleSharedMemory_t
 };
 
 MumbleSharedMemory_t *g_pMumbleMemory = NULL;
-#ifdef WIN32
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
 HANDLE g_hMapObject = NULL;
 #endif
 

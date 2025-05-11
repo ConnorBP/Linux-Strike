@@ -17,7 +17,7 @@ diff -u a/silk/debug.c b/silk/debug.c
  int           silk_Timer_nTimers = 0;
  int           silk_Timer_depth_ctr = 0;
  char          silk_Timer_tags[silk_NUM_TIMERS_MAX][silk_NUM_TIMERS_MAX_TAG_LEN];
--#ifdef WIN32
+-#if (defined ( _WIN32 ) || defined ( _WIN64 ))
 +#ifdef _WIN32
  LARGE_INTEGER silk_Timer_start[silk_NUM_TIMERS_MAX];
  #else
@@ -26,7 +26,7 @@ diff -u a/silk/debug.c b/silk/debug.c
  opus_int64     silk_Timer_max[silk_NUM_TIMERS_MAX];
  opus_int64     silk_Timer_depth[silk_NUM_TIMERS_MAX];
  
--#ifdef WIN32
+-#if (defined ( _WIN32 ) || defined ( _WIN64 ))
 +#ifdef _WIN32
  void silk_TimerSave(char *file_name)
  {

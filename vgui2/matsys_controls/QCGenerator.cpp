@@ -4,7 +4,7 @@
 //
 //=============================================================================
 
-#if defined(WIN32) && !defined( _GAMECONSOLE )
+#if (defined ( _WIN32 ) || defined ( _WIN64 )) && !defined( _GAMECONSOLE )
 #include <windows.h>
 #endif
 #include "filesystem.h"
@@ -577,7 +577,7 @@ bool CQCGenerator::GenerateQCFile()
 
 	GetVConfigRegistrySetting( GAMEDIR_TOKEN, szGamePath, sizeof( szGamePath ) );	
 
-#ifdef WIN32
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
 	STARTUPINFO startup; 
 	PROCESS_INFORMATION process; 
 

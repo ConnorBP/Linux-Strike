@@ -1,4 +1,4 @@
-//===== Copyright © 1996-2005, Valve Corporation, All rights reserved. ======//
+//===== Copyright ï¿½ 1996-2005, Valve Corporation, All rights reserved. ======//
 //
 // Purpose: 
 //
@@ -1162,7 +1162,7 @@ MDLViewer::MDLViewer () :
 	menuOptions->addSeparator ();
 	menuOptions->add ("Center View", IDC_OPTIONS_CENTERVIEW);
 	menuOptions->add ("Center on Face", IDC_OPTIONS_CENTERONFACE );
-#ifdef WIN32
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
 	menuOptions->addSeparator ();
 	menuOptions->add ("Make Screenshot...", IDC_OPTIONS_MAKESCREENSHOT);
 	//menuOptions->add ("Dump Model Info", IDC_OPTIONS_DUMP);
@@ -1197,7 +1197,7 @@ MDLViewer::MDLViewer () :
 	menuChoreography->addSeparator();
 	menuChoreography->add( "Load Next", IDC_CHOREOSCENE_LOADNEXT );
 
-#ifdef WIN32
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
 	menuHelp->add ("Goto Homepage...", IDC_HELP_GOTOHOMEPAGE);
 	menuHelp->addSeparator ();
 #endif
@@ -1345,7 +1345,7 @@ void MDLViewer::OnDelete()
 	saveRecentFiles ();
 	SaveViewerRootSettings( );
 
-#ifdef WIN32
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
 	DeleteFile ("hlmv.cfg");
 	DeleteFile ("midump.txt");
 #endif
@@ -1791,7 +1791,7 @@ int MDLViewer::handleEvent (mxEvent *event)
 				g_pControlPanel->dumpModelInfo ();
 				break;
 				
-#ifdef WIN32
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
 			case IDC_HELP_GOTOHOMEPAGE:
 				ShellExecute (0, "open", "http://developer.valvesoftware.com/wiki/Category:Choreography", 0, 0, SW_SHOW);
 				break;
@@ -1799,7 +1799,7 @@ int MDLViewer::handleEvent (mxEvent *event)
 				
 			case IDC_HELP_ABOUT:
 				mxMessageBox (this,
-					"v1.0  Copyright © 1996-2007, Valve Corporation. All rights reserved.\r\nBuild Date: " __DATE__ "",
+					"v1.0  Copyright ï¿½ 1996-2007, Valve Corporation. All rights reserved.\r\nBuild Date: " __DATE__ "",
 					"Valve Face Poser", 
 					MX_MB_OK | MX_MB_INFORMATION);
 				break;

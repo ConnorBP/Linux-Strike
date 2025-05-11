@@ -451,7 +451,7 @@ void Sys_Error_Internal( bool bMinidump, const char *error, va_list argsList )
 
 	if ( bMinidump && !Plat_IsInDebugSession() && !CommandLine()->FindParm( "-nominidumps") )
 	{
-#ifdef WIN32
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
 		// MiniDumpWrite() has problems capturing the calling thread's context 
 		// unless it is called with an exception context.  So fake an exception.
 		__try

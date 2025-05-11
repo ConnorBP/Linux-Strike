@@ -3506,7 +3506,7 @@ void SV_SetSteamCrashComment( void )
 
 		char osversion[ 256 ];
 		osversion[ 0 ] = 0;
-#if defined(WIN32)
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
 		extern void DisplaySystemVersion( char *osversion, int maxlen );
 		DisplaySystemVersion( osversion, sizeof( osversion ) );
 #endif

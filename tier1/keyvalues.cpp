@@ -1553,7 +1553,7 @@ float KeyValues::GetFloat( const char *keyName, float defaultValue )
 		case TYPE_STRING:
 			return (float)atof(dat->m_sValue);
 		case TYPE_WSTRING:
-#ifdef WIN32
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
 			return (float) _wtof(dat->m_wsValue);		// no wtof
 #else
 			return (float) wcstof( dat->m_wsValue, (wchar_t **)NULL ); 

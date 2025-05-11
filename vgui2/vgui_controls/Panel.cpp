@@ -2363,7 +2363,7 @@ wchar_t const *Panel::KeyCodeModifiersToDisplayString( KeyCode code, int modifie
 	}
 
 	static wchar_t unicode[ 256 ];
-#ifdef WIN32
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
 	V_snwprintf( unicode, 255, L"%S%s", sz, Panel::KeyCodeToDisplayString( (KeyCode)code ) );
 #else
 	V_snwprintf( unicode, 255, L"%s%S", sz, Panel::KeyCodeToDisplayString( (KeyCode)code ) );
@@ -5930,11 +5930,11 @@ void Panel::PreparePanelMap( PanelMap_t *panelMap )
 //-----------------------------------------------------------------------------
 void Panel::OnDelete()
 {
-#ifdef WIN32
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
 	Assert( IsGameConsole() || ( IsPC() && _heapchk() == _HEAPOK ) );
 #endif
 	delete this;
-#ifdef WIN32
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
 	Assert( IsGameConsole() || ( IsPC() && _heapchk() == _HEAPOK ) );
 #endif
 }

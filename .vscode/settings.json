@@ -1,8 +1,13 @@
 {
     "C_Cpp.dimInactiveRegions": false,
     "files.associations": {
+        "*.page-template": "vue",
+        "*.layout-template": "vue",
+        "*.vue": "vue",
         "*.inc": "cpp",
         "chrono": "cpp",
-        "typeinfo": "cpp"
+        "typeinfo": "cpp",
+        "random": "cpp",
+        "filesystem": "cpp"
     }
 }

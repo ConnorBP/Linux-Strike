@@ -107,7 +107,7 @@ static ConVar async_serialize( "async_serialize", "0", 0, "Force async reads to 
 
 static ConVar vx_do_not_throttle_events( "vx_do_not_throttle_events", "0", 0, "Force VXConsole updates every frame; smoother vprof data on PS3 but at a slight (~0.2ms) perf cost." );
 
-#ifdef WIN32
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
 static void cpu_frequency_monitoring_callback( IConVar *var, const char *pOldValue, float flOldValue )
 {
 	// Set the specified interval for CPU frequency monitoring

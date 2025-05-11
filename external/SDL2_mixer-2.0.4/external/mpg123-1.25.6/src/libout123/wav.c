@@ -176,7 +176,7 @@ static int open_file(struct wavdata *wdat, char *filename)
 	if(!filename || !strcmp("-",filename) || !strcmp("", filename))
 	{
 		wdat->wavfp = stdout;
-#ifdef WIN32
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
 		_setmode(STDOUT_FILENO, _O_BINARY);
 #endif
 		/* If stdout is redirected to a file, seeks suddenly can work.

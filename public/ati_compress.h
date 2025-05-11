@@ -27,7 +27,7 @@ typedef unsigned long ATI_TC_DWORD;
 typedef unsigned short ATI_TC_WORD;
 typedef unsigned char ATI_TC_BYTE;
 
-#if defined(WIN32) || defined(_WIN64)
+#if (defined ( _WIN32 ) || defined ( _WIN64 )) || defined(_WIN64)
 #	define ATI_TC_API __cdecl
 #else
 #	define ATI_TC_API 

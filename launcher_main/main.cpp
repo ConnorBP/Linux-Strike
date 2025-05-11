@@ -55,7 +55,7 @@
 #define VPCGAME_STRING _VPCGAME_STRING_HACK1(VPCGAME)
 #endif
 
-#ifdef WIN32
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
 typedef int (*LauncherMain_t)( HINSTANCE hInstance, HINSTANCE hPrevInstance, 
 							  LPSTR lpCmdLine, int nCmdShow );
 #elif POSIX
@@ -65,7 +65,7 @@ typedef int (*LauncherMain_t)( int argc, char **argv );
 #endif
 
 
-#ifdef WIN32
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
 // hinting the nvidia driver to use the dedicated graphics card in an optimus configuration
 // for more info, see: http://developer.download.nvidia.com/devzone/devcenter/gamegraphics/files/OptimusRenderingPolicies.pdf
 extern "C" { _declspec( dllexport ) DWORD NvOptimusEnablement = 0x00000001; }
@@ -83,7 +83,7 @@ extern "C" { __declspec( dllexport ) int AmdPowerXpressRequestHighPerformance = 
 //-----------------------------------------------------------------------------
 #if !defined( _X360 )
 
-#ifdef WIN32
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
 
 static char *GetBaseDir( const char *pszBuffer )
 {

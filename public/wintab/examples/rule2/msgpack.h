@@ -3,7 +3,7 @@
 Selected message unpacking macros from windowsx.h
 to circumvent compile-time memory headaches.
 ------------------------------------------------------------------------------*/
-#ifdef WIN32
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
 #define GET_WM_ACTIVATE_STATE(wp, lp)           LOWORD(wp)
 #define GET_WM_COMMAND_ID(wp, lp)               LOWORD(wp)
 #define GET_WM_COMMAND_HWND(wp, lp)             (HWND)(lp)

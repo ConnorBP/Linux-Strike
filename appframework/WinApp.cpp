@@ -61,7 +61,7 @@ int AppMain( void* hInstance, void* hPrevInstance, const char* lpCmdLine, int nC
 	g_pDefaultLoggingListener = &s_SimpleWindowsLoggingListener;
 	s_HInstance = hInstance;
 
-#ifdef WIN32
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
 	// Prepend the module filename since most apps expect arg 0 to be that.
 	char szModuleFilename[MAX_PATH];
 	Plat_GetModuleFilename( szModuleFilename, sizeof( szModuleFilename ) );

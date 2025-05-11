@@ -16,7 +16,7 @@
 #endif
 
 
-#ifdef WIN32
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
 #define __PRETTY_FUNCTION__ __FUNCSIG__
 #endif
 

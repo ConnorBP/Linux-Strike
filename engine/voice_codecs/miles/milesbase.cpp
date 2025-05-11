@@ -18,7 +18,7 @@ void IncrementRefMiles()
 {
 	if(s_MilesRefCount == 0)
 	{
-#ifdef WIN32
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
 		AIL_set_redist_directory( "." );
 #elif defined( OSX )
 		AIL_set_redist_directory( "osx32" );

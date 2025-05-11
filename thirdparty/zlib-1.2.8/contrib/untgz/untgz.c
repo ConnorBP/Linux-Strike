@@ -21,7 +21,7 @@
 #  include <io.h>
 #endif
 
-#ifdef WIN32
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
 #include <windows.h>
 #  ifndef F_OK
 #    define F_OK  0
@@ -205,7 +205,7 @@ char *strtime (time_t *t)
 
 int setfiletime (char *fname,time_t ftime)
 {
-#ifdef WIN32
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
   static int isWinNT = -1;
   SYSTEMTIME st;
   FILETIME locft, modft;
@@ -599,7 +599,7 @@ void error(const char *msg)
 
 /* ============================================================ */
 
-#if defined(WIN32) && defined(__GNUC__)
+#if (defined ( _WIN32 ) || defined ( _WIN64 )) && defined(__GNUC__)
 int _CRT_glob = 0;      /* disable argument globbing in MinGW */
 #endif
 

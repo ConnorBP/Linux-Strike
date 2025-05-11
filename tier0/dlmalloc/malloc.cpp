@@ -499,7 +499,7 @@ MAX_RELEASE_CHECK_RATE   default: 255 unless not HAVE_MMAP
 #define WIN32 1
 #endif  /* _WIN32 */
 #endif  /* WIN32 */
-#ifdef WIN32
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
 #if !defined( _X360 )
 #define WIN32_LEAN_AND_MEAN
 #include <windows.h>
@@ -1262,7 +1262,7 @@ void *determine_mspace(void *mem);
 
 /*------------------------------ internal #includes ---------------------- */
 
-#ifdef WIN32
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
 #pragma warning( disable : 4146 ) /* no "unsigned" warnings */
 #endif /* WIN32 */
 
@@ -2526,7 +2526,7 @@ static struct malloc_state _gm_;
 
 
 /* For mmap, use granularity alignment on windows, else page-align */
-#ifdef WIN32
+#if (defined ( _WIN32 ) || defined ( _WIN64 ))
 #define mmap_align(S) granularity_align(S)
 #else
 #define mmap_align(S) page_align(S)
