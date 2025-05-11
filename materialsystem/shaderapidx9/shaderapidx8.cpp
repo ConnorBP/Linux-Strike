@@ -119,7 +119,7 @@ mat_fullbright 1 doesn't work properly on alpha materials in testroom_standards
 
 #include "winutils.h"
 
-#ifdef _WIN32
+#if defined(_WIN32) || defined(_WIN64)
 #include "nvapi.h"
 #include "NvApiDriverSettings.h"
 #endif
@@ -129,7 +129,7 @@ mat_fullbright 1 doesn't work properly on alpha materials in testroom_standards
 // memdbgon must be the last include file in a .cpp file!!!
 #include "tier0/memdbgon.h"
 
-#ifdef _WIN32
+#if defined(_WIN32) || defined(_WIN64)
 #pragma warning (disable:4189)
 #endif
 

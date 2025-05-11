@@ -22,7 +22,7 @@ include(${CMAKE_MODULE_PATH}/source_lib_base.cmake)
 #	}
 #}
 
-if( MSVC AND WIN32 )
+if( MSVC AND WINDOWS )
 	include_directories(${SRCDIR}/thirdparty/dxsdk/include)
 	#if(CMAKE_SIZEOF_VOID_P EQUAL 8)
 	#	target_link_libraries(${OUTLIBNAME} ${SRCDIR}/thirdparty/dxsdk/lib/x64/dsound.lib ${SRCDIR}/thirdparty/dxsdk/lib/x64/dxguid.lib)
@@ -31,7 +31,7 @@ if( MSVC AND WIN32 )
 	#endif()
 endif()
 
-if( WIN32 )
+if( WINDOWS )
     target_sources(${OUTLIBNAME} PRIVATE "device_dsound.cpp")
 	target_sources(${OUTLIBNAME} PRIVATE "device_xaudio2.cpp")
 	target_sources(${OUTLIBNAME} PRIVATE "windows_audio.cpp")

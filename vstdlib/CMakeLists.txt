@@ -26,7 +26,7 @@ endif()
 target_sources(${OUTBINNAME} PRIVATE "cvar.cpp")
 target_sources(${OUTBINNAME} PRIVATE "jobthread.cpp")
 target_sources(${OUTBINNAME} PRIVATE "keyvaluessystem.cpp")
-if( WIN32 OR WIN64 )
+if( WINDOWS )
 	target_sources(${OUTBINNAME} PRIVATE "processutils.cpp")
 endif()
 

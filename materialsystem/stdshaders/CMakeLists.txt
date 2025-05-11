@@ -15,7 +15,7 @@ set(STDSHADERSDIR ${CMAKE_CURRENT_SOURCE_DIR})
 include(${CMAKE_MODULE_PATH}/detect_platform.cmake)
 include(${CMAKE_MODULE_PATH}/source_dll_base.cmake)
 
-if( WIN32 OR POSIX )
+if( WINDOWS OR POSIX )
     include_directories(fxctmp9)
     include_directories(vshtmp9)
 endif()

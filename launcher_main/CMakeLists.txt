@@ -14,7 +14,7 @@ include(${CMAKE_MODULE_PATH}/detect_platform.cmake)
 
 if( WIN32 AND CMAKE_SIZEOF_VOID_P EQUAL 4)
     set(OUTBINNAME "csgo")
-elseif( WIN32 AND CMAKE_SIZEOF_VOID_P EQUAL 8)
+elseif( WINDOWS AND CMAKE_SIZEOF_VOID_P EQUAL 8) # this is a pretty stupid way to check for 64 bit windows IMO
     set(OUTBINNAME "csgo_win64")
 elseif( OSX32 )
     set(OUTBINNAME "csgo_osx")

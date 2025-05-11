@@ -572,7 +572,7 @@ target_sources(${OUTBINNAME} PRIVATE "${SRCDIR}/common/CegClientWrapper.cpp")
     target_sources(${OUTBINNAME} PRIVATE "${SRCDIR}/game/shared/SharedFunctorUtils.cpp")
     target_sources(${OUTBINNAME} PRIVATE "${SRCDIR}/game/shared/SharedFunctorUtils.h")
 #}
-if( WIN32 OR POSIX )
+if( WINDOWS OR POSIX )
 #$Folder	"MP3" [$WINDOWS||$POSIX]
 #{
     target_sources(${OUTBINNAME} PRIVATE "mp3player.cpp")

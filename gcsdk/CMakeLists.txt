@@ -25,7 +25,7 @@ include_directories(${SRCDIR}/public/gcsdk)
 include_directories(${SRCDIR}/thirdparty/JSON_parser)
 
 
-if( WIN32 )
+if( WINDOWS )
 	include_directories(${SRCDIR}/gcsdk)
 endif()
 

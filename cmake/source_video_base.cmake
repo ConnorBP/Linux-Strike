@@ -2,7 +2,7 @@ if( GL AND NOT OSX32 AND NOT DEDICATED )
     set(SDL "1")
 endif()
 
-if( WIN32 )
+if( WINDOWS )
 	 add_definitions(-DAVI_VIDEO)
 endif()
 

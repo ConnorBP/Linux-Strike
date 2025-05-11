@@ -21,7 +21,7 @@ include_directories(${SRCDIR}/thirdparty)
 
 if( LINUXALL )
     target_link_libraries(${OUTBINNAME} SDL2)
-elseif( WIN32 )
+elseif( WINDOWS )
 	target_link_libraries(${OUTBINNAME} Imm32.lib Shlwapi.lib)
 endif()
 
@@ -35,7 +35,7 @@ target_sources(${OUTBINNAME} PRIVATE "${SRCDIR}/public/filesystem_init.cpp")
 if( WINDOWS )
     #$File	"htmlwindow.cpp"				[$WINDOWS]
 endif()
-if( WIN32 OR X360 OR PS3 OR LINUXALL )
+if( WINDOWS OR X360 OR PS3 OR LINUXALL )
     target_sources(${OUTBINNAME} PRIVATE "InputWin32.cpp")
 elseif( OSXALL )
     #$File	"inputosx.cpp" 					[$OSXALL]
@@ -47,7 +47,7 @@ target_sources(${OUTBINNAME} PRIVATE "Scheme.cpp")
 if( WINDOWS )
     #$File	"Surface.cpp"					[$WINDOWS]
 endif()
-if( WIN32 OR X360 OR PS3 )
+if( WINDOWS OR X360 OR PS3 )
     target_sources(${OUTBINNAME} PRIVATE "system.cpp" )
 elseif( POSIX )
     target_sources(${OUTBINNAME} PRIVATE "system_posix.cpp" )

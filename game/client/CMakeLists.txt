@@ -45,7 +45,7 @@ TargetBuildAndAddProto( ${OUTBINNAME} ${SRCDIR}/gcsdk/gcsdk_gcmessages.proto "${
 TargetBuildAndAddProto( ${OUTBINNAME} ${SRCDIR}/gcsdk/gcsystemmsgs.proto "${GENERATED_PROTO_DIR}")
 
 #force include
-if( WIN32 OR POSIX )
+if( WINDOWS OR POSIX )
     target_sources(${OUTBINNAME} PRIVATE "${SRCDIR}/public/tier0/platform.h")
 endif()
 
@@ -380,7 +380,7 @@ endif()
 
 
 target_link_libraries(${OUTBINNAME} meshutils_client)
-if( WIN32 OR POSIX )
+if( WINDOWS OR POSIX )
     target_link_libraries(${OUTBINNAME} jpeglib_client)
     target_link_libraries(${OUTBINNAME} vpklib_client)
 endif()
