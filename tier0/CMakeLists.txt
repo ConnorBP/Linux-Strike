@@ -16,7 +16,7 @@ set(NOSKELETONBASE "1")
 include(${CMAKE_MODULE_PATH}/detect_platform.cmake)
 include(${CMAKE_MODULE_PATH}/source_dll_base.cmake)
 
-if( WIN32 OR X360 )
+if( WIN32 OR WIN64 OR X360 )
     add_definitions(-DTIER0_DLL_EXPORT -DCROSS_PLATFORM_VERSION=1 -DTHREAD_MUTEX_TRACING_ENABLED)
 elseif( POSIX OR PS3 )
     add_definitions(-DTIER0_DLL_EXPORT -DCROSS_PLATFORM_VERSION=1 -DPOSIX)
@@ -76,7 +76,7 @@ target_sources(${OUTBINNAME} PRIVATE "vprof.cpp")
 target_sources(${OUTBINNAME} PRIVATE "vtuneinterface.cpp")
 target_sources(${OUTBINNAME} PRIVATE "win32consoleio.cpp")
 
-if( WIN32 )
+if( WIN32 OR WIN64 )
 	#target_sources(${OUTBINNAME} PRIVATE "etwprof.cpp")
 	target_sources(${OUTBINNAME} PRIVATE "memprocessheap.cpp")
 	target_sources(${OUTBINNAME} PRIVATE "dlmalloc/malloc.cpp")
@@ -98,6 +98,6 @@ endif()
 #$LibExternal	 "$SRCDIR/thirdparty/telemetry/lib/libtelemetryx86.link" [$LINUX32 && !$RAD_TELEMETRY_DISABLED]
 #$LibExternal	 "$SRCDIR/thirdparty/telemetry/lib/libtelemetryx64.link" [$LINUX64 && !$RAD_TELEMETRY_DISABLED]
 
-if( NOT WIN32 )
+if( NOT WIN32 AND NOT WIN64 )
 	target_link_libraries(${OUTBINNAME} dl pthread)
 endif()

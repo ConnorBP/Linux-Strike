@@ -155,6 +155,33 @@ int CalcAlignOffset( const unsigned char *p )
 
 #endif
 
+// fix force inline declaration
+#ifndef FORCEINLINE
+  #if defined(__GNUC__)
+#define FORCEINLINE __inline __attribute__ ((always_inline))
+  #elif defined(_MSC_VER)
+    #define FORCEINLINE __forceinline
+  #endif
+#endif
+#ifndef NOINLINE
+  #if defined(__GNUC__)
+    #define NOINLINE __attribute__ ((noinline))
+  #elif defined(_MSC_VER)
+    #define NOINLINE __declspec(noinline)
+  #else
+    #define NOINLINE
+  #endif
+#endif
+
+#ifdef __cplusplus
+#ifndef FORCEINLINE
+ #define FORCEINLINE inline
+#endif
+#endif /* __cplusplus */
+#ifndef FORCEINLINE
+ #define FORCEINLINE
+#endif
+
 
 //-----------------------------------------------------------------------------
 // Purpose: single coroutine descriptor

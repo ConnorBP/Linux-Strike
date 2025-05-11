@@ -369,7 +369,7 @@ extern "C" void __cxa_pure_virtual() { VPurecallHandler(); }
 #include <stdio.h>
 #include "memdbgoff.h"
 
-#ifdef _WIN32
+#ifdef _WIN64
 // ARG: crtdbg is necessary for certain definitions below,
 // but it also redefines malloc as a macro in release.
 // To disable this, we gotta define _DEBUG before including it.. BLEAH!
@@ -638,7 +638,7 @@ size_t __cdecl _heapused( size_t *, size_t * )
 	return 0;
 }
 
-#ifdef _WIN32
+#ifdef _WIN64
 #include <malloc.h>
 int __cdecl _heapwalk( _HEAPINFO * )
 {
@@ -772,7 +772,7 @@ void __cdecl operator delete[] ( void *pMem ) throw()
 // link to a debug static lib!!!
 //-----------------------------------------------------------------------------
 #ifndef _STATIC_LINKED
-#ifdef _WIN32
+#ifdef _WIN64
 
 // This here just hides the internal file names, etc of allocations
 // made in the c runtime library
@@ -811,9 +811,9 @@ private:
 extern "C"
 {
 
-#ifdef _WIN32
+#ifdef _WIN64
 
-#if defined(_DEBUG) && _MSC_VER >= 1300
+#if defined(_DEBUG) && _MSC_VER >= 1300 && _MSC_VER < 1900
 // X360TBD: aligned and offset allocations may be important on the 360
 
 // aligned base
@@ -904,7 +904,7 @@ ALLOC_CALL void * __cdecl _aligned_offset_recalloc( void * memblock, size_t coun
 //-----------------------------------------------------------------------------
 // Override some the _CRT debugging allocation methods in MSVC
 //-----------------------------------------------------------------------------
-#ifdef _WIN32
+#ifdef _WIN64
 
 extern "C"
 {
@@ -1002,7 +1002,7 @@ int __cdecl _CrtSetReportHook2( int mode, _CRT_REPORT_HOOK pfnNewHook )
 
 // Most files include this file, so when it's used it adds an extra .ValveDbg section,
 // to help identify debug binaries.
-#ifdef _WIN32
+#ifdef _WIN64
 	#ifndef NDEBUG // _DEBUG
 		#pragma data_seg("ValveDBG") 
 		volatile const char* DBG = "*** DEBUG STUB ***";                     
@@ -1012,7 +1012,7 @@ int __cdecl _CrtSetReportHook2( int mode, _CRT_REPORT_HOOK pfnNewHook )
 #endif
 
 // Extras added prevent dbgheap.obj from being included - DAL
-#ifdef _WIN32
+#ifdef _WIN64
 
 extern "C"
 {
@@ -1050,12 +1050,14 @@ static void * __cdecl realloc_help( void * pUserData, size_t nNewSize, int nBloc
 void __cdecl _free_nolock( void * pUserData)
 {
 		// I don't think the second param is used in memoverride
-        _free_dbg(pUserData, 0);
+        // _free_dbg(pUserData, 0);
+		free_db(pUserData, NULL, 0);
 }
 
 void __cdecl _free_dbg_nolock( void * pUserData, int nBlockUse)
 {
-        _free_dbg(pUserData, 0);
+        // _free_dbg(pUserData, 0);
+		free_db(pUserData, NULL, 0);
 }
 
 static int __cdecl CheckBytes( unsigned char * pb, unsigned char bCheck, size_t nSize)
