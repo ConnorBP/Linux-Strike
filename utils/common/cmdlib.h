@@ -81,6 +81,9 @@ extern char **myargv;
 int Q_filelength (FileHandle_t f);
 int	FileTime (char *path);
 
+// Fills in pOut with "X hours, Y minutes, Z seconds". Leaves out hours or minutes if they're zero.
+void GetHourMinuteSecondsString( int nInputSeconds, char *pOut, int outLen );
+
 void	Q_mkdir( char *path );
 
 char *ExpandArg (char *path);	// expand relative to CWD

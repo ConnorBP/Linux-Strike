@@ -1,4 +1,4 @@
-//========= Copyright © 1996-2005, Valve Corporation, All rights reserved. ============//
+//========= Copyright ï¿½ 1996-2005, Valve Corporation, All rights reserved. ============//
 //
 // Purpose: 
 //
@@ -727,7 +727,7 @@ static void FlushCombos( size_t *pnTotalFlushedSize, CUtlBuffer *pDynamicComboBu
 		// Nothing to do here
 		return;
 
-	size_t nCompressedSize;
+	unsigned int nCompressedSize;
 	uint8 *pCompressedShader = LZMA_Compress( reinterpret_cast<uint8 *> ( pDynamicComboBuffer->Base() ),
 											  pDynamicComboBuffer->TellPut(),
 											  &nCompressedSize );
@@ -1402,7 +1402,7 @@ protected:
 	struct SubProcess
 	{
 		DWORD dwIndex;
-		DWORD dwSvcThreadId;
+		ThreadId_t dwSvcThreadId;
 		uint64 iRunningCommand;
 		PROCESS_INFORMATION pi;
 		SubProcessKernelObjects *pCommObjs;
