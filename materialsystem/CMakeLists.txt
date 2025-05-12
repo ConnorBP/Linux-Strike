@@ -12,6 +12,11 @@ set(OUTBINNAME "materialsystem_client")
 set(OUTBINDIR ${SRCDIR}/../game/bin)
 
 include(${CMAKE_MODULE_PATH}/detect_platform.cmake)
+if( WINDOWS )
+    set(OUTBINNAME "materialsystem")
+else()
+    set(OUTBINNAME "libmaterialsystem_client")
+endif()
 include(${CMAKE_MODULE_PATH}/source_dll_base.cmake)
 
 set(SHADERAPIDX9DIR "shaderapidx9")

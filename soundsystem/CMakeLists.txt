@@ -11,6 +11,9 @@ set(OUTBINNAME "soundsystem_client")
 set(OUTBINDIR ${SRCDIR}/../game/bin)
 
 include(${CMAKE_MODULE_PATH}/detect_platform.cmake)
+if( WINDOWS )
+	set(OUTBINNAME "soundsystem")
+endif()
 include(${CMAKE_MODULE_PATH}/source_dll_base.cmake)
 
 

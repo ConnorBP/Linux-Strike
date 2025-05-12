@@ -13,6 +13,9 @@ set(OUTBINDIR ${SRCDIR}/../game/bin)
 set(STDSHADERSDIR ${CMAKE_CURRENT_SOURCE_DIR})
 
 include(${CMAKE_MODULE_PATH}/detect_platform.cmake)
+if( WINDOWS )
+    set(OUTBINNAME "stdshader_dx9")
+endif()
 include(${CMAKE_MODULE_PATH}/source_dll_base.cmake)
 
 if( WINDOWS OR POSIX )

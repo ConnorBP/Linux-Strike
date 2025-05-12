@@ -11,6 +11,9 @@ set(OUTBINNAME "shaderapidx9_client")
 set(OUTBINDIR ${SRCDIR}/../game/bin)
 
 include(${CMAKE_MODULE_PATH}/detect_platform.cmake)
+if( WINDOWS )
+	set(OUTBINNAME "shaderapidx9")
+else()
 include(${CMAKE_MODULE_PATH}/source_dll_base.cmake)
 
 if( WINDOWS AND NOT GL )

@@ -11,6 +11,9 @@ set(OUTBINNAME "dedicated_client")
 set(OUTBINDIR ${SRCDIR}/../game/bin)
 
 include(${CMAKE_MODULE_PATH}/detect_platform.cmake)
+if( WINDOWS )
+    set(OUTBINNAME "dedicated")
+endif()
 include(${CMAKE_MODULE_PATH}/source_dll_base.cmake)
 
 include_directories(${SRCDIR}/engine)

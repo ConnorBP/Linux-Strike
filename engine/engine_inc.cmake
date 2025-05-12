@@ -5,6 +5,9 @@ message(STATUS "Engine SrcDir: ${ESRCDIR}")
 set(GENERATED_PROTO_DIR "${ESRCDIR}/generated_proto")
 
 include(${CMAKE_MODULE_PATH}/detect_platform.cmake)
+if( WINDOWS )
+    set(OUTBINNAME "engine")
+endif()
 include(${CMAKE_MODULE_PATH}/source_dll_base.cmake)
 include(${CMAKE_MODULE_PATH}/protobuf_builder.cmake)
 

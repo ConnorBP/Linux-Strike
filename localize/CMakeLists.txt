@@ -10,6 +10,9 @@ set(OUTBINNAME "localize_client")
 set(OUTBINDIR ${SRCDIR}/../game/bin)
 
 include(${CMAKE_MODULE_PATH}/detect_platform.cmake)
+if( WINDOWS )
+    set(OUTBINNAME "localize")
+endif()
 include(${CMAKE_MODULE_PATH}/source_dll_base.cmake)
 
 target_sources(${OUTBINNAME} PRIVATE "localize.cpp")

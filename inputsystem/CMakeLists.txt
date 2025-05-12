@@ -12,6 +12,9 @@ set(OUTBINNAME "inputsystem_client")
 set(OUTBINDIR ${SRCDIR}/../game/bin)
 
 include(${CMAKE_MODULE_PATH}/detect_platform.cmake)
+if( WINDOWS )
+    set(OUTBINNAME "inputsystem")
+endif()
 include(${CMAKE_MODULE_PATH}/source_dll_base.cmake)
 
 add_definitions(-DNO_STRING_T -DVERSION_SAFE_STEAM_API_INTERFACES -DPROTECTED_THINGS_ENABLE)

@@ -17,6 +17,9 @@ include_directories(${SRCDIR}/game/shared)
 include_directories(${SRCDIR}/utils/common)
 
 include(${CMAKE_MODULE_PATH}/detect_platform.cmake)
+if( WINDOWS )
+    set(OUTBINNAME "server")
+endif()
 include(${CMAKE_MODULE_PATH}/source_dll_base.cmake)
 include(${CMAKE_MODULE_PATH}/protobuf_builder.cmake)
 

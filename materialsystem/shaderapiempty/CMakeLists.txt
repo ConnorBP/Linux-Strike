@@ -11,6 +11,9 @@ set(OUTBINNAME "shaderapiempty_client")
 set(OUTBINDIR ${SRCDIR}/../game/bin)
 
 include(${CMAKE_MODULE_PATH}/detect_platform.cmake)
+if( WINDOWS )
+    set(OUTBINNAME "shaderapiempty")
+else()
 include(${CMAKE_MODULE_PATH}/source_dll_base.cmake)
 
 include_directories(../)

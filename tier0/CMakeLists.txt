@@ -7,13 +7,19 @@ cmake_minimum_required(VERSION 3.16)
 project(libtier0_client)
 set(SRCDIR "${CMAKE_SOURCE_DIR}")
 set(CMAKE_MODULE_PATH ${SRCDIR}/cmake)
-set(OUTBINNAME "libtier0_client")
 set(OUTBINDIR ${SRCDIR}/../game/bin)
 
 set(NOSTINKYLINKIES "1")
 set(NOSKELETONBASE "1")
 
 include(${CMAKE_MODULE_PATH}/detect_platform.cmake)
+
+if( WINDOWS )
+    set(OUTBINNAME "libtier0")
+else()
+    set(OUTBINNAME "libtier0_client")
+endif()
+
 include(${CMAKE_MODULE_PATH}/source_dll_base.cmake)
 
 if( WINDOWS OR X360 )

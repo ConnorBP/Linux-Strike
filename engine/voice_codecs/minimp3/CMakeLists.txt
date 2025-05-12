@@ -13,6 +13,9 @@ set(OUTBINDIR ${SRCDIR}/../game/bin)
 set(NOSTINKYLINKIES "1") #link this project carefully ourselves
 
 include(${CMAKE_MODULE_PATH}/detect_platform.cmake)
+if( WINDOWS )
+    set(OUTBINNAME "vaudio_minimp3")
+endif()
 include(${CMAKE_MODULE_PATH}/source_dll_base.cmake)
 
 target_sources(${OUTBINNAME} PRIVATE "vaudio_minimp3.cpp")

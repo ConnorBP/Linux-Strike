@@ -7,10 +7,14 @@ cmake_minimum_required(VERSION 3.16)
 project(vphysics_client)
 set(SRCDIR "${CMAKE_SOURCE_DIR}")
 set(CMAKE_MODULE_PATH ${SRCDIR}/cmake)
-set(OUTBINNAME "iphys_client")
 set(OUTBINDIR ${SRCDIR}/../game/bin)
 
 include(${CMAKE_MODULE_PATH}/detect_platform.cmake)
+if( WINDOWS )
+    set(OUTBINNAME "iphys")
+else()
+    set(OUTBINNAME "iphys_client")
+endif()
 include(${CMAKE_MODULE_PATH}/source_dll_base.cmake)
 
 #ivp = Ipion Virtual Physics. A physics company from Germany that went defunct, somehow valve is using this

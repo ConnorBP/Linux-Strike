@@ -8,12 +8,16 @@ cmake_minimum_required(VERSION 3.16)
 project(vguimatsurface_client)
 set(SRCDIR "${CMAKE_SOURCE_DIR}")
 set(CMAKE_MODULE_PATH ${SRCDIR}/cmake)
-set(OUTBINNAME "vguimatsurface_client")
 set(OUTBINDIR ${SRCDIR}/../game/bin)
 
 #set(NOSTINKYLINKIES "1") #this project requires precise linking
 
 include(${CMAKE_MODULE_PATH}/detect_platform.cmake)
+if( WINDOWS )
+    set(OUTBINNAME "vguimatsurface")
+else()
+    set(OUTBINNAME "vguimatsurface_client")
+endif()
 include(${CMAKE_MODULE_PATH}/source_dll_base.cmake)
 
 include_directories(../public/mathlib)

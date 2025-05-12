@@ -12,6 +12,9 @@ set(OUTBINNAME "filesystem_stdio_client")
 set(OUTBINDIR ${SRCDIR}/../game/bin)
 
 include(${CMAKE_MODULE_PATH}/detect_platform.cmake)
+if( WINDOWS )
+    set(OUTBINNAME "filesystem_stdio")
+endif()
 include(${CMAKE_MODULE_PATH}/source_dll_base.cmake)
 
 add_definitions(-DFILESYSTEM_STDIO_EXPORTS -DDONT_PROTECT_FILEIO_FUNCTIONS -DPROTECTED_THINGS_ENABLE)

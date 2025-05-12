@@ -7,13 +7,17 @@ cmake_minimum_required(VERSION 3.16)
 project(libtogl_client)
 set(SRCDIR "${CMAKE_SOURCE_DIR}")
 set(CMAKE_MODULE_PATH ${SRCDIR}/cmake)
-set(OUTBINNAME "libtogl_client") #also the target name
 set(OUTBINDIR ${SRCDIR}/../game/bin)
 
 set(TOGL_SRCDIR "${SRCDIR}/togl")
 set(TOGL_INCDIR "${SRCDIR}/public/togl")
 
 include(${CMAKE_MODULE_PATH}/detect_platform.cmake)
+if( WINDOWS )
+    set(OUTBINNAME "togl")
+else()
+    set(OUTBINNAME "libtogl_client")  #also the target name
+endif()
 include(${CMAKE_MODULE_PATH}/source_dll_base.cmake)
 
 include_directories("../")

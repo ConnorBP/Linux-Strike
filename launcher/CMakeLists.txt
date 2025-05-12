@@ -17,6 +17,11 @@ set(OUTBINDIR ${SRCDIR}/../game/bin)
 set(NOSTINKYLINKIES "1") #link this project carefully ourselves
 
 include(${CMAKE_MODULE_PATH}/detect_platform.cmake)
+
+if( WINDOWS )
+    set(OUTBINNAME "launcher")
+endif()
+
 if( LINUXALL )
     # We run from the ./game dir, but want to look in the ./game/bin directory when loading libraries.
     # To dump rpath/runpath of a library, use "chrpath --list blah.so" or "objdump -x blah.so" or "readelf -d bin/launcher.so"

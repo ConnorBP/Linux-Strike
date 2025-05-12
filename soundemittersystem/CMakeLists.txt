@@ -12,6 +12,11 @@ set(OUTBINNAME "soundemittersystem_client")
 set(OUTBINDIR ${SRCDIR}/../game/bin)
 
 include(${CMAKE_MODULE_PATH}/detect_platform.cmake)
+if( WINDOWS )
+    set(OUTBINNAME "soundemittersystem")
+else()
+    set(OUTBINNAME "soundemittersystem_client")
+endif()
 include(${CMAKE_MODULE_PATH}/source_dll_base.cmake)
 
 include_directories(${SRCDIR}/game/shared)

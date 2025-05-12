@@ -50,7 +50,11 @@ if( (NOT DEFINED NO_STEAM) )
 endif()
 else() # DEDICATED
 #CSGO Matchmaking DS
-set(OUTBINNAME "matchmaking_ds_client")
+if( WINDOWS )
+	set(OUTBINNAME "matchmaking_ds")
+else()
+	set(OUTBINNAME "matchmaking_ds_client")
+endif()
 
 include( ./matchmaking_cstrike15_inc.cmake )
 target_compile_definitions(${OUTBINNAME} PRIVATE -DMATCHMAKING_DS_DLL -DSWDS)
