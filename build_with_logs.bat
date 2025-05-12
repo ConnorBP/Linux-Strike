@@ -1,4 +1,5 @@
 
+@ECHO OFF
 REM Generate timestamp string
 set NOW=%DATE:~10,4%%DATE:~4,2%%DATE:~7,2%_%TIME:~0,2%%TIME:~3,2%
 set NOW=%NOW: =0%
