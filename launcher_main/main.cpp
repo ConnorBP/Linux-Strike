@@ -72,7 +72,11 @@ extern "C" { _declspec( dllexport ) DWORD NvOptimusEnablement = 0x00000001; }
 
 // same thing for AMD GPUs using v13.35 or newer drivers
 extern "C" { __declspec( dllexport ) int AmdPowerXpressRequestHighPerformance = 1; }
-
+#if defined(_UNICODE)
+#define _tsnprintf(_Buffer,_BufferCount,_Format,...) _snwprintf(_Buffer,_BufferCount,_Format, __VA_ARGS__)
+#else
+#define _tsnprintf(_Buffer,_BufferCount,_Format,...) _snprintf(_Buffer,_BufferCount,_Format, __VA_ARGS__)
+#endif
 #endif
 
 
@@ -123,48 +127,48 @@ int APIENTRY WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdL
 	// Use the .EXE name to determine the root directory
 	char moduleName[ MAX_PATH ];
 	char szBuffer[4096];
-	if ( !GetModuleFileName( hInstance, moduleName, MAX_PATH ) )
+	if ( !GetModuleFileNameA( hInstance, moduleName, MAX_PATH ) )
 	{
-		MessageBox( 0, "Failed calling GetModuleFileName", "Launcher Error", MB_OK );
+		MessageBoxA( 0, "Failed calling GetModuleFileName", "Launcher Error", MB_OK );
 		return 0;
 	}
 
 	// Get the root directory the .exe is in
 	char* pRootDir = GetBaseDir( moduleName );
 
-	const char* pBinPath = "";
+	const char* pBinPath = 
+// #ifdef _WIN64
+// 		"\\x64"
+// #else
+		""
+// #endif
+	;
 
 #ifdef _DEBUG
 	int len = 
 #endif
-
-#ifdef WINDOWS
 	_snprintf( szBuffer, sizeof( szBuffer ), "PATH=%s\\bin%s\\;%s", pRootDir, pBinPath, pPath );
 	szBuffer[sizeof( szBuffer ) - 1] = '\0';
 	assert( len < sizeof( szBuffer ) );
 	_putenv( szBuffer );
 
 	// Assemble the full path to our "launcher.dll"
-	_snprintf( szBuffer, sizeof( szBuffer ), "%s\\bin%s\\launcher%s", pRootDir, pBinPath, DLL_EXT_STRING );
+	_snprintf( szBuffer, sizeof( szBuffer ), "%s\\bin%s\\launcher.dll", pRootDir, pBinPath );
 	szBuffer[sizeof( szBuffer ) - 1] = '\0';
-#else
-
-#endif
-	// STEAM OK ... filesystem not mounted yet
 #if defined(_X360)
-	HINSTANCE launcher = LoadLibrary( szBuffer );
+	HINSTANCE launcher = LoadLibraryA( szBuffer );
 #else
-	HINSTANCE launcher = LoadLibraryEx( szBuffer, NULL, LOAD_WITH_ALTERED_SEARCH_PATH );
+	HINSTANCE launcher = LoadLibraryExA( szBuffer, NULL, LOAD_WITH_ALTERED_SEARCH_PATH );
 #endif
 	if ( !launcher )
 	{
-		char *pszError;
+		TCHAR *pszError;
 		FormatMessage(FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_IGNORE_INSERTS, NULL, GetLastError(), MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT), (LPTSTR)&pszError, 0, NULL);
 
-		char szBuf[1024];
-		_snprintf(szBuf, sizeof( szBuf ), "Failed to load the launcher DLL:\n\n%s", pszError);
+		TCHAR szBuf[1024];
+		_tsnprintf(szBuf, sizeof( szBuf ), TEXT("Failed to load the launcher DLL:\n\n%s"), pszError);
 		szBuf[sizeof( szBuf ) - 1] = '\0';
-		MessageBox( 0, szBuf, "Launcher Error", MB_OK );
+		MessageBox( 0, szBuf, TEXT("Launcher Error"), MB_OK );
 
 		LocalFree(pszError);
 		return 0;
