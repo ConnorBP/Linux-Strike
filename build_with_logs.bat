@@ -1,5 +1,3 @@
-REM Create log folder if it doesn't exist
-if not exist logs mkdir logs
 
 REM Generate timestamp string
 set NOW=%DATE:~10,4%%DATE:~4,2%%DATE:~7,2%_%TIME:~0,2%%TIME:~3,2%
@@ -8,6 +6,9 @@ set NOW=%NOW: =0%
 REM change to the build directory
 if not exist cmake-build mkdir cmake-build
 cd cmake-build
+
+REM Create log folder if it doesn't exist
+if not exist logs mkdir logs
 
 REM --- FIX PATHS FOR WINDOWS BUILDS ---
 REM --- Convert paths to use forward slashes ---
