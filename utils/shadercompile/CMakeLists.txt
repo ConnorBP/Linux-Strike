@@ -13,15 +13,17 @@ set(OUTBINNAME "shadercompile_dll")
 # make a dll target
 include(${CMAKE_MODULE_PATH}/source_dll_base.cmake)
 
-if(NOT TARGET vmpi_external_lib) # Define only if it doesn't exist yet
-    add_library(vmpi_external_lib STATIC IMPORTED)
-    set_target_properties(vmpi_external_lib PROPERTIES
-        IMPORTED_LOCATION "${SRCDIR}/lib/public/vmpi.lib"  # Full path to vmpi.lib
-    )
-    # If VMPI has public headers that shadercompile_dll needs, and they are not already covered
-    # by other include_directories, you can specify them here for the imported target:
-    # target_include_directories(vmpi_external_lib INTERFACE "${SRCDIR}/utils/vmpi") # Assuming vmpi.h is in utils/vmpi
-endif()
+# if(NOT TARGET vmpi_external_lib) # Define only if it doesn't exist yet
+#     add_library(vmpi_external_lib STATIC IMPORTED)
+#     set_target_properties(vmpi_external_lib PROPERTIES
+#         IMPORTED_LOCATION "${SRCDIR}/lib/public/vmpi.lib"  # Full path to vmpi.lib
+#     )
+#     # If VMPI has public headers that shadercompile_dll needs, and they are not already covered
+#     # by other include_directories, you can specify them here for the imported target:
+#     # target_include_directories(vmpi_external_lib INTERFACE "${SRCDIR}/utils/vmpi") # Assuming vmpi.h is in utils/vmpi
+# endif()
+
+target_link_libraries(shadercompile_dll PRIVATE vmpi)
 
 #force include
 if( WINDOWS OR POSIX )
@@ -74,7 +76,7 @@ if( WINDOWS )
         libtier0
         tier2
         # vmpi
-        vmpi_external_lib
+        # vmpi_external_lib
 
         ws2_32 # Windows Sockets
         odbc32
@@ -88,7 +90,7 @@ else()
         libtier0_client
         tier2_client
         # vmpi_client
-        vmpi_external_lib
+        # vmpi_external_lib
         ws2_32 # Windows Sockets
         odbc32
         odbccp32

@@ -10,6 +10,10 @@
 #pragma once
 #endif
 
+#ifdef _WIN32
+#include <windows.h>
+#endif
+
 
 #define VMPI_DISTRIBUTE_WORK_EXTRA_SUBPACKET_BASE 50
 

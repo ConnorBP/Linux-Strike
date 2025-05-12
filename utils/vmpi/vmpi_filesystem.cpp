@@ -9,6 +9,10 @@
 #include "vmpi_filesystem_internal.h"
 #include "tier1/utlbuffer.h"
 
+#ifdef PLATFORM_WINDOWS_PC
+// for min() define
+#include <windows.h>
+#endif
 
 bool g_bDisableFileAccess = false;
 
