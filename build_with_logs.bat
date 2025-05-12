@@ -3,6 +3,9 @@
 REM Generate timestamp string
 set NOW=%DATE:~10,4%%DATE:~4,2%%DATE:~7,2%_%TIME:~0,2%%TIME:~3,2%
 set NOW=%NOW: =0%
+set "PROJECT_ROOT_DIR=%CD%"
+
+echo [INFO] Build started at %NOW%
 
 REM change to the build directory
 if not exist cmake-build mkdir cmake-build
@@ -65,3 +68,13 @@ if exist "logs\mm_loadu_si64_issues.txt" (
 ) else (
   echo [INTRINSIC ERRORS] none found or parsing failed
 )
+
+
+set NOW=%DATE:~10,4%%DATE:~4,2%%DATE:~7,2%_%TIME:~0,2%%TIME:~3,2%
+set NOW=%NOW: =0%
+
+echo [INFO] Build finished at %NOW%
+
+REM return to the original directory
+cd %PROJECT_ROOT_DIR%
+REM pause
