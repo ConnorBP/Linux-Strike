@@ -15,6 +15,7 @@
 #include "vmpi_defs.h"
 #include "messbuf.h"
 #include "iphelpers.h"
+#include "tier1/utlvector.h"
 
 
 // These are called to handle incoming messages. 
@@ -37,7 +38,7 @@ typedef void (*VMPI_Disconnect_Handler)( int procID, const char *pReason );
 
 #define VMPI_TIMEOUT_INFINITE	0xFFFFFFFF
 
-#define VMPI_PACKET_SIZE	768
+#define VMPI_PACKET_SIZE	2048
 
 // Instantiate one of these to register a dispatch.
 class CDispatchReg
@@ -115,6 +116,10 @@ bool VMPI_Init(
 	bool bConnectingAsService = false
 	);
 
+inline bool VMPI_IsEnabled() { return g_bUseMPI; }
+inline bool VMPI_IsMaster() { return g_bMPIMaster; }
+inline bool VMPI_IsWorker() { return !VMPI_IsMaster(); }
+
 // Used when hosting a patch.
 void VMPI_Init_PatchMaster( int argc, char **argv );
 
@@ -125,7 +130,8 @@ VMPIFileSystemMode VMPI_GetFileSystemMode();
 
 // Note: this number can change on the master.
 int VMPI_GetCurrentNumberOfConnections();
-
+bool VMPI_IsThisWorkerRunningOnMasterMachine();
+bool VMPI_IsThisMyIP( CIPAddr testIP );
 
 // Dispatch messages until it gets one with the specified packet ID.
 // If subPacketID is not set to -1, then the second byte must match that as well.
@@ -217,7 +223,20 @@ bool VMPI_IsParamUsed( EVMPICmdLineParam eParam ); // Returns true if the specif
 // Can be called from error handlers and if -mpi_Restart is used, it'll automatically restart the process.
 bool VMPI_HandleAutoRestart();
 
+// Any worker can print a message on the master with this.
+void VMPI_PrintMsgOnMaster( PRINTF_FORMAT_STRING const char *pMessage, ... );
 
+struct VMPIWorkerInfo_t
+{
+	char machineName[256];
+	CIPAddr addr;
+	int nStatus;
+	int nProtocolVersion;
+	char vmpiVersion[32];
+};
+
+// Ask the central VMPI registry server for a list of registered VMPI workers.
+void VMPI_QueryRegistryForWorkers( CUtlVector<VMPIWorkerInfo_t> &registeredWorkers );
 
 // These are optional debug helpers. When VMPI_SuperSpew is enabled, VMPI can spit out messages
 // with strings for packet IDs instead of numbers.
