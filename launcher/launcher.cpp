@@ -641,8 +641,13 @@ static bool IsWin98OrOlder()
 void TryToLoadSteamOverlayDLL()
 {
 #if defined( WIN32 ) && !defined( _X360 )
+#ifdef _WIN64
+#define OVERLAY_FILENAME "GameOverlayRenderer64.dll"
+#else
+#define OVERLAY_FILENAME "GameOverlayRenderer.dll"
+#endif
 	// First, check if the module is already loaded, perhaps because we were run from Steam directly
-	HMODULE hMod = GetModuleHandle( "GameOverlayRenderer.dll" );
+	HMODULE hMod = GetModuleHandle( TEXT( OVERLAY_FILENAME ) );
 	if ( hMod )
 	{
 		return;
@@ -652,7 +657,7 @@ void TryToLoadSteamOverlayDLL()
 	if ( pchSteamInstallPath )
 	{
 		char rgchSteamPath[MAX_PATH];
-		V_ComposeFileName( pchSteamInstallPath, "GameOverlayRenderer.dll", rgchSteamPath, Q_ARRAYSIZE(rgchSteamPath) );
+		V_ComposeFileName( pchSteamInstallPath, OVERLAY_FILENAME, rgchSteamPath, Q_ARRAYSIZE(rgchSteamPath) );
 		// This could fail, but we can't fix it if it does so just ignore failures
 		LoadLibrary( rgchSteamPath );
 	}

@@ -422,10 +422,11 @@ bool FileSystem_GetExecutableDir( char *exedir, int exeDirLen )
 		Q_strncat( exedir, CORRECT_PATH_SEPARATOR_S, exeDirLen, COPY_ALL_CHARACTERS );
 		Q_strncat( exedir, "bin", exeDirLen, COPY_ALL_CHARACTERS );
 
-		#ifdef PLATFORM_64BITS
-			#ifdef _WIN64
-				const char *pPlatPath = "x64";
-			#elif OSX
+		// keeping this in the root for windows for now. 32bit support is not really needed
+		#if defined(PLATFORM_64BITS) && (defined( OSX ) || defined( LINUX ))
+			// #ifdef _WIN64
+			// 	const char *pPlatPath = "x64";
+			#ifdef OSX
 				const char *pPlatPath = "osx64";
 			#elif LINUX
 				const char *pPlatPath = "linux64";

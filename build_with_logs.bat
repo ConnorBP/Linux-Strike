@@ -27,13 +27,14 @@ set "ZLIB_LIBRARY_CMAKE=%ZLIB_LIBRARY_ABS:\=/%"
 REM --- End path conversion ---
 
 cmake .. ^
--DCMAKE_CXX_FLAGS="/DCRYPTOPP_DISABLE_ASM /DCRYPTOPP_DISABLE_SSE2" ^
--DCMAKE_CONFIGURATION_TYPES="Release;Debug" ^
--DZLIB_LIBRARY="%ZLIB_LIBRARY_CMAKE%" ^
--DZLIB_INCLUDE_DIR="../thirdparty/zlib-1.2.8" ^
--DCMAKE_POLICY_VERSION_MINIMUM=3.5 ^
--G "Visual Studio 17 2022" ^
--T v140 -DCMAKE_GENERATOR_PLATFORM=x64 > logs\cmake_generate_%NOW%.txt 2>&1
+  -DUSE_IPHYS=1
+  -DCMAKE_CXX_FLAGS="/DCRYPTOPP_DISABLE_ASM /DCRYPTOPP_DISABLE_SSE2" ^
+  -DCMAKE_CONFIGURATION_TYPES="Release;Debug" ^
+  -DZLIB_LIBRARY="%ZLIB_LIBRARY_CMAKE%" ^
+  -DZLIB_INCLUDE_DIR="../thirdparty/zlib-1.2.8" ^
+  -DCMAKE_POLICY_VERSION_MINIMUM=3.5 ^
+  -G "Visual Studio 17 2022" ^
+  -T v140 -DCMAKE_GENERATOR_PLATFORM=x64 > logs\cmake_generate_%NOW%.txt 2>&1
 
 cmake --build . --config Release --verbose > logs\build_client_client_%NOW%.txt 2>&1
 
