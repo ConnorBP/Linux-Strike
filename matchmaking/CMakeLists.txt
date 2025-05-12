@@ -23,7 +23,12 @@ endif() # ENDIF DEDICATED
 
 #CSGO Matchmaking
 if( NOT DEDICATED )
-set(OUTBINNAME "matchmaking_client")
+
+if( WINDOWS )
+	set(OUTBINNAME "matchmaking")
+else()
+	set(OUTBINNAME "matchmaking_client")
+endif()
 
 include( ./matchmaking_cstrike15_inc.cmake )
 target_compile_definitions(${OUTBINNAME} PRIVATE -DMATCHMAKING_DLL)
