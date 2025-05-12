@@ -137,6 +137,8 @@ int APIENTRY WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdL
 #ifdef _DEBUG
 	int len = 
 #endif
+
+#ifdef WINDOWS
 	_snprintf( szBuffer, sizeof( szBuffer ), "PATH=%s\\bin%s\\;%s", pRootDir, pBinPath, pPath );
 	szBuffer[sizeof( szBuffer ) - 1] = '\0';
 	assert( len < sizeof( szBuffer ) );
@@ -145,7 +147,9 @@ int APIENTRY WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdL
 	// Assemble the full path to our "launcher.dll"
 	_snprintf( szBuffer, sizeof( szBuffer ), "%s\\bin%s\\launcher%s", pRootDir, pBinPath, DLL_EXT_STRING );
 	szBuffer[sizeof( szBuffer ) - 1] = '\0';
+#else
 
+#endif
 	// STEAM OK ... filesystem not mounted yet
 #if defined(_X360)
 	HINSTANCE launcher = LoadLibrary( szBuffer );
