@@ -9,9 +9,15 @@ project(shaderlib_client)
 set(SRCDIR "${CMAKE_SOURCE_DIR}")
 set(SHADERLIBDIR "${CMAKE_CURRENT_SOURCE_DIR}")
 set(CMAKE_MODULE_PATH ${SRCDIR}/cmake)
-set(OUTLIBNAME "shaderlib_client")
 
 include(${CMAKE_MODULE_PATH}/detect_platform.cmake)
+
+if(WINDOWS)
+set(OUTLIBNAME "shaderlib")
+else()
+set(OUTLIBNAME "shaderlib_client")
+endif()
+
 include(${CMAKE_MODULE_PATH}/source_lib_base.cmake)
 
 if( LINUXALL )

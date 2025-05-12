@@ -8,9 +8,15 @@ cmake_minimum_required(VERSION 3.16)
 project(particles_client)
 set(SRCDIR "${CMAKE_SOURCE_DIR}")
 set(CMAKE_MODULE_PATH ${SRCDIR}/cmake)
-set(OUTLIBNAME "particles_client")
 
 include(${CMAKE_MODULE_PATH}/detect_platform.cmake)
+
+if(WINDOWS)
+    set(OUTLIBNAME "particles")
+else()
+    set(OUTLIBNAME "particles_client")
+endif()
+
 include(${CMAKE_MODULE_PATH}/source_lib_base.cmake)
 
 if( LINUXALL )

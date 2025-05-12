@@ -153,4 +153,8 @@ endif()
 
 #	$Folder "Lua" [ !$X360 && !$PS3  && !$LINUX]
 
-target_link_libraries(${OUTBINNAME} vstdlib_client mathlib_client)
+if( WINDOWS )
+	target_link_libraries(${OUTBINNAME} vstdlib mathlib)
+else()
+	target_link_libraries(${OUTBINNAME} vstdlib_client mathlib_client)
+endif()

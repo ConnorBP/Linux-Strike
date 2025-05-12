@@ -39,4 +39,8 @@ if( LINUXALL )
 endif()
 
 # valve snuck these in the linux makefiles instead of VPC
-target_link_libraries(${OUTBINNAME} libtier0_client vstdlib_client)
+if( WINDOWS )
+    target_link_libraries(${OUTBINNAME} libtier0 vstdlib)
+else()
+    target_link_libraries(${OUTBINNAME} libtier0_client vstdlib_client)
+endif()

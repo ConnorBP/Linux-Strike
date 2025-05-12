@@ -28,8 +28,15 @@ set(OUTBINNAME "matchmaking_client")
 include( ./matchmaking_cstrike15_inc.cmake )
 target_compile_definitions(${OUTBINNAME} PRIVATE -DMATCHMAKING_DLL)
 target_link_libraries(${OUTBINNAME} matchmakingbase)
-target_link_libraries(${OUTBINNAME} tier2_client mathlib_client)
-target_link_libraries(${OUTBINNAME} kisak_gcsdk_client)
+
+if( WINDOWS )
+	target_link_libraries(${OUTBINNAME} tier2 mathlib)
+	target_link_libraries(${OUTBINNAME} kisak_gcsdk)
+else()
+	target_link_libraries(${OUTBINNAME} tier2_client mathlib_client)
+	target_link_libraries(${OUTBINNAME} kisak_gcsdk_client)
+endif()
+
 #target_link_libraries(${OUTBINNAME} ${LIBPUBLIC}/libsteam_api.so) # link to proprietary steamapi
 if( (NOT DEFINED NO_STEAM) )
     #Looks like we have to include libsteam_api
@@ -48,8 +55,13 @@ set(OUTBINNAME "matchmaking_ds_client")
 include( ./matchmaking_cstrike15_inc.cmake )
 target_compile_definitions(${OUTBINNAME} PRIVATE -DMATCHMAKING_DS_DLL -DSWDS)
 target_link_libraries(${OUTBINNAME} matchmakingbase_ds)
-target_link_libraries(${OUTBINNAME} tier2_client mathlib_client)
-target_link_libraries(${OUTBINNAME} kisak_gcsdk_client)
+if( WINDOWS )
+	target_link_libraries(${OUTBINNAME} tier2 mathlib)
+	target_link_libraries(${OUTBINNAME} kisak_gcsdk)
+else()
+	target_link_libraries(${OUTBINNAME} tier2_client mathlib_client)
+	target_link_libraries(${OUTBINNAME} kisak_gcsdk_client)
+endif()
 #target_link_libraries(${OUTBINNAME} ${LIBPUBLIC}/libsteam_api.so) # link to proprietary steamapi
 
 if( (NOT DEFINED NO_STEAM) )

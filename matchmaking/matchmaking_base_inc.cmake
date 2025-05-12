@@ -88,4 +88,8 @@ endif()
 #}
 
 #[!$X360 && !$PS3]
-target_link_libraries(${OUTLIBNAME} kisak_gcsdk_client)
+if( WINDOWS )
+	target_link_libraries(${OUTBINNAME} kisak_gcsdk)
+else()
+	target_link_libraries(${OUTBINNAME} kisak_gcsdk_client)
+endif()

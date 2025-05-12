@@ -17,4 +17,8 @@ include(${CMAKE_MODULE_PATH}/source_dll_base.cmake)
 
 target_sources(${OUTBINNAME} PRIVATE "vaudio_minimp3.cpp")
 
-target_link_libraries(${OUTBINNAME} libtier0_client tier1_client )
+if( WINDOWS )
+    target_link_libraries(${OUTBINNAME} libtier0 tier1 )
+else()
+    target_link_libraries(${OUTBINNAME} libtier0_client tier1_client )
+endif()

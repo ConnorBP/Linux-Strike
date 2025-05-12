@@ -38,8 +38,11 @@ if( WINDOWS )
     #$File	"xcontroller.cpp"		[!$POSIX]
 endif()
 target_sources(${OUTBINNAME} PRIVATE "${SRCDIR}/common/platforminputdevice.cpp")
-
-target_link_libraries(${OUTBINNAME} tier2_client mathlib_client vstdlib_client)
+if( WINDOWS )
+    target_link_libraries(${OUTBINNAME} tier2 mathlib vstdlib)
+else()
+    target_link_libraries(${OUTBINNAME} tier2_client mathlib_client vstdlib_client)
+endif()
 #Requires evil proprietary link to libsteam_api
 if( MSVC AND CMAKE_SIZEOF_VOID_P EQUAL 4 )
 	target_link_libraries(${OUTBINNAME} ${LIBPUBLIC}/steam_api.lib Winmm.lib)

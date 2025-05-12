@@ -11,6 +11,13 @@ set(CMAKE_MODULE_PATH ${SRCDIR}/cmake)
 set(OUTLIBNAME "quickhull_client")
 
 include(${CMAKE_MODULE_PATH}/detect_platform.cmake)
+
+if(WINDOWS)
+    set(OUTLIBNAME "quickhull")
+else()
+    set(OUTLIBNAME "quickhull_client")
+endif()
+
 include(${CMAKE_MODULE_PATH}/source_lib_base.cmake)
 
 include_directories(${SRCDIR}/public)

@@ -60,4 +60,9 @@ target_sources(${OUTBINNAME} PRIVATE "vphysics_saverestore.cpp")
 #		$Lib "$LIBCOMMON/ivp_compactbuilder"
 #		$Lib "$LIBCOMMON/ivp_physics"
 target_link_libraries(${OUTBINNAME} havana_constraints hk_math hk_base ivp_compactbuilder ivp_physics)
-target_link_libraries(${OUTBINNAME} mathlib_client tier2_client vstdlib_client)
+
+if( WINDOWS )
+    target_link_libraries(${OUTBINNAME} mathlib tier2 vstdlib)
+else()
+    target_link_libraries(${OUTBINNAME} mathlib_client tier2_client vstdlib_client)
+endif()

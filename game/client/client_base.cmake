@@ -590,8 +590,13 @@ endif()
 #}
 
 #Linking is sloppy here and continued more in cstrike15
-target_link_libraries(${OUTBINNAME} bonesetup_client choreoobjects_client mathlib_extended_client )
-target_link_libraries(${OUTBINNAME} matsys_controls_client particles_client raytrace_client)
+if( WINDOWS )
+    target_link_libraries(${OUTBINNAME} bonesetup choreoobjects mathlib_extended )
+    target_link_libraries(${OUTBINNAME} matsys_controls particles raytrace)
+else()
+    target_link_libraries(${OUTBINNAME} bonesetup_client choreoobjects_client mathlib_extended_client )
+    target_link_libraries(${OUTBINNAME} matsys_controls_client particles_client raytrace_client)
+endif()
 #Requires evil proprietary link to libsteam_api
 if( MSVC AND CMAKE_SIZEOF_VOID_P EQUAL 4 )
 	target_link_libraries(${OUTBINNAME} ${LIBPUBLIC}/steam_api.lib Winmm.lib)
@@ -600,5 +605,9 @@ elseif( MSVC AND CMAKE_SIZEOF_VOID_P EQUAL 8 )
 else()
 	target_link_libraries(${OUTBINNAME} ${LIBPUBLIC}/libsteam_api.so)
 endif()
-target_link_libraries(${OUTBINNAME} tier3_client vgui_controls_client videocfg_client vtf_client resourcefile_client )
+if( WINDOWS )
+    target_link_libraries(${OUTBINNAME} tier3 vgui_controls videocfg vtf resourcefile )
+else()
+    target_link_libraries(${OUTBINNAME} tier3_client vgui_controls_client videocfg_client vtf_client resourcefile_client )
+endif()
 target_link_libraries(${OUTBINNAME} zlib png_shared libprotobuf) #from /thirdparty

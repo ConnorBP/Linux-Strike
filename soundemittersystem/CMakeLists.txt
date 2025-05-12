@@ -22,4 +22,8 @@ add_definitions(-DSOUNDEMITTERSYSTEM_EXPORTS -D_WINDOWS -DPROTECTED_THINGS_ENABL
 target_sources(${OUTBINNAME} PRIVATE "soundemittersystembase.cpp")
 target_sources(${OUTBINNAME} PRIVATE "${SRCDIR}/public/SoundParametersInternal.cpp")
 
-target_link_libraries(${OUTBINNAME} tier2_client vstdlib_client)
+if( WINDOWS )
+    target_link_libraries(${OUTBINNAME} tier2 vstdlib)
+else()
+    target_link_libraries(${OUTBINNAME} tier2_client vstdlib_client)
+endif()

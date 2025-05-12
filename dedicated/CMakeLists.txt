@@ -78,8 +78,13 @@ if( POSIX )
     target_sources(${OUTBINNAME} PRIVATE "${SRCDIR}/filesystem/linux_support.cpp")
 endif()
 
-target_link_libraries(${OUTBINNAME} appframework_client dmxloader_client mathlib_client tier2_client tier3_client vstdlib_client vpklib_client)
-
-if( WINDOWS OR OSXALL )
+if( WINDOWS )
+    target_link_libraries(${OUTBINNAME} appframework dmxloader mathlib tier2 tier3 vstdlib vpklib)
+    target_link_libraries(${OUTBINNAME} vgui_controls)
+elseif( OSXALL )
     target_link_libraries(${OUTBINNAME} vgui_controls_client)
+endif()
+
+if( NOT WINDOWS )
+    target_link_libraries(${OUTBINNAME} appframework_client dmxloader_client mathlib_client tier2_client tier3_client vstdlib_client vpklib_client)
 endif()

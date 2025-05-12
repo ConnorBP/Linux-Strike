@@ -84,15 +84,35 @@ if( NOT WINDOWS )
     target_sources(${OUTBINNAME} PRIVATE "winutils.cpp")
 endif()
 
-# Linker
-target_link_libraries(${OUTBINNAME} mathlib_client vstdlib_client bitmap_client tier1_client tier2_client vtf_client bzip2_client )
 
-if( POSIX )
-	target_link_libraries(${OUTBINNAME} dl )
-endif()
-if( WINDOWS OR POSIX )
-    target_link_libraries(${OUTBINNAME} videocfg_client)
-endif()
-if( GL )
-    target_link_libraries(${OUTBINNAME} libtogl_client)
+if( WINDOWS )
+
+	# Linker
+	target_link_libraries(${OUTBINNAME} mathlib vstdlib bitmap tier1 tier2 vtf bzip2 )
+
+	if( POSIX )
+		target_link_libraries(${OUTBINNAME} dl )
+	endif()
+	if( WINDOWS OR POSIX )
+		target_link_libraries(${OUTBINNAME} videocfg)
+	endif()
+	if( GL )
+		target_link_libraries(${OUTBINNAME} libtogl)
+	endif()
+
+else()
+
+	# Linker
+	target_link_libraries(${OUTBINNAME} mathlib_client vstdlib_client bitmap_client tier1_client tier2_client vtf_client bzip2_client )
+
+	if( POSIX )
+		target_link_libraries(${OUTBINNAME} dl )
+	endif()
+	if( WINDOWS OR POSIX )
+		target_link_libraries(${OUTBINNAME} videocfg_client)
+	endif()
+	if( GL )
+		target_link_libraries(${OUTBINNAME} libtogl_client)
+	endif()
+
 endif()

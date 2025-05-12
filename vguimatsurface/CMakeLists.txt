@@ -40,7 +40,11 @@ endif()
 target_sources(${OUTBINNAME} PRIVATE "${SRCDIR}/vgui2/src/vgui_key_translation.cpp")
 target_sources(${OUTBINNAME} PRIVATE "${SRCDIR}/public/vgui_controls/vgui_controls.cpp")
 
-target_link_libraries(${OUTBINNAME} vgui_controls_client vgui_surfacelib_client dmxloader_client tier2_client tier3_client mathlib_client bitmap_client libtier0_client vstdlib_client )
+if( WINDOWS )
+    target_link_libraries(${OUTBINNAME} vgui_controls vgui_surfacelib dmxloader tier2 tier3 mathlib bitmap libtier0 vstdlib )
+else()
+    target_link_libraries(${OUTBINNAME} vgui_controls_client vgui_surfacelib_client dmxloader_client tier2_client tier3_client mathlib_client bitmap_client libtier0_client vstdlib_client )
+endif()
 
 if( LINUXALL )
     target_link_libraries(${OUTBINNAME} fontconfig freetype SDL2)

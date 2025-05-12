@@ -25,7 +25,11 @@ target_compile_definitions(${OUTBINNAME} PRIVATE -DNO_STRING_T -DVECTOR -DVERSIO
 
 
 #[!$X360 && !$PS3]
-target_link_libraries(${OUTBINNAME} tier1_client tier3_client vstdlib_client)
+if( WINDOWS )
+    target_link_libraries(${OUTBINNAME} tier1 tier3 vstdlib)
+else()
+    target_link_libraries(${OUTBINNAME} tier1_client tier3_client vstdlib_client)
+endif()
 #############################
 
 #$Folder "cstrike15"

@@ -55,4 +55,9 @@ if( (NOT DEFINED NO_STEAM) )
 endif()
 
 #Careful with link order here.
-target_link_libraries(${OUTBINNAME} tier3_client vgui_controls_client dmxloader_client vstdlib_client tier2_client mathlib_client)
+
+if( WINDOWS )
+	target_link_libraries(${OUTBINNAME} tier3 vgui_controls dmxloader vstdlib tier2 mathlib)
+else()
+	target_link_libraries(${OUTBINNAME} tier3_client vgui_controls_client dmxloader_client vstdlib_client tier2_client mathlib_client)
+endif()

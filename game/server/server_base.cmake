@@ -507,14 +507,22 @@ target_sources(${OUTBINNAME} PRIVATE "${SRCDIR}/common/CegClientWrapper.cpp")
     target_sources(${OUTBINNAME} PRIVATE "${SRVSRCDIR}/toolframework_server.cpp")
 #}
 
-
-target_link_libraries(${OUTBINNAME} bonesetup_client choreoobjects_client mathlib_client mathlib_extended_client libtier0_client vstdlib_client interfaces_client particles_client)
-
-# we must link in the right order
-if( DEDICATED )
-	target_link_libraries(${OUTBINNAME} bitmap_client dmxloader_client tier1_client tier2_client tier3_client responserules_runtime_client kisak_gcsdk_client)
+if( WINDOWS )
+    target_link_libraries(${OUTBINNAME} bonesetup choreoobjects mathlib mathlib_extended libtier0 vstdlib interfaces particles)
+    # we must link in the right order
+    if( DEDICATED )
+        target_link_libraries(${OUTBINNAME} bitmap dmxloader tier1 tier2 tier3 responserules_runtime kisak_gcsdk)
+    else()
+        target_link_libraries(${OUTBINNAME} bitmap dmxloader tier1 tier2 tier3 vgui_controls responserules_runtime kisak_gcsdk)
+    endif()
 else()
-	target_link_libraries(${OUTBINNAME} bitmap_client dmxloader_client tier1_client tier2_client tier3_client vgui_controls_client responserules_runtime_client kisak_gcsdk_client)
+    target_link_libraries(${OUTBINNAME} bonesetup_client choreoobjects_client mathlib_client mathlib_extended_client libtier0_client vstdlib_client interfaces_client particles_client)
+    # we must link in the right order
+    if( DEDICATED )
+        target_link_libraries(${OUTBINNAME} bitmap_client dmxloader_client tier1_client tier2_client tier3_client responserules_runtime_client kisak_gcsdk_client)
+    else()
+        target_link_libraries(${OUTBINNAME} bitmap_client dmxloader_client tier1_client tier2_client tier3_client vgui_controls_client responserules_runtime_client kisak_gcsdk_client)
+    endif()
 endif()
 
 #Requires evil proprietary link to libsteam_api

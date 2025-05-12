@@ -48,8 +48,11 @@ endif()
 target_sources(${OUTBINNAME} PRIVATE "${SRCDIR}/public/filesystem_init.cpp")
 target_sources(${OUTBINNAME} PRIVATE "launcher.cpp")
 target_sources(${OUTBINNAME} PRIVATE "reslistgenerator.cpp")
-
-target_link_libraries(${OUTBINNAME} appframework_client vstdlib_client libtier0_client tier1_client tier2_client tier3_client interfaces_client )
+if( WINDOWS )
+    target_link_libraries(${OUTBINNAME} appframework vstdlib libtier0 tier1 tier2 tier3 interfaces )
+else()
+    target_link_libraries(${OUTBINNAME} appframework_client vstdlib_client libtier0_client tier1_client tier2_client tier3_client interfaces_client )
+endif()
 #target_link_libraries(${OUTBINNAME} ${LIBPUBLIC}/libsteam_api.so) # Link to proprietary steamapi
 if( (NOT DEFINED NO_STEAM) )
     #Looks like we have to include libsteam_api
@@ -62,5 +65,9 @@ if( (NOT DEFINED NO_STEAM) )
 	endif()
 endif()
 if( NOT IS_LIB_PROJECT AND GL )
-    target_link_libraries(${OUTBINNAME} libtogl_client) # Link to precompiled togl
+    if( WINDOWS )
+        target_link_libraries(${OUTBINNAME} libtogl) # Link to precompiled togl
+    else()
+        target_link_libraries(${OUTBINNAME} libtogl_client) # Link to precompiled togl
+    endif()
 endif()

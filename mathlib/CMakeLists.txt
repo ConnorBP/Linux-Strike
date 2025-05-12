@@ -11,6 +11,13 @@ include(${CMAKE_MODULE_PATH}/detect_platform.cmake)
 
 ## Build the regular mathlib ##
 set(OUTLIBNAME "mathlib_client")
+
+if(WINDOWS)
+set(OUTLIBNAME "mathlib")
+else()
+set(OUTLIBNAME "mathlib_client")
+endif()
+
 include(${CMAKE_MODULE_PATH}/source_lib_base.cmake)
 include_directories(../public/mathlib)
 target_compile_definitions(${OUTLIBNAME} PRIVATE -DMATHLIB_LIB)
@@ -58,7 +65,12 @@ target_sources(${OUTLIBNAME} PRIVATE "capsule.cpp")
 
 
 ## Build the extended mathlib ##
+if(WINDOWS)
+set(OUTLIBNAME "mathlib_extended")
+else()
 set(OUTLIBNAME "mathlib_extended_client")
+endif()
+
 include(${CMAKE_MODULE_PATH}/source_lib_base.cmake)
 
 target_compile_definitions(${OUTLIBNAME} PRIVATE -DMATHLIB_EXTENDED_LIB -DSOURCE1)

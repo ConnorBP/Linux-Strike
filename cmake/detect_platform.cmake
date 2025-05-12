@@ -1,13 +1,13 @@
 #Something custom/made by me(lwss).
 #Include this in your CMakeLists.txt to set the various platform defines the codebase expects
 if(WIN32)
-	set(_DLL_EXT "_client.dll")
+	set(_DLL_EXT ".dll")
     add_definitions(-DWINDOWS -DWIN32 -D_WIN32)
     set(WINDOWS "1")
     set(WIN32 "1")
     set(_WIN32 "1")
 elseif(WIN64)
-    set(_DLL_EXT "_client.dll")
+    set(_DLL_EXT ".dll")
     add_definitions(-DWINDOWS -DWIN64 -D_WIN64)
     set(WINDOWS "1")
     set(WIN64 "1")

@@ -7,9 +7,13 @@ cmake_minimum_required(VERSION 3.16)
 project(jpeglib_client C) #set as C proj
 set(SRCDIR "${CMAKE_SOURCE_DIR}")
 set(CMAKE_MODULE_PATH ${SRCDIR}/cmake)
-set(OUTLIBNAME "jpeglib_client")
 
 include(${CMAKE_MODULE_PATH}/detect_platform.cmake)
+if(WINDOWS)
+    set(OUTLIBNAME "jpeglib")
+else()
+    set(OUTLIBNAME "jpeglib_client")
+endif()
 include(${CMAKE_MODULE_PATH}/source_lib_base.cmake)
 
 include_directories(${SRCDIR}/public/jpeglib)

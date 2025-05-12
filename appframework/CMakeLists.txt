@@ -7,11 +7,18 @@ cmake_minimum_required(VERSION 3.16)
 project(appframework_client)
 set(SRCDIR "${CMAKE_SOURCE_DIR}")
 set(CMAKE_MODULE_PATH ${SRCDIR}/cmake)
-set(OUTLIBNAME "appframework_client")
+
 set(AF_SRCDIR "${SRCDIR}/appframework")
 set(AF_INCDIR "${SRCDIR}/public/appframework")
 
 include(${CMAKE_MODULE_PATH}/detect_platform.cmake)
+
+if(WINDOWS)
+set(OUTLIBNAME "appframework")
+else()
+set(OUTLIBNAME "appframework_client")
+endif()
+
 include(${CMAKE_MODULE_PATH}/source_lib_base.cmake)
 
 if( NOT IS_LIB_PROJECT AND GL )

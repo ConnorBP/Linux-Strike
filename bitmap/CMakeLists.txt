@@ -10,14 +10,24 @@ set(CMAKE_MODULE_PATH ${SRCDIR}/cmake)
 include(${CMAKE_MODULE_PATH}/detect_platform.cmake)
 
 #build byteswap_client
+if(WINDOWS)
+set(OUTLIBNAME "bitmap_byteswap")
+else()
 set(OUTLIBNAME "bitmap_byteswap_client")
+endif()
 
 include(${CMAKE_MODULE_PATH}/source_lib_base.cmake)
 
 target_sources(${OUTLIBNAME} PRIVATE ImageByteSwap.cpp)
 
 #build bitmap_client
+if(WINDOWS)
+#build bitmap_client
+set(OUTLIBNAME "bitmap")
+else()
+#build bitmap_client
 set(OUTLIBNAME "bitmap_client")
+endif()
 
 include(${CMAKE_MODULE_PATH}/source_lib_base.cmake)
 

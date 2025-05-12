@@ -59,4 +59,8 @@ endif()
 #// Link
 #//-----------------------------------------------------------------------------
 
-target_link_libraries(${OUTBINNAME} tier2_client vstdlib_client mathlib_client )
+if( WINDOWS )
+    target_link_libraries(${OUTBINNAME} tier2 vstdlib mathlib )
+else()
+    target_link_libraries(${OUTBINNAME} tier2_client vstdlib_client mathlib_client )
+endif()

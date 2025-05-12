@@ -7,10 +7,17 @@ cmake_minimum_required(VERSION 3.16)
 project(kisak_gcsdk_client)
 set(SRCDIR "${CMAKE_SOURCE_DIR}")
 set(CMAKE_MODULE_PATH ${SRCDIR}/cmake)
-set(OUTLIBNAME "kisak_gcsdk_client")
+
 set(GENERATED_PROTO_DIR "${SRCDIR}/gcsdk/generated_proto")
 
 include(${CMAKE_MODULE_PATH}/detect_platform.cmake)
+
+if(WINDOWS)
+set(OUTLIBNAME "kisak_gcsdk")
+else()
+set(OUTLIBNAME "kisak_gcsdk_client")
+endif()
+
 include(${CMAKE_MODULE_PATH}/source_lib_base.cmake)
 include(${CMAKE_MODULE_PATH}/protobuf_builder.cmake)
 
