@@ -1,20 +1,21 @@
 cmake_minimum_required(VERSION 3.10)
-project(vmpi)
+project(vmpi_project)
 set(SRCDIR "${CMAKE_SOURCE_DIR}")
 set(CMAKE_MODULE_PATH "${SRCDIR}/cmake" ${CMAKE_MODULE_PATH})
 set(OUTBINDIR ${SRCDIR}/../game/bin)
 
 include(${CMAKE_MODULE_PATH}/detect_platform.cmake)
-set(OUTBINNAME "vmpi")
-include(${CMAKE_MODULE_PATH}/source_dll_base.cmake)
 
-find_package(CURL REQUIRED)
-target_link_libraries(${OUTBINNAME} PRIVATE CURL::libcurl)
+set(OUTLIBNAME "vmpi") # Used by source_lib_base.cmake
+set(OUTBINNAME "vmpi") # This will be the actual target name for the library
+
+include(${CMAKE_MODULE_PATH}/source_lib_base.cmake)
 
 # Source Files
 target_sources(${OUTBINNAME} PRIVATE
     "${SRCDIR}/public/filesystem_init.cpp"
-    "${CMAKE_CURRENT_SOURCE_DIR}/../common/filesystem_tools.cpp"
+    "${SRCDIR}/public/filesystem_helpers.cpp"
+    "${CMAKE_CURRENT_SOURCE_DIR}/../common/filesystem_tools.cpp" 
     "${CMAKE_CURRENT_SOURCE_DIR}/iphelpers.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/loopback_channel.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/messbuf.cpp"
@@ -30,63 +31,77 @@ target_sources(${OUTBINNAME} PRIVATE
     "${CMAKE_CURRENT_SOURCE_DIR}/vmpi_filesystem_master.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/vmpi_filesystem_worker.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/vmpi_logfile.cpp"
+    "${CMAKE_CURRENT_SOURCE_DIR}/../common/pacifier.cpp"
+    "${CMAKE_CURRENT_SOURCE_DIR}/../common/cmdlib.cpp"
+    "${CMAKE_CURRENT_SOURCE_DIR}/../common/vmpi_tools_shared.cpp" # Often defines VMPI_HandleCrash
+    "${CMAKE_CURRENT_SOURCE_DIR}/../common/threads.cpp"
 )
 
 target_include_directories(${OUTBINNAME} PUBLIC
     "${CMAKE_CURRENT_SOURCE_DIR}"
     "${CMAKE_CURRENT_SOURCE_DIR}/../common"
     "${CMAKE_CURRENT_SOURCE_DIR}/ZLib"
-    # "${SRCDIR}/thirdparty/zlib/include"
-    "${SRCDIR}/thirdparty/libcurl/include"
+    # "${SRCDIR}/thirdparty/zlib-1.2.8/include"
+    # "${SRCDIR}/thirdparty/libcurl/include"
     "${SRCDIR}/public" # Provides access to tier0, tier1, etc.
 )
 
 # Preprocessor Definitions
-target_compile_definitions(${OUTBINNAME} PRIVATE
+target_compile_definitions(${OUTBINNAME} PUBLIC
     PROTECTED_THINGS_DISABLE
     MPI
-    # Add any definitions from source_lib_base.cmake or common settings
 )
 
+
+find_package(CURL REQUIRED)
+
 # Handle Zlib dependency
-# Option 1: Find ZLIB using CMake's built-in module (preferred if Zlib is installed system-wide or findable)
-# find_package(ZLIB QUIET)
-# if(NOT ZLIB_FOUND)
-    # Option 2: Define an IMPORTED target for a prebuilt Zlib.lib
-    # Adjust the path to your actual Zlib.lib location.
-    # This assumes Zlib.lib is in a common lib directory, possibly configuration-specific.
-    if(NOT TARGET ZLIB::ZLIB) # Check if find_package already defined it or if defined globally
-        if(NOT TARGET zlib_imported)
-            add_library(zlib_imported STATIC IMPORTED GLOBAL)
-            set_target_properties(zlib_imported PROPERTIES
-                IMPORTED_LOCATION "${CMAKE_CURRENT_SOURCE_DIR}/ZLib/zlib.lib"
-                INTERFACE_INCLUDE_DIRECTORIES "${CMAKE_CURRENT_SOURCE_DIR}/ZLib"
-            )
-            message(STATUS "Defined imported target zlib_imported for VMPI.")
-        endif()
-        set(ZLIB_LIBRARIES zlib_imported) # Use our imported target
-        # Ensure ZLIB_INCLUDE_DIRS is set if target_link_libraries doesn't propagate it from INTERFACE_INCLUDE_DIRECTORIES
-        # list(APPEND ZLIB_INCLUDE_DIRS "${SRCDIR}/thirdparty/zlib/include")
-    else()
-        message(STATUS "ZLIB found via find_package or already defined for VMPI.")
+find_package(ZLIB)
+if (ZLIB_FOUND)
+    set(HAVE_ZLIB 1)
+    # FindZLIB module define ZLIB_INCLUDE_DIRS variable
+    # Set ZLIB_INCLUDE_DIRECTORIES for compatible
+    set(ZLIB_INCLUDE_DIRECTORIES ${ZLIB_INCLUDE_DIRECTORIES} ${ZLIB_INCLUDE_DIRS})
+    if(ZLIB_INCLUDE_DIRECTORIES)
+        target_include_directories(${OUTBINNAME} PRIVATE ${ZLIB_INCLUDE_DIRECTORIES})
     endif()
-# endif()
+    set(ZLIB_LIBRARIES ZLIB::ZLIB)
+else (ZLIB_FOUND)
+    set(HAVE_ZLIB 0)
+    message(WARNING "ZLIB not found for VMPI. Zlib-dependent features may fail to link or run.")
 
-# Link Libraries
-# For a static library, these are more like usage requirements for consumers,
-# or dependencies for its own compilation if Zlib headers are needed.
-if(ZLIB_LIBRARIES)
-    target_link_libraries(${PROJECT_NAME} INTERFACE ${ZLIB_LIBRARIES})
+    # Explicitly set these to empty (override NOT_FOUND) so cmake doesn't
+    # complain when we use them later.
+    set(ZLIB_INCLUDE_DIRECTORIES)
+    set(ZLIB_LIBRARIES)
+endif (ZLIB_FOUND)
+
+if( WINDOWS )
+    set(ENGINE_LIBS
+        libtier0            # For RandomSeed, RandomInt, platform specifics
+        tier1            # For KeyValuesSystem, other tier1 utilities
+        vstdlib          # For general utilities, CUtl*, etc.
+        filesystem_stdio # For filesystem operations if not fully self-contained
+    )
+else()
+    set(ENGINE_LIBS
+        libtier0_client            # For RandomSeed, RandomInt, platform specifics
+        tier1_client            # For KeyValuesSystem, other tier1 utilities
+        vstdlib_client          # For general utilities, CUtl*, etc.
+        filesystem_stdio_client # For filesystem operations if not fully self-contained
+    )
 endif()
-# If ZLIB_INCLUDE_DIRS was set and not handled by target_link_libraries(ZLIB::ZLIB) or INTERFACE_INCLUDE_DIRECTORIES:
-# if(ZLIB_INCLUDE_DIRS)
-# target_include_directories(${PROJECT_NAME} PRIVATE ${ZLIB_INCLUDE_DIRS}) # PRIVATE if only vmpi sources need it
+
+target_link_libraries(${OUTBINNAME} PRIVATE
+    ${ENGINE_LIBS}
+    CURL::libcurl
+    ${ZLIB_LIBRARIES}
+    ws2_32
+)
+
+# #force include
+# if( WINDOWS OR POSIX )
+#     target_sources(${OUTBINNAME} PRIVATE "${SRCDIR}/public/tier0/platform.h")
 # endif()
-
-
-#force include
-if( WINDOWS OR POSIX )
-    target_sources(${OUTBINNAME} PRIVATE "${SRCDIR}/public/tier0/platform.h")
-endif()
 
 message(STATUS "Configuring VMPI SDK target: ${PROJECT_NAME}")

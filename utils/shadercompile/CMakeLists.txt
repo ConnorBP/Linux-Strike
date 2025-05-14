@@ -6,8 +6,6 @@ set(OUTBINDIR ${SRCDIR}/../game/bin)
 set(SRCDIR "${CMAKE_SOURCE_DIR}")
 
 include(${CMAKE_MODULE_PATH}/detect_platform.cmake)
-
-
 set(OUTBINNAME "shadercompile_dll")
 
 # make a dll target
@@ -22,21 +20,12 @@ include(${CMAKE_MODULE_PATH}/source_dll_base.cmake)
 #     # by other include_directories, you can specify them here for the imported target:
 #     # target_include_directories(vmpi_external_lib INTERFACE "${SRCDIR}/utils/vmpi") # Assuming vmpi.h is in utils/vmpi
 # endif()
-
-target_link_libraries(shadercompile_dll PRIVATE vmpi)
-
-#force include
-if( WINDOWS OR POSIX )
-    target_sources(${OUTBINNAME} PRIVATE "${SRCDIR}/public/tier0/platform.h")
-endif()
-
-
-# Add sources to the target created by source_dll_base.cmake
 target_sources(${OUTBINNAME} PRIVATE
     ../common/cmdlib.cpp
     cmdsink.cpp
     d3dxfxc.cpp
     "${SRCDIR}/public/filesystem_helpers.cpp"
+    "${SRCDIR}/public/filesystem_init.cpp"
     ../common/pacifier.cpp
     shadercompile.cpp
     shadercompile_ps3_helpers.cpp
@@ -47,6 +36,12 @@ target_sources(${OUTBINNAME} PRIVATE
     ../common/tools_minidump.cpp
 )
 
+# Optional: Force include platform.h if not handled by other includes
+# if( WINDOWS OR POSIX )
+#     target_sources(${OUTBINNAME} PRIVATE "${SRCDIR}/public/tier0/platform.h")
+# endif()
+
+
 # Add include directories
 target_include_directories(${OUTBINNAME} PRIVATE
     "${CMAKE_CURRENT_SOURCE_DIR}"        # For headers in the current directory (shadercompile.h, etc.)
@@ -55,8 +50,6 @@ target_include_directories(${OUTBINNAME} PRIVATE
     "${SRCDIR}/dx9sdk/include"           # From $AdditionalIncludeDirectories
     "${SRCDIR}/public"                   # Common public headers
     "${SRCDIR}/common"                   # Common headers
-    # Add other include directories that would be inherited from source_dll_win32_base.vpc
-    # e.g., for tier0, tier1, tier2, vstdlib if not handled by target_link_libraries
 )
 
 # Add preprocessor definitions
@@ -69,35 +62,41 @@ target_compile_definitions(${OUTBINNAME} PRIVATE
     # If SHADERCOMPILE_EXPORTS is used for that, it's covered.
 )
 
+# --- LZMA Handling ---
+if(NOT TARGET lzma_imported)
+    add_library(lzma_imported STATIC IMPORTED GLOBAL) # Or SHARED if it's a DLL
+    set_target_properties(lzma_imported PROPERTIES
+        IMPORTED_LOCATION "${SRCDIR}/lib/common/vc8/lzma.lib"
+        # INTERFACE_INCLUDE_DIRECTORIES "${SRCDIR}/path/to/lzma/includes" # If needed
+    )
+endif()
+# --- End LZMA Handling ---
 
-# Link libraries
 if( WINDOWS )
-    target_link_libraries(${OUTBINNAME} PRIVATE
+    set(SHADERCOMPILE_ENGINE_LIBS
         libtier0
-        tier2
-        # vmpi
-        # vmpi_external_lib
-
-        ws2_32 # Windows Sockets
-        odbc32
-        odbccp32
-
         tier1
+        tier2
         vstdlib
     )
 else()
-    target_link_libraries(${OUTBINNAME} PRIVATE
-        libtier0_client
-        tier2_client
-        # vmpi_client
-        # vmpi_external_lib
-        ws2_32 # Windows Sockets
-        odbc32
-        odbccp32
-        tier1_client
-        vstdlib_client
-    )
+set(SHADERCOMPILE_ENGINE_LIBS
+    libtier0_client
+    tier1_client
+    tier2_client
+    vstdlib_client
+)
 endif()
+
+target_link_libraries(${OUTBINNAME} PRIVATE
+    vmpi
+    ${SHADERCOMPILE_ENGINE_LIBS}
+    lzma_imported
+    ws2_32
+    odbc32
+    odbccp32
+)
+
 
 # if(MSVC)
 #     target_compile_options(${OUTBINNAME} PRIVATE "/arch:SSE2")
