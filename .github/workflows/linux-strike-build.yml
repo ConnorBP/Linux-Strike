@@ -1,0 +1,46 @@
+name: Linux Strike Build
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:  # Manual trigger
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository with submodules
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Install dependencies
+        run: |
+          sudo apt update
+          sudo apt install -y git build-essential cmake \
+            libsdl2-mixer-dev libsdl2-dev libgoogle-perftools-dev \
+            libopenal-dev libcurlpp-dev libssl-dev libfontconfig1-dev \
+            libcurl4-openssl-dev net-tools
+
+      - name: Create build directory
+        run: mkdir -p cmake-build
+
+      - name: Configure project
+        working-directory: ./cmake-build
+        run: |
+          cmake .. -DCMAKE_BUILD_TYPE=Release \
+                   -DCMAKE_RUNTIME_OUTPUT_DIRECTORY=../game \
+                   -DCMAKE_TOOLCHAIN_FILE=../kisak-strike-build-options.cmake
+
+      - name: Build project
+        working-directory: ./cmake-build
+        run: make -j$(nproc)
+
+      - name: Upload game build output
+        uses: actions/upload-artifact@v4
+        with:
+          name: linux-strike-game
+          path: ./game/*
